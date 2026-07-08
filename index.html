@@ -1561,6 +1561,50 @@ body {
 #p13-sign-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
 #p13-sign-modal.active { display: flex; }
 
+/* SMS PIN modal (387-4759) */
+#sms-pin-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
+#sms-pin-modal.active { display: flex; }
+.sms-pin-dialog { background: #fff; border-radius: 10px; width: 864px; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.22); font-family: inherit; }
+.sms-pin-hdr { padding: 14px 18px 10px; border-bottom: 1px solid #e5e7eb; position: relative; }
+.sms-pin-title { font-size: 13px; font-weight: 700; color: #121212; margin: 0 0 3px; }
+.sms-pin-sub { font-size: 9px; color: #737373; margin: 0; }
+.sms-pin-close { position: absolute; top: 12px; right: 14px; background: #f0f0f2; border: none; border-radius: 4px; width: 22px; height: 22px; cursor: pointer; font-size: 11px; color: #555; display: flex; align-items: center; justify-content: center; font-family: inherit; }
+.sms-pin-close:hover { background: #e0e0e4; }
+.sms-pin-body { display: flex; gap: 16px; padding: 16px 18px; overflow-y: auto; }
+.sms-pin-doc { width: 456px; flex-shrink: 0; border: 1px solid #d1d5db; border-radius: 4px; background: #f7f7f7; overflow: hidden; }
+.sms-pin-doc img { width: 100%; display: block; }
+.sms-pin-right { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.sms-pin-section-hdr { background: #e9e9ef; border-radius: 3px; padding: 4px 8px; font-size: 9px; font-weight: 700; color: #121212; }
+.sms-pin-consent { font-size: 10px; font-weight: 700; color: #121212; text-align: center; margin: 2px 0; }
+.sms-pin-phone-box { border: 1px solid #d1d5db; border-radius: 5px; padding: 8px 10px; }
+.sms-pin-phone-lbl { font-size: 9px; color: #737373; margin: 0 0 3px; }
+.sms-pin-phone-num { font-size: 11.5px; font-weight: 700; color: #121212; margin: 0; }
+.sms-pin-phone-inp { width: 100%; box-sizing: border-box; border: 1px solid #1459bf; border-radius: 4px; padding: 5px 8px; font-size: 11.5px; font-weight: 700; color: #121212; font-family: inherit; outline: none; }
+.sms-pin-edit-btn { align-self: flex-start; background: #fff; border: 1px solid #1459bf; border-radius: 4px; padding: 3px 8px; font-size: 7.5px; font-weight: 600; color: #1459bf; cursor: pointer; font-family: inherit; }
+.sms-pin-edit-btn:hover { background: #e8f2ff; }
+.sms-pin-send-btn { align-self: center; background: #1459bf; border: none; border-radius: 6px; padding: 9px 26px; font-size: 10px; font-weight: 700; color: #fff; cursor: pointer; font-family: inherit; margin: 14px 0 20px; }
+.sms-pin-send-btn:hover { background: #0f4494; }
+.sms-pin-problem-hdr { background: #e9e9ef; border-radius: 3px; padding: 3px 8px; font-size: 7.5px; font-weight: 700; color: #737373; letter-spacing: 0.4px; }
+.sms-pin-problem-box { background: #ececf1; border-radius: 5px; padding: 10px 12px; display: flex; gap: 8px; }
+.sms-pin-problem-btn { flex: 1; background: #fff; border: 1px solid #b8b8c4; border-radius: 4px; padding: 6px 8px; font-size: 8px; font-weight: 600; color: #121212; cursor: pointer; font-family: inherit; }
+.sms-pin-problem-btn:hover { background: #f2f2f6; }
+.sms-pin-sent-box { background: #e0f5e0; border: 1px solid #4db24d; border-radius: 5px; padding: 7px 10px; font-size: 9px; font-weight: 700; color: #1a6b1a; }
+.sms-pin-inputs { display: flex; gap: 9px; justify-content: center; margin: 4px 0; }
+.sms-pin-digit { width: 34px; height: 34px; border: 1.5px solid #b8b8c4; border-radius: 6px; text-align: center; font-size: 15px; font-weight: 700; color: #121212; font-family: inherit; outline: none; }
+.sms-pin-digit:focus { border-color: #1459bf; }
+.sms-pin-resend-row { display: flex; gap: 8px; justify-content: center; margin: 6px 0; }
+.sms-pin-resend-btn { background: #fff; border: 1px solid #1459bf; border-radius: 4px; padding: 5px 10px; font-size: 8px; font-weight: 600; color: #1459bf; cursor: pointer; font-family: inherit; }
+.sms-pin-resend-btn:hover { background: #e8f2ff; }
+.sms-pin-confirm-btn { width: 100%; background: #1459bf; border: none; border-radius: 6px; padding: 9px; font-size: 10px; font-weight: 700; color: #fff; cursor: pointer; font-family: inherit; margin: 8px 0 12px; }
+.sms-pin-confirm-btn:hover { background: #0f4494; }
+.sms-pin-confirm-btn:disabled { background: #b8c4d9; cursor: not-allowed; }
+.sms-pin-success-card { border: 1px solid #d1d5db; border-radius: 6px; padding: 22px 16px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.sms-pin-success-check { width: 40px; height: 40px; border-radius: 50%; background: #1a8026; color: #fff; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+.sms-pin-success-title { font-size: 11px; font-weight: 700; color: #121212; margin: 0; max-width: 240px; }
+.sms-pin-success-sub { font-size: 9px; color: #737373; margin: 0; max-width: 220px; line-height: 1.5; }
+.sms-pin-success-close { background: #fff; border: 1px solid #b8b8c4; border-radius: 4px; padding: 5px 16px; font-size: 9px; font-weight: 600; color: #121212; cursor: pointer; font-family: inherit; margin-top: 4px; }
+.sms-pin-success-close:hover { background: #f2f2f6; }
+
 /* Confirm-before-sign modal */
 #p13-confirm-modal { position: fixed; inset: 0; z-index: 590; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
 #p13-confirm-modal.active { display: flex; }
@@ -4019,7 +4063,7 @@ body {
                     <span class="p13-emp-sign-desc">Podepisování posudku přes e-mail</span>
                   </div>
                 </button>
-                <button class="p13-emp-sign-btn">
+                <button class="p13-emp-sign-btn" onclick="openSmsPinModal()">
                   <div class="p13-emp-sign-icon green">💬</div>
                   <div class="p13-emp-sign-text">
                     <span>Zaslat PIN na telefon</span>
@@ -4556,6 +4600,79 @@ function confirmPrint() {
   document.getElementById('p13-print-success').classList.add('active');
 }
 
+function openSmsPinModal() {
+  smsPinBackToPhone();
+  document.getElementById('sms-pin-modal').classList.add('active');
+}
+function smsPinSend() {
+  var num = document.getElementById('sms-pin-phone-num').textContent;
+  document.getElementById('sms-pin-sent-box').innerHTML = '✓ PIN odeslán na: ' + num + ' &nbsp;|&nbsp; Platnost 5 minut';
+  document.getElementById('sms-pin-state1').style.display = 'none';
+  document.getElementById('sms-pin-state2').style.display = 'flex';
+}
+function smsPinResend() {
+  var num = document.getElementById('sms-pin-phone-num').textContent;
+  var box = document.getElementById('sms-pin-sent-box');
+  box.innerHTML = '✓ PIN znovu odeslán na: ' + num + ' &nbsp;|&nbsp; Platnost 5 minut';
+  box.style.transition = 'none';
+  box.style.background = '#b8e8b8';
+  setTimeout(function(){
+    box.style.transition = 'background 0.6s';
+    box.style.background = '#e0f5e0';
+  }, 150);
+  document.querySelectorAll('.sms-pin-digit').forEach(function(d){ d.value = ''; });
+  document.getElementById('sms-pin-confirm-btn').disabled = true;
+  document.querySelectorAll('.sms-pin-digit')[0].focus();
+}
+
+function smsPinConfirm() {
+  document.getElementById('sms-pin-state2').style.display = 'none';
+  document.getElementById('sms-pin-state3').style.display = 'flex';
+  document.getElementById('sms-pin-problem-wrap').style.display = 'none';
+  document.getElementById('sms-pin-consent').style.display = 'none';
+}
+function smsPinBackToPhone() {
+  document.getElementById('sms-pin-state2').style.display = 'none';
+  document.getElementById('sms-pin-state3').style.display = 'none';
+  document.getElementById('sms-pin-state1').style.display = 'flex';
+  document.getElementById('sms-pin-problem-wrap').style.display = 'block';
+  document.getElementById('sms-pin-consent').style.display = 'block';
+  document.querySelectorAll('.sms-pin-digit').forEach(function(d){ d.value = ''; });
+  document.getElementById('sms-pin-confirm-btn').disabled = true;
+}
+function smsPinDigit(inp, idx) {
+  inp.value = inp.value.replace(/[^0-9]/g, '');
+  if (inp.value && idx < 3) {
+    document.querySelectorAll('.sms-pin-digit')[idx + 1].focus();
+  }
+  var allFilled = Array.prototype.every.call(
+    document.querySelectorAll('.sms-pin-digit'),
+    function(d){ return d.value.length === 1; }
+  );
+  document.getElementById('sms-pin-confirm-btn').disabled = !allFilled;
+}
+
+function smsPinEditPhone() {
+  var num = document.getElementById('sms-pin-phone-num');
+  var inp = document.getElementById('sms-pin-phone-inp');
+  var btn = document.getElementById('sms-pin-edit-btn');
+  if (inp.style.display === 'none') {
+    inp.value = num.textContent;
+    num.style.display = 'none';
+    inp.style.display = 'block';
+    inp.focus();
+    btn.textContent = '✓ Uložit číslo';
+  } else {
+    num.textContent = inp.value.trim() || num.textContent;
+    inp.style.display = 'none';
+    num.style.display = 'block';
+    btn.textContent = '✎ Upravit telefon';
+  }
+}
+function closeSmsPinModal() {
+  document.getElementById('sms-pin-modal').classList.remove('active');
+}
+
 function openP13ConfirmModal() {
   document.getElementById('p13-confirm-modal').classList.add('active');
 }
@@ -4908,6 +5025,69 @@ function closePosudekElecOverlay() {
 }
 </script>
 <!-- ── Digital sign modal (500-11361) ── -->
+<!-- SMS PIN modal (387-4759): Náhled posudku k podpisu zaměstnance prostřednictvím SMS -->
+<div id="sms-pin-modal">
+  <div class="sms-pin-dialog">
+    <div class="sms-pin-hdr">
+      <p class="sms-pin-title">Náhled posudku k podpisu zaměstnance prostřednictvím SMS</p>
+      <p class="sms-pin-sub">Zobrazte posudek zaměstnanci k náhledu</p>
+      <button class="sms-pin-close" onclick="closeSmsPinModal()">✕</button>
+    </div>
+    <div class="sms-pin-body">
+      <div class="sms-pin-doc">
+        <img src="assets/posudek-lekar.png" alt="Náhled posudku podepsaného lékařem">
+      </div>
+      <div class="sms-pin-right">
+        <div class="sms-pin-section-hdr">Asistovaný elektronický podpis</div>
+        <p class="sms-pin-consent" id="sms-pin-consent">Zaměstnanec s obsahem souhlasí</p>
+        <!-- Stav 1: odeslání PINu -->
+        <div id="sms-pin-state1" style="display:flex; flex-direction:column; gap:10px;">
+          <div class="sms-pin-phone-box">
+            <p class="sms-pin-phone-lbl">PIN bude zaslán na telefonní číslo:</p>
+            <p class="sms-pin-phone-num" id="sms-pin-phone-num">+420 765 876 579</p>
+            <input class="sms-pin-phone-inp" id="sms-pin-phone-inp" type="tel" value="+420 765 876 579" style="display:none;">
+          </div>
+          <button class="sms-pin-edit-btn" id="sms-pin-edit-btn" onclick="smsPinEditPhone()">✎ Upravit telefon</button>
+          <button class="sms-pin-send-btn" onclick="smsPinSend()">Zaslat PIN na telefon</button>
+        </div>
+        <!-- Stav 2: zadání PINu (610-625) -->
+        <div id="sms-pin-state2" style="display:none; flex-direction:column; gap:10px;">
+          <div class="sms-pin-sent-box" id="sms-pin-sent-box">✓ PIN odeslán na: +420 765 876 579 &nbsp;|&nbsp; Platnost 5 minut</div>
+          <div class="sms-pin-section-hdr">Zadejte PIN od zaměstnance</div>
+          <div class="sms-pin-inputs">
+            <input class="sms-pin-digit" maxlength="1" inputmode="numeric" oninput="smsPinDigit(this, 0)">
+            <input class="sms-pin-digit" maxlength="1" inputmode="numeric" oninput="smsPinDigit(this, 1)">
+            <input class="sms-pin-digit" maxlength="1" inputmode="numeric" oninput="smsPinDigit(this, 2)">
+            <input class="sms-pin-digit" maxlength="1" inputmode="numeric" oninput="smsPinDigit(this, 3)">
+          </div>
+          <div class="sms-pin-resend-row">
+            <button class="sms-pin-resend-btn" onclick="smsPinResend()">Poslat PIN znovu</button>
+            <button class="sms-pin-resend-btn" onclick="smsPinBackToPhone()">✎ Upravit telefonní číslo</button>
+          </div>
+          <button class="sms-pin-confirm-btn" id="sms-pin-confirm-btn" disabled onclick="smsPinConfirm()">Potvrdit podpis zaměstnance</button>
+        </div>
+        <!-- Stav 3: úspěšný podpis (610-867) -->
+        <div id="sms-pin-state3" style="display:none; flex-direction:column; gap:10px;">
+          <div class="sms-pin-success-card">
+            <div class="sms-pin-success-check">✓</div>
+            <p class="sms-pin-success-title">Posudek byl jménem zaměstnancem úspěšně podepsán</p>
+            <p class="sms-pin-success-sub">Podepsaný posudek byl úspěšně doručen na e-mail marie.vopat10@gmail.com.</p>
+            <p class="sms-pin-success-sub">Tuto stránku můžete nyní zavřít.</p>
+            <button class="sms-pin-success-close" onclick="closeSmsPinModal()">Zavřít</button>
+          </div>
+        </div>
+        <div id="sms-pin-problem-wrap">
+          <div class="sms-pin-problem-hdr">PROBLÉM S ASISTOVANÝM PODPISEM?</div>
+          <div class="sms-pin-problem-box" style="margin-top:10px;">
+            <button class="sms-pin-problem-btn" onclick="closeSmsPinModal(); openPrintModal();">Vytisknout a fyzicky podepsat</button>
+            <button class="sms-pin-problem-btn" onclick="closeSmsPinModal()">Odmítnutí</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Confirm-before-sign modal -->
 <div id="p13-confirm-modal">
   <div class="p13-confirm-dialog">
