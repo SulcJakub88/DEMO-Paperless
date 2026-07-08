@@ -1560,6 +1560,20 @@ body {
 /* ── Digital sign modal (500-11361) ── */
 #p13-sign-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
 #p13-sign-modal.active { display: flex; }
+
+/* Confirm-before-sign modal */
+#p13-confirm-modal { position: fixed; inset: 0; z-index: 590; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
+#p13-confirm-modal.active { display: flex; }
+.p13-confirm-dialog { background: #fff; border-radius: 12px; width: 480px; padding: 26px 30px; box-shadow: 0 12px 50px rgba(0,0,0,0.35); font-family: inherit; }
+.p13-confirm-title { font-size: 14px; font-weight: 800; color: #d97706; margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+.p13-confirm-text { font-size: 10px; color: #121212; line-height: 1.55; margin: 0 0 8px; }
+.p13-confirm-list { margin: 0 0 10px; padding-left: 18px; font-size: 10px; color: #121212; line-height: 1.7; }
+.p13-confirm-warn { background: #fff5d1; border: 1px solid #d9a61a; border-left: 4px solid #d9a61a; border-radius: 6px; padding: 8px 12px; font-size: 9px; color: #8c6105; margin-bottom: 16px; line-height: 1.5; }
+.p13-confirm-btns { display: flex; gap: 10px; }
+.p13-confirm-continue { flex: 1; background: #1459bf; border: none; border-radius: 7px; padding: 11px; font-size: 10.5px; font-weight: 700; color: #fff; cursor: pointer; font-family: inherit; }
+.p13-confirm-continue:hover { background: #0f4494; }
+.p13-confirm-edit { flex: 1; background: #fff; border: 1.5px solid #d97706; border-radius: 7px; padding: 11px; font-size: 10.5px; font-weight: 700; color: #d97706; cursor: pointer; font-family: inherit; }
+.p13-confirm-edit:hover { background: #fff5e8; }
 .p13-sign-dialog { background: #fff; border-radius: 10px; width: 864px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.22); }
 .p13-sign-header { padding: 16px 20px 12px; border-bottom: 1px solid #e6e6e6; display: flex; justify-content: space-between; align-items: flex-start; flex-shrink: 0; }
 .p13-sign-title { font-size: 13px; font-weight: 800; color: #121212; }
@@ -3979,7 +3993,7 @@ body {
           <div id="p13-btn-row-sign" style="display:none; flex-direction:column;">
             <div id="p13-sign-card-unsigned" class="lz-det-card" style="display:flex; flex-direction:column; gap:8px;">
               <div class="lz-det-card-title">Podpis lékaře</div>
-              <button class="lz-det-btn-blue" style="width:100%;" onclick="openSignModal()">Digitálně podepsat</button>
+              <button class="lz-det-btn-blue" style="width:100%;" onclick="openP13ConfirmModal()">Digitálně podepsat</button>
               <button class="lz-det-btn-outline-red" onclick="p13UpravitProhlidku()">Upravit prohlídku</button>
             </div>
             <div id="p13-sign-card-signed" class="lz-det-card" style="display:none; flex-direction:column; gap:8px;">
@@ -4542,6 +4556,18 @@ function confirmPrint() {
   document.getElementById('p13-print-success').classList.add('active');
 }
 
+function openP13ConfirmModal() {
+  document.getElementById('p13-confirm-modal').classList.add('active');
+}
+function p13ConfirmContinue() {
+  document.getElementById('p13-confirm-modal').classList.remove('active');
+  openSignModal();
+}
+function p13ConfirmEdit() {
+  document.getElementById('p13-confirm-modal').classList.remove('active');
+  p13UpravitProhlidku();
+}
+
 function openSignModal() {
   document.getElementById('p13-sign-modal').classList.add('active');
   // reset state
@@ -4882,6 +4908,24 @@ function closePosudekElecOverlay() {
 }
 </script>
 <!-- ── Digital sign modal (500-11361) ── -->
+<!-- Confirm-before-sign modal -->
+<div id="p13-confirm-modal">
+  <div class="p13-confirm-dialog">
+    <p class="p13-confirm-title">⚠️ Zkontrolujte zadané údaje</p>
+    <p class="p13-confirm-text">Před digitálním podpisem si prosím pečlivě zkontrolujte zadaná data, zejména:</p>
+    <ul class="p13-confirm-list">
+      <li><b>Výsledek prohlídky</b> (posudkový závěr)</li>
+      <li><b>Datum provedení prohlídky</b></li>
+      <li>Typ prohlídky a údaje o posuzované osobě</li>
+    </ul>
+    <div class="p13-confirm-warn">Kliknutím na „Pokračovat k podpisu" budou údaje uzamčeny a <b>již nepůjdou změnit</b>.</div>
+    <div class="p13-confirm-btns">
+      <button class="p13-confirm-edit" onclick="p13ConfirmEdit()">✏️ Upravit prohlídku</button>
+      <button class="p13-confirm-continue" onclick="p13ConfirmContinue()">Pokračovat k podpisu</button>
+    </div>
+  </div>
+</div>
+
 <div id="p13-sign-modal">
   <div class="p13-sign-dialog">
     <div class="p13-sign-header">
@@ -4941,18 +4985,6 @@ function closePosudekElecOverlay() {
                 <input class="p13-sign-inp" id="sign-pass-inp" type="password" placeholder="" oninput="signCheckPass(this.value)">
               </div>
               <button class="p13-sign-btn" id="sign-podepsat-btn" onclick="signStart()">Podepsat</button>
-            </div>
-          </div>
-          <div class="p13-sign-divider">nebo</div>
-          <div>
-            <div class="p13-sign-section-title">Čipová karta / USB token</div>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div class="p13-sign-token-box">✓&nbsp; Token připojen: MUDr. Jana Blahová — PostSignum</div>
-              <div class="p13-sign-pin-row">
-                <span class="p13-sign-pin-lbl">PIN k tokenu:</span>
-                <input class="p13-sign-inp" type="password" value="1234" style="width:80px;">
-              </div>
-              <button class="p13-sign-btn-token" onclick="signStart()">Podepsat tokenem</button>
             </div>
           </div>
         </div>
