@@ -1431,9 +1431,10 @@ body {
 .lz-ver-phone-helper { font-size: 8px; color: #9ca3af; margin-bottom: 4px; }
 .lz-ver-phone-inp {
   width: 100%; border: 1px solid #e6e6e6; border-radius: 4px;
-  padding: 5px 8px; font-size: 9px; color: #b0b0b0; background: #f8fafc;
+  padding: 5px 8px; font-size: 9px; color: #121212; background: #fff;
   box-sizing: border-box; font-family: inherit; outline: none;
 }
+.lz-ver-phone-inp::placeholder { color: #b0b0b0; }
 .lz-ver-submit {
   width: 100%; margin-top: 16px; background: #1459bf; color: #fff; border: none;
   border-radius: 5px; padding: 11px 14px; font-size: 10px; font-weight: 700;
@@ -1561,6 +1562,30 @@ body {
 #p13-sign-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
 #p13-sign-modal.active { display: flex; }
 
+/* Role picker (FZ / LZ / KL / Vše) */
+#role-picker-overlay { position: fixed; inset: 0; z-index: 1200; display: none; align-items: center; justify-content: center; background: rgba(10,20,40,0.82); }
+#role-picker-overlay.active { display: flex; }
+.role-picker-box { background: #fff; border-radius: 14px; padding: 34px 38px; box-shadow: 0 16px 60px rgba(0,0,0,0.5); text-align: center; }
+.role-picker-title { font-size: 15px; font-weight: 800; color: #1459bf; margin: 0 0 6px; }
+.role-picker-sub { font-size: 9.5px; color: #737373; margin: 0 0 20px; }
+.role-picker-cards { display: flex; gap: 14px; }
+.role-card { width: 150px; border: 1.5px solid #ccd6e8; border-radius: 10px; padding: 18px 12px 14px; cursor: pointer; background: #fff; font-family: inherit; transition: border-color 0.12s, background 0.12s; }
+.role-card:hover { border-color: #1459bf; background: #f0f6ff; }
+.role-card-icon { font-size: 26px; margin-bottom: 8px; }
+.role-card-name { font-size: 11px; font-weight: 800; color: #121212; margin-bottom: 4px; }
+.role-card-desc { font-size: 8px; color: #737373; line-height: 1.4; }
+.role-card.all { border-style: dashed; }
+#bottom-right-bar { position: fixed; bottom: 14px; right: 16px; z-index: 1100; display: flex; align-items: center; gap: 8px; }
+#role-chip { background: #1459bf; color: #fff; font-size: 10px; font-weight: 700; font-family: inherit; padding: 5px 13px; border-radius: 20px; cursor: pointer; border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.25); }
+#role-chip:hover { background: #0f4494; }
+
+/* Role-based visibility */
+body.role-fz [data-hide~="fz"] { display: none !important; }
+body.role-lz [data-hide~="lz"] { display: none !important; }
+body.role-kl [data-hide~="kl"] { display: none !important; }
+[data-show] { display: none !important; }
+body.role-kl [data-show~="kl"] { display: inline-block !important; }
+
 /* SMS PIN modal (387-4759) */
 #sms-pin-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
 #sms-pin-modal.active { display: flex; }
@@ -1604,6 +1629,82 @@ body {
 .sms-pin-success-sub { font-size: 9px; color: #737373; margin: 0; max-width: 220px; line-height: 1.5; }
 .sms-pin-success-close { background: #fff; border: 1px solid #b8b8c4; border-radius: 4px; padding: 5px 16px; font-size: 9px; font-weight: 600; color: #121212; cursor: pointer; font-family: inherit; margin-top: 4px; }
 .sms-pin-success-close:hover { background: #f2f2f6; }
+
+/* Odmítnutí podpisu modal (630-21) */
+#odmitnuti-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
+#odmitnuti-modal.active { display: flex; }
+.odm-dialog { background: #fff; border-radius: 12px; width: 380px; box-shadow: 0 12px 50px rgba(0,0,0,0.35); font-family: inherit; overflow: hidden; }
+.odm-hdr { padding: 16px 16px 12px; }
+.odm-title { font-size: 12.5px; font-weight: 700; color: #121212; margin: 0 0 4px; }
+.odm-sub { font-size: 9.5px; color: #737373; margin: 0; }
+.odm-divider { height: 1px; background: #e5e7eb; }
+.odm-body { padding: 12px 16px; }
+.odm-warn { background: #fdeaea; border: 1px solid #e8b4b4; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; }
+.odm-warn-title { font-size: 10px; font-weight: 700; color: #c0392b; margin: 0 0 5px; }
+.odm-warn-text { font-size: 9px; color: #c0392b; line-height: 1.45; margin: 0; }
+.odm-note-lbl { font-size: 9.5px; font-weight: 600; color: #121212; margin: 0 0 6px; }
+.odm-note-ta { width: 100%; box-sizing: border-box; height: 64px; background: #fff; border: 1px solid #d1d5db; border-radius: 8px; padding: 10px 12px; font-size: 9.5px; color: #121212; font-family: inherit; resize: none; outline: none; }
+.odm-note-ta::placeholder { color: #adadad; }
+.odm-footer { padding: 12px 16px 16px; display: flex; justify-content: flex-end; gap: 10px; }
+.odm-cancel { background: #fff; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 22px; font-size: 10px; font-weight: 600; color: #555; cursor: pointer; font-family: inherit; }
+.odm-cancel:hover { background: #f5f5f7; }
+.odm-confirm { background: #fdeaea; border: 1px solid #c0392b; border-radius: 8px; padding: 9px 14px; font-size: 10px; font-weight: 700; color: #c0392b; cursor: pointer; font-family: inherit; }
+.odm-confirm:hover { background: #f8d7d7; }
+
+
+/* Podpis svědka modal (630-50) */
+#svedek-modal { position: fixed; inset: 0; z-index: 605; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
+#svedek-modal.active { display: flex; }
+.svd-dialog { background: #fff; border-radius: 12px; width: 380px; box-shadow: 0 12px 50px rgba(0,0,0,0.35); font-family: inherit; overflow: hidden; }
+.svd-hdr { padding: 14px 16px 12px; }
+.svd-title { font-size: 12.5px; font-weight: 700; color: #121212; margin: 0; }
+.svd-divider { height: 1px; background: #e5e7eb; }
+.svd-body { padding: 14px 16px; }
+.svd-boxes { display: flex; gap: 16px; margin-bottom: 14px; }
+.svd-box { flex: 1; border-radius: 8px; padding: 9px 11px; }
+.svd-box.green { background: #eaf7ec; border: 1px solid #b6e0bd; }
+.svd-box.yellow { background: #fdf6e3; border: 1px solid #ecdba0; }
+.svd-box-lbl { font-size: 8.5px; margin: 0 0 3px; }
+.svd-box.green .svd-box-lbl { color: #2e7d43; }
+.svd-box.yellow .svd-box-lbl { color: #a06600; }
+.svd-box-name { font-size: 10.5px; font-weight: 700; color: #121212; margin: 0 0 4px; }
+.svd-box.yellow .svd-box-name { font-style: italic; color: #8c6105; }
+.svd-box-tag { font-size: 8.5px; margin: 0; }
+.svd-box.green .svd-box-tag { color: #1a8026; }
+.svd-box.yellow .svd-box-tag { color: #a06600; }
+.svd-fields { display: flex; gap: 16px; margin-bottom: 14px; }
+.svd-field { flex: 1; }
+.svd-field-lbl { font-size: 9.5px; color: #121212; margin: 0 0 6px; }
+.svd-field-inp { width: 100%; box-sizing: border-box; height: 34px; background: #fff; border: 1px solid #d1d5db; border-radius: 8px; padding: 0 12px; font-size: 9.5px; color: #121212; font-family: inherit; outline: none; }
+.svd-field-inp:focus { border-color: #1459bf; }
+.svd-sign-lbl { font-size: 9.5px; color: #121212; margin: 0 0 6px; }
+.svd-canvas-wrap { position: relative; border: 1px solid #d1d5db; border-radius: 8px; background: #fafafa; height: 80px; overflow: hidden; }
+.svd-canvas-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 9px; color: #a6a6a6; pointer-events: none; white-space: nowrap; }
+.svd-canvas-wrap.has-drawing .svd-canvas-placeholder { display: none; }
+#svd-canvas { display: block; width: 100%; height: 80px; cursor: crosshair; touch-action: none; }
+.svd-sign-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.svd-sign-hdr .svd-sign-lbl { margin: 0; }
+.svd-clear-btn { background: #ececec; border: 1px solid #ccc; border-radius: 4px; padding: 3px 8px; font-size: 7.5px; color: #555; cursor: pointer; font-family: inherit; }
+.svd-clear-btn:hover { background: #e0e0e0; }
+.svd-footer { padding: 12px 16px 16px; display: flex; justify-content: flex-end; gap: 10px; }
+.svd-cancel { background: #fff; border: 1px solid #d1d5db; border-radius: 8px; padding: 9px 22px; font-size: 10px; font-weight: 600; color: #555; cursor: pointer; font-family: inherit; }
+.svd-cancel:hover { background: #f5f5f7; }
+.svd-confirm { background: #fdeaea; border: 1px solid #c0392b; border-radius: 8px; padding: 9px 18px; font-size: 10px; font-weight: 700; color: #c0392b; cursor: pointer; font-family: inherit; }
+.svd-confirm:hover { background: #f8d7d7; }
+.svd-confirm:disabled { background: #f5f5f7; border-color: #d1d5db; color: #adadad; cursor: not-allowed; }
+/* Stav 3: záznam uložen */
+.svd-success-banner { background: #eaf7ec; border: 1px solid #b6e0bd; border-radius: 8px; padding: 12px 14px; display: flex; gap: 10px; align-items: flex-start; }
+.svd-success-check { color: #1a8026; font-size: 14px; font-weight: 700; line-height: 1.2; }
+.svd-success-title { font-size: 11px; font-weight: 700; color: #121212; margin: 0 0 3px; }
+.svd-success-sub { font-size: 9px; color: #555; margin: 0; }
+.svd-docs-lbl { font-size: 9.5px; color: #737373; margin: 14px 0 8px; }
+.svd-doc-card { background: #fdeaea; border: 1px solid #e8b4b4; border-radius: 8px; padding: 10px 14px; position: relative; }
+.svd-doc-title { font-size: 10px; font-weight: 700; color: #c0392b; margin: 0 0 6px; padding-right: 60px; }
+.svd-doc-line { font-size: 8.5px; color: #a04030; margin: 2px 0; }
+.svd-doc-badge { position: absolute; top: 12px; right: 12px; background: #6b1414; border-radius: 5px; padding: 3px 8px; font-size: 7.5px; font-weight: 700; color: #fff; }
+.svd-close-note { font-size: 9px; color: #9ca3af; text-align: center; margin: 16px 0 8px; }
+.svd-close-btn { display: block; margin: 0 auto; background: #fff; border: 1px solid #b8b8c4; border-radius: 5px; padding: 5px 18px; font-size: 9px; font-weight: 600; color: #121212; cursor: pointer; font-family: inherit; }
+.svd-close-btn:hover { background: #f2f2f6; }
 
 /* Confirm-before-sign modal */
 #p13-confirm-modal { position: fixed; inset: 0; z-index: 590; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
@@ -1781,7 +1882,7 @@ body {
 .pdf-view-col-title { font-size: 9px; font-weight: 700; color: #1a1a1f; padding-bottom: 6px; border-bottom: 1px solid #e0e0e0; }
 .pdf-view-img { width: 100%; height: auto; display: block; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
 
-#page-indicator { position: fixed; bottom: 14px; right: 16px; z-index: 9999; background: #e4e4e4; color: #888; font-size: 10px; font-family: inherit; padding: 4px 11px; border-radius: 20px; cursor: default; white-space: nowrap; user-select: none; }
+#page-indicator { position: relative; background: #e4e4e4; color: #888; font-size: 10px; font-family: inherit; padding: 4px 11px; border-radius: 20px; cursor: default; white-space: nowrap; user-select: none; }
 #page-indicator::after { content: attr(data-full); position: absolute; bottom: calc(100% + 8px); right: 0; background: #2a2a2a; color: #fff; font-size: 10px; padding: 6px 12px; border-radius: 7px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.15s; }
 #page-indicator:hover { background: #d4d4d4; color: #444; }
 #page-indicator:hover::after { opacity: 1; }
@@ -2098,8 +2199,8 @@ body {
     <div class="nav-item">ODHLÁSIT SE</div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-lz-wrap">
-    <button class="sidebar-sim-btn" id="sidebar-kl-btn" style="margin-bottom:4px;">🖥️ Přejít do KL</button>
-    <button class="sidebar-lz-btn" id="sidebar-lz-btn">🏥&nbsp; Přejít do LZ →</button>
+    <button class="sidebar-sim-btn" id="sidebar-kl-btn" data-hide="fz" style="margin-bottom:4px;">🖥️ Přejít do KL</button>
+    <button class="sidebar-lz-btn" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
     <button class="sidebar-sim-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
@@ -2989,7 +3090,8 @@ body {
       <span class="crm-breadcrumb">FZ-2026-0524-001</span>
       <span class="crm-breadcrumb-sep">›</span>
       <span class="crm-breadcrumb-active">Přiřazení lékaře</span>
-      <button class="crm-back-btn" onclick="showPage5()">← Zpět do FZ</button>
+      <button class="crm-back-btn" data-hide="kl" onclick="showPage5()">← Zpět do FZ</button>
+      <button class="crm-back-btn" data-show="kl" onclick="showPage3Physical()" style="border-style:dashed;">🖨 Přepnout na fyzickou žádost</button>
     </div>
     <div class="crm-wrap">
       <div class="crm-title">📞&nbsp;&nbsp;Přiřazení lékaře</div>
@@ -3005,6 +3107,9 @@ body {
           <div class="crm-sep"></div>
           Vytvořil: Jana Nováková (HR)
         </div>
+        <div class="crm-meta" style="margin-top:4px;">
+          Zaměstnanec: <b style="color:#121212;">Lukáš Motl</b>
+        </div>
         <div class="crm-type-row">
           Typ prohlídky: <span class="crm-type-badge">Vstupní prohlídka</span>
         </div>
@@ -3014,11 +3119,11 @@ body {
       <div class="crm-bar">TYP PŘÍCHOZÍ ŽÁDOSTI</div>
       <div class="crm-card">
         <div class="crm-two-col">
-          <div class="crm-choice active">
+          <div class="crm-choice active" style="cursor:pointer;" onclick="showPage3Digital()">
             🌐&nbsp; FZ online žádost<br>
             <span class="crm-choice-sub">HR odeslal k digitálnímu podpisu</span>
           </div>
-          <div class="crm-choice">
+          <div class="crm-choice" style="cursor:pointer;" onclick="showPage3Physical()">
             🖨️&nbsp; FZ offline žádost<br>
             <span class="crm-choice-sub">HR odeslal k fyzickému podpisu</span>
           </div>
@@ -3081,8 +3186,8 @@ body {
         </div>
         <div class="crm-result-foot">
           <button class="crm-cta-email" onclick="showEmailModal('digital')">📧&nbsp; Zobrazit e-mailovou notifikaci</button>
-          <button class="crm-cta-fz" onclick="showPage5FromCRM()">📅&nbsp; Přejít do FZ</button>
-          <button class="crm-cta-lz" onclick="showPage6()">🏥&nbsp; Přejít do LZ</button>
+          <button class="crm-cta-fz" data-hide="kl" onclick="showPage5FromCRM()">📅&nbsp; Přejít do FZ</button>
+          <button class="crm-cta-lz" data-hide="kl" onclick="showPage6()">🏥&nbsp; Přejít do LZ</button>
         </div>
       </div>
     </div>
@@ -3105,7 +3210,8 @@ body {
       <span class="crm-breadcrumb">FZ-2026-0524-001</span>
       <span class="crm-breadcrumb-sep">›</span>
       <span class="crm-breadcrumb-active">Přiřazení lékaře</span>
-      <button class="crm-back-btn" onclick="showPage7()">← Zpět do FZ</button>
+      <button class="crm-back-btn" data-hide="kl" onclick="showPage7()">← Zpět do FZ</button>
+      <button class="crm-back-btn" data-show="kl" onclick="showPage3Digital()" style="border-style:dashed;">🌐 Přepnout na digitální žádost</button>
     </div>
     <div class="crm-wrap">
       <div class="crm-title">📞&nbsp;&nbsp;Přiřazení lékaře</div>
@@ -3121,6 +3227,9 @@ body {
           <div class="crm-sep"></div>
           Vytvořil: Jana Nováková (HR)
         </div>
+        <div class="crm-meta" style="margin-top:4px;">
+          Zaměstnanec: <b style="color:#121212;">Lukáš Motl</b>
+        </div>
         <div class="crm-type-row">
           Typ prohlídky: <span class="crm-type-badge">Vstupní prohlídka</span>
         </div>
@@ -3130,11 +3239,11 @@ body {
       <div class="crm-bar">TYP PŘÍCHOZÍ ŽÁDOSTI</div>
       <div class="crm-card">
         <div class="crm-two-col">
-          <div class="crm-choice">
+          <div class="crm-choice" style="cursor:pointer;" onclick="showPage3Digital()">
             🌐&nbsp; FZ online žádost<br>
             <span class="crm-choice-sub">HR odeslal k digitálnímu podpisu</span>
           </div>
-          <div class="crm-choice active">
+          <div class="crm-choice active" style="cursor:pointer;" onclick="showPage3Physical()">
             🖨️&nbsp; FZ offline žádost<br>
             <span class="crm-choice-sub">HR odeslal k fyzickému podpisu</span>
           </div>
@@ -3197,8 +3306,8 @@ body {
         </div>
         <div class="crm-result-foot">
           <button class="crm-cta-email" onclick="showEmailModal('physical')">📧&nbsp; Zobrazit e-mailovou notifikaci</button>
-          <button class="crm-cta-fz" onclick="showPage7FromCRM()">📅&nbsp; Přejít do FZ</button>
-          <button class="crm-cta-lz" onclick="showPage8()">🏥&nbsp; Přejít do LZ</button>
+          <button class="crm-cta-fz" data-hide="kl" onclick="showPage7FromCRM()">📅&nbsp; Přejít do FZ</button>
+          <button class="crm-cta-lz" data-hide="kl" onclick="showPage8()">🏥&nbsp; Přejít do LZ</button>
         </div>
       </div>
     </div>
@@ -3310,7 +3419,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" onclick="showPage5()">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" onclick="showPage5()">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-content">
@@ -3393,7 +3502,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" onclick="showPage7()">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" onclick="showPage7()">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-content">
@@ -3477,7 +3586,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" id="lz9-back-btn">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" id="lz9-back-btn">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-content">
@@ -3553,7 +3662,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" id="lz10-back-btn">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" id="lz10-back-btn">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -3650,7 +3759,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" id="lz11-back-btn">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" id="lz11-back-btn">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -3747,7 +3856,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" id="lz12-back-btn">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" id="lz12-back-btn">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -3810,9 +3919,9 @@ body {
             <div class="lz-ver-phone-area" id="p12-phone-area" style="display:none;">
               <div class="lz-ver-phone-lbl">Telefonní číslo</div>
               <div class="lz-ver-phone-helper">Ověřte mobilní číslo — na něj zašleme PIN k podpisu</div>
-              <input class="lz-ver-phone-inp" placeholder="+420 XXX XXX XXX" readonly>
+              <input class="lz-ver-phone-inp" id="p12-phone-inp" type="tel" placeholder="+420 XXX XXX XXX">
             </div>
-            <button class="lz-ver-submit" onclick="showPage13()">Pokračovat k prohlídce</button>
+            <button class="lz-ver-submit" onclick="p12Continue()">Pokračovat k prohlídce</button>
           </div>
         </div>
       </div>
@@ -3838,7 +3947,7 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" id="lz13-back-btn">← Zpět do FZ (Rezervace)</button>
+        <button class="lz-helper-btn2" data-hide="lz" id="lz13-back-btn">← Zpět do FZ (Rezervace)</button>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -4077,7 +4186,7 @@ body {
                     <span class="p13-emp-sign-desc">Vytisknout a fyzicky podepsat</span>
                   </div>
                 </button>
-                <button class="p13-emp-sign-btn">
+                <button class="p13-emp-sign-btn" onclick="openOdmitnutiModal()">
                   <div class="p13-emp-sign-icon red">✕</div>
                   <div class="p13-emp-sign-text">
                     <span>Odmítnutí</span>
@@ -4206,8 +4315,8 @@ body {
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
       <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" id="lz14-back-btn">← Zpět do FZ (Rezervace)</button>
-        <button class="sidebar-sim-btn" onclick="startSimOnlinePodpisFromLZ14()" style="margin-top:6px;">✓ Podpis posudku za zaměstnance a lékaře dokončen</button>
+        <button class="lz-helper-btn2" data-hide="lz" id="lz14-back-btn">← Zpět do FZ (Rezervace)</button>
+        <button class="sidebar-sim-btn" data-hide="lz" onclick="startSimOnlinePodpisFromLZ14()" style="margin-top:6px;">✓ Podpis posudku za zaměstnance a lékaře dokončen</button>
       </div>
     </aside>
     <div class="lz-hist-wrap">
@@ -4244,11 +4353,11 @@ body {
           </thead>
           <tbody>
             <tr>
-              <td>17.06.2026</td><td></td><td>Vík</td><td>Martin</td><td>Tesco Stores ČR a.s.</td>
+              <td>17.06.2026</td><td></td><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td>
               <td><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
-              <td><span class="lz-hist-badge sign-green">✍️&nbsp; Online podpis</span></td>
-              <td><div class="lz-hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
-              <td>PLS – rozšířená</td>
+              <td id="hist-sign-cell"><span class="lz-hist-badge sign-green">✍️&nbsp; Online podpis</span></td>
+              <td><div class="lz-hist-pdf-btns" id="hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
+              <td>PLS – základní</td>
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
             <tr>
@@ -4352,9 +4461,32 @@ body {
 <script>
 const allPages = ['page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12','page13','page14','page-zam','page-zam-detail'];
 
+var _role = 'all';
+var _roleMeta = {
+  fz:  { label: '👔 FZ',  chip: '👔 HR — Firemní zóna' },
+  lz:  { label: '🩺 LZ',  chip: '🩺 Lékař — Lékařská zóna' },
+  kl:  { label: '📞 KL',  chip: '📞 Operátor — Klientská linka' },
+  all: { label: '🎬 Vše', chip: '🎬 Vše (režisér)' }
+};
+
+function setRole(role) {
+  _role = role;
+  document.body.className = 'role-' + role;
+  document.getElementById('role-chip').textContent = _roleMeta[role].chip;
+  document.getElementById('role-picker-overlay').classList.remove('active');
+  if (role === 'lz') { showPage9(5); }
+  else if (role === 'kl') { showPage3Digital(); }
+  else { showPage1(); }
+}
+
+function openRolePicker() {
+  document.getElementById('role-picker-overlay').classList.add('active');
+}
+
 function setPageIndicator(short, full) {
   var el = document.getElementById('page-indicator');
-  el.textContent = short;
+  if (!el) return;
+  el.textContent = _roleMeta[_role].label + ' · ' + short;
   el.setAttribute('data-full', full);
 }
 
@@ -4386,6 +4518,7 @@ function showPage2() {
 function showPage3Digital() {
   hideAll();
   document.getElementById('page3').classList.add('active');
+  setPageIndicator('Page 3', 'Page 3 — KL Přiřazení lékaře (digitální žádost)');
   document.getElementById('result3').classList.remove('visible');
   var btn = document.getElementById('btn-hledat3');
   if (btn) { btn.textContent = '🔍  Hledat vhodného lékaře'; btn.disabled = false; }
@@ -4398,7 +4531,7 @@ function showPage3Physical() {
   document.getElementById('result4').classList.remove('visible');
   var btn = document.getElementById('btn-hledat4');
   if (btn) { btn.textContent = '🔍  Hledat vhodného lékaře'; btn.disabled = false; }
-  setPageIndicator("Page 3", "Page 3 — FZ Hledat lékaře (digitální cesta)");
+  setPageIndicator("Page 4", "Page 4 — KL Přiřazení lékaře (fyzická žádost)");
   window.scrollTo(0, 0);
 }
 
@@ -4496,6 +4629,7 @@ function showPage8() {
 
 var _lzFromFZ = 5;
 var _p12RadioSel = 1;
+var _p12Phone = '+420 765 876 579';
 
 function showPage9(fromFZPage) {
   _lzFromFZ = fromFZPage;
@@ -4547,6 +4681,14 @@ function selectP12Radio(n) {
   document.getElementById('p12-phone-area').style.display = n === 2 ? 'block' : 'none';
 }
 
+function p12Continue() {
+  if (_p12RadioSel === 2) {
+    var v = (document.getElementById('p12-phone-inp').value || '').trim();
+    _p12Phone = v || '+420 765 876 579';
+  }
+  showPage13();
+}
+
 function showPage13() {
   hideAll();
   document.getElementById('page13').classList.add('active');
@@ -4560,6 +4702,9 @@ function showPage13() {
   document.getElementById('p13-btn-row-edit').style.display = 'flex';
   document.getElementById('p13-btn-row-view').style.display = 'none';
   document.getElementById('p13-btn-row-sign').style.display = 'none';
+  document.getElementById('p13-podpis-zamestnance').style.display = 'none';
+  document.getElementById('p13-sign-card-unsigned').style.display = 'flex';
+  document.getElementById('p13-sign-card-signed').style.display = 'none';
   document.querySelectorAll('#page13 .lz-det-vr-box').forEach(function(b){ b.classList.remove('checked'); });
   document.getElementById('p13-uzavrit-btn').disabled = true;
   document.querySelector('#page13 .lz-det-wrap').scrollTop = 0;
@@ -4588,7 +4733,11 @@ function closePrintModal() {
   document.getElementById('p13-print-modal').classList.remove('active');
 }
 
+var _empSignMethod = 'zona'; // 'zona' | 'sms' | 'fyzicky'
+
 function openPdfViewModal() {
+  document.getElementById('pdf-view-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
+  document.getElementById('pdf-view-col-sms').style.display = (_empSignMethod === 'zona') ? 'none' : 'flex';
   document.getElementById('pdf-view-modal').classList.add('active');
 }
 function closePdfViewModal() {
@@ -4601,6 +4750,8 @@ function confirmPrint() {
 }
 
 function openSmsPinModal() {
+  document.getElementById('sms-pin-phone-num').textContent = _p12Phone;
+  document.getElementById('sms-pin-phone-inp').value = _p12Phone;
   smsPinBackToPhone();
   document.getElementById('sms-pin-modal').classList.add('active');
 }
@@ -4626,6 +4777,7 @@ function smsPinResend() {
 }
 
 function smsPinConfirm() {
+  _empSignMethod = 'sms';
   document.getElementById('sms-pin-state2').style.display = 'none';
   document.getElementById('sms-pin-state3').style.display = 'flex';
   document.getElementById('sms-pin-problem-wrap').style.display = 'none';
@@ -4671,6 +4823,103 @@ function smsPinEditPhone() {
 }
 function closeSmsPinModal() {
   document.getElementById('sms-pin-modal').classList.remove('active');
+}
+
+function openOdmitnutiModal() {
+  document.getElementById('odm-note').value = '';
+  document.getElementById('odmitnuti-modal').classList.add('active');
+}
+function closeOdmitnutiModal() {
+  document.getElementById('odmitnuti-modal').classList.remove('active');
+}
+function confirmOdmitnuti() {
+  closeOdmitnutiModal();
+  openSvedekModal();
+}
+
+function openSvedekModal() {
+  document.getElementById('svd-name').value = '';
+  document.getElementById('svd-role').value = '';
+  document.getElementById('svd-confirm-btn').disabled = true;
+  // reset na stav 1
+  document.getElementById('svd-state1').style.display = '';
+  document.getElementById('svd-state3').style.display = 'none';
+  document.getElementById('svd-boxes-wrap').style.display = 'flex';
+  document.getElementById('svd-footer1').style.display = 'flex';
+  document.getElementById('svd-footer2').style.display = 'none';
+  var box = document.getElementById('svd-witness-box');
+  box.classList.remove('green');
+  box.classList.add('yellow');
+  var nameEl = document.getElementById('svd-witness-name');
+  nameEl.textContent = 'Čeká na podpis…';
+  nameEl.style.fontStyle = '';
+  nameEl.style.color = '';
+  document.getElementById('svedek-modal').classList.add('active');
+  svdInitCanvas();
+}
+function closeSvedekModal() {
+  document.getElementById('svedek-modal').classList.remove('active');
+}
+function svdClearCanvas() {
+  var canvas = document.getElementById('svd-canvas');
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('svd-canvas-wrap').classList.remove('has-drawing');
+  document.getElementById('svd-confirm-btn').disabled = true;
+}
+function svdInitCanvas() {
+  var canvas = document.getElementById('svd-canvas');
+  canvas.width = canvas.offsetWidth || 348;
+  canvas.height = 80;
+  var ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  document.getElementById('svd-canvas-wrap').classList.remove('has-drawing');
+  ctx.strokeStyle = '#222'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+  var drawing = false;
+  function getPos(e) {
+    var r = canvas.getBoundingClientRect();
+    if (e.touches) return { x: e.touches[0].clientX - r.left, y: e.touches[0].clientY - r.top };
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  function startDraw(e) { drawing = true; var p = getPos(e); ctx.beginPath(); ctx.moveTo(p.x, p.y); e.preventDefault(); }
+  function draw(e) {
+    if (!drawing) return;
+    var p = getPos(e); ctx.lineTo(p.x, p.y); ctx.stroke();
+    document.getElementById('svd-canvas-wrap').classList.add('has-drawing');
+    document.getElementById('svd-confirm-btn').disabled = false;
+    e.preventDefault();
+  }
+  function endDraw() { drawing = false; }
+  canvas.onmousedown = startDraw; canvas.onmousemove = draw; canvas.onmouseup = endDraw; canvas.onmouseleave = endDraw;
+  canvas.ontouchstart = startDraw; canvas.ontouchmove = draw; canvas.ontouchend = endDraw;
+}
+function confirmSvedek() {
+  var name = (document.getElementById('svd-name').value || '').trim() || 'Svědek';
+  var box = document.getElementById('svd-witness-box');
+  box.classList.remove('yellow');
+  box.classList.add('green');
+  var nameEl = document.getElementById('svd-witness-name');
+  nameEl.textContent = name;
+  nameEl.style.fontStyle = 'normal';
+  nameEl.style.color = '#121212';
+  document.getElementById('svd-state1').style.display = 'none';
+  document.getElementById('svd-footer1').style.display = 'none';
+  document.getElementById('svd-footer2').style.display = 'flex';
+}
+function svdSaveRecord() {
+  var name = (document.getElementById('svd-name').value || '').trim() || 'Svědek';
+  var d = new Date();
+  var dateStr = d.getDate() + '. ' + (d.getMonth() + 1) + '. ' + d.getFullYear();
+  document.getElementById('svd-doc-title').textContent = 'Lékařský posudek ' + dateStr + ' – zaměstnanec Lukáš Motl';
+  document.getElementById('svd-doc-witness').textContent = 'Odmítnut podpis · svědek: ' + name;
+  document.getElementById('svd-boxes-wrap').style.display = 'none';
+  document.getElementById('svd-footer2').style.display = 'none';
+  document.getElementById('svd-state3').style.display = 'block';
+}
+function svdFinish() {
+  _empSignMethod = 'odmitl';
+  closeSvedekModal();
+  showPage14();
 }
 
 function openP13ConfirmModal() {
@@ -4764,6 +5013,7 @@ function closeSignModal() {
 }
 
 function closePrintSuccess() {
+  _empSignMethod = 'fyzicky';
   document.getElementById('p13-print-success').classList.remove('active');
   showPage14();
 }
@@ -4787,6 +5037,20 @@ function showPageZam() {
 function showPage14() {
   hideAll();
   document.getElementById('page14').classList.add('active');
+  var signCell = document.getElementById('hist-sign-cell');
+  if (signCell) {
+    if (_empSignMethod === 'fyzicky') {
+      signCell.innerHTML = '<span class="lz-hist-badge o-orange">🖨️&nbsp; Fyzický podpis</span>';
+    } else if (_empSignMethod === 'odmitl') {
+      signCell.innerHTML = '<span class="lz-hist-badge sign-red">✗&nbsp; Odmítl podepsat</span>';
+    } else {
+      signCell.innerHTML = '<span class="lz-hist-badge sign-green">✍️&nbsp; Online podpis</span>';
+    }
+  }
+  var pdfBtns = document.getElementById('hist-pdf-btns');
+  if (pdfBtns) {
+    pdfBtns.style.display = (_empSignMethod === 'fyzicky' || _empSignMethod === 'odmitl') ? 'none' : 'flex';
+  }
   setPageIndicator("Page 14", "Page 14 — LZ Historie prohlídek");
   var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
   document.getElementById('lz14-back-btn').onclick = backFZFn;
@@ -4955,11 +5219,16 @@ function empMobileClose() {
 }
 
 function empCloseAndFinish() {
+  _empSignMethod = 'zona';
   closeEmailModal();
   showPage14();
 }
 
 showPage1();
+document.addEventListener('DOMContentLoaded', function() {
+  setPageIndicator('Page 1', 'Page 1 — FZ Rezervace');
+  openRolePicker();
+});
 
 /* ── Simulovat kompletní online podpis ── */
 function openEmailPotvrzenoModal() {
@@ -5073,17 +5342,116 @@ function closePosudekElecOverlay() {
             <p class="sms-pin-success-title">Posudek byl jménem zaměstnancem úspěšně podepsán</p>
             <p class="sms-pin-success-sub">Podepsaný posudek byl úspěšně doručen na e-mail lmotl@csas.cz.</p>
             <p class="sms-pin-success-sub">Tuto stránku můžete nyní zavřít.</p>
-            <button class="sms-pin-success-close" onclick="closeSmsPinModal()">Zavřít</button>
+            <button class="sms-pin-success-close" onclick="closeSmsPinModal(); showPage14();">Zavřít</button>
           </div>
         </div>
         <div id="sms-pin-problem-wrap">
           <div class="sms-pin-problem-hdr">PROBLÉM S ASISTOVANÝM PODPISEM?</div>
           <div class="sms-pin-problem-box" style="margin-top:10px;">
             <button class="sms-pin-problem-btn" onclick="closeSmsPinModal(); openPrintModal();">Vytisknout a fyzicky podepsat</button>
-            <button class="sms-pin-problem-btn" onclick="closeSmsPinModal()">Odmítnutí</button>
+            <button class="sms-pin-problem-btn" onclick="closeSmsPinModal(); openOdmitnutiModal();">Odmítnutí</button>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Odmítnutí podpisu modal (630-21) -->
+<div id="odmitnuti-modal">
+  <div class="odm-dialog">
+    <div class="odm-hdr">
+      <p class="odm-title">Zaznamenat odmítnutí podpisu</p>
+      <p class="odm-sub">Zaměstnanec odmítl posudek podepsat a převzít.</p>
+    </div>
+    <div class="odm-divider"></div>
+    <div class="odm-body">
+      <div class="odm-warn">
+        <p class="odm-warn-title">⚠ Právní důsledek</p>
+        <p class="odm-warn-text">Nepodepsáním posudku zaměstnanec vyjadřuje nesouhlas s jeho obsahem a odmítá jej převzít. Záznam bude součástí lékařské dokumentace (SSL).</p>
+      </div>
+      <p class="odm-note-lbl">Poznámka k odmítnutí (volitelné)</p>
+      <textarea class="odm-note-ta" id="odm-note" placeholder="Zaměstnanec nesouhlasí s hodnocením..."></textarea>
+    </div>
+    <div class="odm-divider"></div>
+    <div class="odm-footer">
+      <button class="odm-cancel" onclick="closeOdmitnutiModal()">Zrušit</button>
+      <button class="odm-confirm" onclick="confirmOdmitnuti()">Potvrdit odmítnutí</button>
+    </div>
+  </div>
+</div>
+
+<!-- Podpis svědka modal (630-50) -->
+<div id="svedek-modal">
+  <div class="svd-dialog">
+    <div class="svd-hdr">
+      <p class="svd-title">Podpis svědka – zdravotnický pracovník</p>
+    </div>
+    <div class="svd-divider"></div>
+    <div class="svd-body">
+      <div id="svd-boxes-wrap" class="svd-boxes">
+        <div class="svd-box green">
+          <p class="svd-box-lbl">Vystavující lékař</p>
+          <p class="svd-box-name">MUDr. Tomáš Závodský</p>
+          <p class="svd-box-tag">✓ Zaručený el. podpis</p>
+        </div>
+        <div class="svd-box yellow" id="svd-witness-box">
+          <p class="svd-box-lbl">Svědek</p>
+          <p class="svd-box-name" id="svd-witness-name">Čeká na podpis…</p>
+          <p class="svd-box-tag">Prostý el. podpis</p>
+        </div>
+      </div>
+      <!-- Stav 3: záznam uložen -->
+      <div id="svd-state3" style="display:none;">
+        <div class="svd-success-banner">
+          <span class="svd-success-check">✓</span>
+          <div>
+            <p class="svd-success-title">Záznam o odmítnutí byl uložen</p>
+            <p class="svd-success-sub">Dokument je dostupný v profilu pacienta</p>
+          </div>
+        </div>
+        <p class="svd-docs-lbl">Profil pacienta – dokumenty</p>
+        <div class="svd-doc-card">
+          <span class="svd-doc-badge">Odmítnuto</span>
+          <p class="svd-doc-title" id="svd-doc-title">Lékařský posudek – zaměstnanec Lukáš Motl</p>
+          <p class="svd-doc-line">Odmítnut podpis · lékař: MUDr. Tomáš Závodský</p>
+          <p class="svd-doc-line" id="svd-doc-witness">Odmítnut podpis · svědek: —</p>
+        </div>
+        <p class="svd-close-note">Tuto stránku můžete nyní zavřít.</p>
+        <button class="svd-close-btn" onclick="svdFinish()">Zavřít</button>
+      </div>
+      <!-- Stav 1: formulář -->
+      <div id="svd-state1">
+        <div class="svd-fields">
+          <div class="svd-field">
+            <p class="svd-field-lbl">Jméno a příjmení svědka</p>
+            <input class="svd-field-inp" id="svd-name" type="text" placeholder="">
+          </div>
+          <div class="svd-field">
+            <p class="svd-field-lbl">Role</p>
+            <input class="svd-field-inp" id="svd-role" type="text" placeholder="">
+          </div>
+        </div>
+        <div class="svd-sign-hdr">
+          <p class="svd-sign-lbl">Podpis svědka – prstem nebo myší</p>
+          <button class="svd-clear-btn" onclick="svdClearCanvas()">🗑 Smazat podpis</button>
+        </div>
+        <div class="svd-canvas-wrap" id="svd-canvas-wrap">
+          <canvas id="svd-canvas"></canvas>
+          <span class="svd-canvas-placeholder">[ Oblast pro podpis prstem nebo myší ]</span>
+        </div>
+      </div>
+    </div>
+    <div class="svd-divider"></div>
+    <!-- Stav 1: footer -->
+    <div class="svd-footer" id="svd-footer1">
+      <button class="svd-cancel" onclick="closeSvedekModal()">Zrušit</button>
+      <button class="svd-confirm" id="svd-confirm-btn" onclick="confirmSvedek()" disabled>Podepsat jako svědek</button>
+    </div>
+    <!-- Stav 2: footer -->
+    <div class="svd-footer" id="svd-footer2" style="display:none;">
+      <button class="svd-cancel" onclick="closeSvedekModal()">Zrušit</button>
+      <button class="svd-confirm" onclick="svdSaveRecord()">Dokončit a uložit záznam</button>
     </div>
   </div>
 </div>
@@ -5261,9 +5629,9 @@ function closePosudekElecOverlay() {
     <div id="emp-modal-footer" class="emp-modal-footer">
       <div class="emp-modal-footer-lbl">PROBLÉM S ONLINE PODPISEM?</div>
       <div class="emp-modal-footer-btns">
-        <button class="emp-footer-btn">Zaslat PIN na telefon</button>
-        <button class="emp-footer-btn" onclick="openPrintModal()">Vytisknout a fyzicky podepsat</button>
-        <button class="emp-footer-btn">Odmítnutí</button>
+        <button class="emp-footer-btn" onclick="closeEmailModal(); openSmsPinModal();">Zaslat PIN na telefon</button>
+        <button class="emp-footer-btn" onclick="closeEmailModal(); openPrintModal();">Vytisknout a fyzicky podepsat</button>
+        <button class="emp-footer-btn" onclick="closeEmailModal(); openOdmitnutiModal();">Odmítnutí</button>
       </div>
     </div>
   </div>
@@ -5316,7 +5684,7 @@ function closePosudekElecOverlay() {
     <!-- Signing view -->
     <div id="emp-mobile-sign-view" class="emp-mobile-scroll" style="display:none;">
       <div class="emp-mobile-doc">
-        <img src="assets/posudek-doc.png" alt="posudek" style="width:100%; display:block;">
+        <img src="assets/posudek-emp-zona.png" alt="posudek" style="width:100%; display:block;">
       </div>
       <div class="emp-mobile-consent">
         <div class="emp-consent-mark" style="background:#3333b2;"></div>
@@ -5344,7 +5712,39 @@ function closePosudekElecOverlay() {
   </div>
 </div>
 
-<div id="page-indicator" data-full=""></div>
+<!-- ROLE PICKER -->
+<div id="role-picker-overlay">
+  <div class="role-picker-box">
+    <p class="role-picker-title">Z čího pohledu chcete demo ukazovat?</p>
+    <p class="role-picker-sub">Volba skryje pomocné prvky, které do dané role nepatří. Roli lze kdykoli změnit tlačítkem vlevo dole.</p>
+    <div class="role-picker-cards">
+      <button class="role-card" onclick="setRole('fz')">
+        <div class="role-card-icon">👔</div>
+        <div class="role-card-name">HR — Firemní zóna</div>
+        <div class="role-card-desc">Odesílání žádostí, stavy rezervací, přijetí závěrů</div>
+      </button>
+      <button class="role-card" onclick="setRole('lz')">
+        <div class="role-card-icon">🩺</div>
+        <div class="role-card-name">Lékař — Lékařská zóna</div>
+        <div class="role-card-desc">Rezervace, průběh prohlídky, podpis posudku</div>
+      </button>
+      <button class="role-card" onclick="setRole('kl')">
+        <div class="role-card-icon">📞</div>
+        <div class="role-card-name">Operátor — Klientská linka</div>
+        <div class="role-card-desc">Přiřazení lékaře, notifikace, dopady na FZ/LZ</div>
+      </button>
+      <button class="role-card all" onclick="setRole('all')">
+        <div class="role-card-icon">🎬</div>
+        <div class="role-card-name">Vše (režisér)</div>
+        <div class="role-card-desc">Volný pohyb mezi zónami, všechna pomocná tlačítka</div>
+      </button>
+    </div>
+  </div>
+</div>
+<div id="bottom-right-bar">
+  <button id="role-chip" onclick="openRolePicker()">🎬 Vše</button>
+  <div id="page-indicator" data-full=""></div>
+</div>
 
 <!-- PDF view modal -->
 <!-- ═══════════════════════════════════
@@ -5568,13 +5968,13 @@ function closePosudekElecOverlay() {
       <button class="pdf-view-hdr-close" onclick="closePdfViewModal()">✕</button>
     </div>
     <div class="pdf-view-body">
-      <div class="pdf-view-col">
+      <div class="pdf-view-col" id="pdf-view-col-zona">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem via zaměstnanecká zóna</div>
         <img class="pdf-view-img" src="assets/posudek-signed.png" alt="Posudek podepsaný via zaměstnanecká zóna">
       </div>
-      <div class="pdf-view-col">
+      <div class="pdf-view-col" id="pdf-view-col-sms">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem přes SMS</div>
-        <img class="pdf-view-img" src="assets/posudek-signed.png" alt="Posudek podepsaný přes SMS">
+        <img class="pdf-view-img" src="assets/posudek-sms.png" alt="Posudek podepsaný přes SMS">
       </div>
     </div>
   </div>
