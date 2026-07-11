@@ -1870,8 +1870,8 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 .zam-badge-info { color: rgba(255,255,255,0.6); font-size: 9px; margin-left: 2px; }
 
 /* ── PDF view modal ── */
-#pdf-view-modal { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); }
-#pdf-view-modal.active { display: flex; }
+#pdf-view-modal, #zam-posudek-modal { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); }
+#pdf-view-modal.active, #zam-posudek-modal.active { display: flex; }
 .pdf-view-dialog { background: #f5f5f7; border-radius: 10px; width: 960px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.4); font-family: inherit; }
 .pdf-view-hdr { background: #ededed; border-bottom: 1px solid #d8d8d8; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
 .pdf-view-hdr-title { font-size: 12px; font-weight: 800; color: #121212; }
@@ -2782,11 +2782,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       </thead>
       <tbody>
         <tr class="white" onclick="showPageZamDetail()" style="cursor:pointer;">
-          <td>Balková</td><td>Dominika</td><td>dominika.balko…</td>
-          <td>specialista příchozí linky</td><td>Hornopolní, 3322/34, Ostrava, 702 00</td>
-          <td></td><td>01.04.2026</td><td>01.04.2028</td>
+          <td>Motl</td><td>Lukáš</td><td>lmotl@csas.cz</td>
+          <td>specialista Klientského centra plus</td><td>Staré nám. 28, Rychnov nad Kněžnou, 516 01</td>
+          <td>513343</td><td>01.04.2026</td><td>01.04.2028</td>
           <td><span class="zam-badge green">🛡️&nbsp; Způsobilý <span class="zam-badge-info">ⓘ</span></span></td>
-          <td>02.04.2026</td><td>Mimořádná prohlídka – v úplném rozsahu</td>
+          <td>02.04.2026</td><td>Vstupní prohlídka</td>
         </tr>
         <tr class="alt">
           <td>Bednář</td><td>Pavel</td><td>pavelbednaar…</td>
@@ -2873,7 +2873,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="zdet-hdr-card">
         <span class="zdet-hdr-icon">👤</span>
         <div class="zdet-hdr-info">
-          <div class="zdet-hdr-name">Dominika Balková</div>
+          <div class="zdet-hdr-name">Lukáš Motl</div>
           <div class="zdet-hdr-sub">Profil zaměstnance</div>
         </div>
         <div class="zdet-hdr-actions">
@@ -2900,7 +2900,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <div class="zdet-field-val">Potvrzeno v aplikaci Firemní zóny</div>
         <div class="zdet-tag-row">
           <span class="zdet-tag green">📄 Stáhnout posudek</span>
-          <span class="zdet-tag blue">📄 Zobrazit posudek</span>
+          <span class="zdet-tag blue" onclick="openZamPosudekModal()">📄 Zobrazit posudek</span>
         </div>
         <div class="zdet-field-lbl">Datum poslední prohlídky mimo poskytovatele EUC &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
         <div class="zdet-toggle-row">
@@ -2915,15 +2915,15 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="zdet-section">
         <div class="zdet-section-title">Osobní údaje</div>
         <div class="zdet-field-lbl">Jméno</div>
-        <div class="zdet-field-val">Dominika</div>
+        <div class="zdet-field-val">Lukáš</div>
         <div class="zdet-field-lbl">Příjmení</div>
-        <div class="zdet-field-val">Balková</div>
+        <div class="zdet-field-val">Motl</div>
         <div class="zdet-field-lbl">Rodné číslo</div>
-        <div class="zdet-field-val">7258090367</div>
+        <div class="zdet-field-val">9603250367</div>
         <div class="zdet-field-lbl">Datum narození</div>
-        <div class="zdet-field-val">09.08.1972</div>
+        <div class="zdet-field-val">25.03.1996</div>
         <div class="zdet-field-lbl">Pohlaví</div>
-        <div class="zdet-field-val"><span>Žena</span><span style="color:#d92673;">▾</span></div>
+        <div class="zdet-field-val"><span>Muž</span><span style="color:#d92673;">▾</span></div>
         <div class="zdet-field-lbl">Preferovaný jazyk</div>
         <div class="zdet-field-val last"><span>Česky</span><span style="color:#d92673;">▾</span></div>
       </div>
@@ -2932,11 +2932,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="zdet-section">
         <div class="zdet-section-title">Trvalé bydliště</div>
         <div class="zdet-field-lbl">Ulice a číslo popisné</div>
-        <div class="zdet-field-val">Stará Stodůlecká 6/481</div>
+        <div class="zdet-field-val">Křemenec 69</div>
         <div class="zdet-field-lbl">Město</div>
-        <div class="zdet-field-val">Praha 5</div>
+        <div class="zdet-field-val">Konice</div>
         <div class="zdet-field-lbl">PSČ</div>
-        <div class="zdet-field-val last">15800</div>
+        <div class="zdet-field-val last">79852</div>
       </div>
 
       <!-- Pracovní údaje -->
@@ -2947,13 +2947,13 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <div class="zdet-field-lbl">Název společnosti</div>
         <div class="zdet-field-val">Česká spořitelna, a.s.</div>
         <div class="zdet-field-lbl">Pracoviště / Pobočka</div>
-        <div class="zdet-field-val"><span>Hornopolní, 3322/34, Ostrava, 702 00</span><span style="color:#d92673;">▾</span></div>
+        <div class="zdet-field-val"><span>Staré nám. 28, Rychnov nad Kněžnou, 516 01</span><span style="color:#d92673;">▾</span></div>
         <div class="zdet-field-lbl">Středisko</div>
         <div class="zdet-field-val"><span></span><span style="color:#d92673;">▾</span></div>
         <div class="zdet-field-lbl">Pracovní zařazení &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
         <div class="zdet-field-val">Administrativní pracovník</div>
         <div class="zdet-field-lbl">Pracovní pozice &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
-        <div class="zdet-field-val">specialista příchoz linky</div>
+        <div class="zdet-field-val">specialista Klientského centra plus</div>
         <div class="zdet-field-lbl">Pracovní činnosti</div>
         <div class="zdet-field-val" style="min-height:30px;"></div>
         <div class="zdet-field-lbl">Režim práce</div>
@@ -3024,7 +3024,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="zdet-section">
         <div class="zdet-section-title">Kontaktní údaje</div>
         <div class="zdet-field-lbl">E-mail na zaměstnance</div>
-        <div class="zdet-field-val">dominika.balkova@csas.cz</div>
+        <div class="zdet-field-val">lmotl@csas.cz</div>
         <div class="zdet-field-lbl">Telefon na zaměstnance</div>
         <div class="zdet-field-val last">420733617022</div>
       </div>
@@ -4735,6 +4735,13 @@ function closePrintModal() {
 
 var _empSignMethod = 'zona'; // 'zona' | 'sms' | 'fyzicky'
 
+function openZamPosudekModal() {
+  document.getElementById('zam-posudek-modal').classList.add('active');
+}
+function closeZamPosudekModal() {
+  document.getElementById('zam-posudek-modal').classList.remove('active');
+}
+
 function openPdfViewModal() {
   document.getElementById('pdf-view-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
   document.getElementById('pdf-view-col-sms').style.display = (_empSignMethod === 'zona') ? 'none' : 'flex';
@@ -5975,6 +5982,26 @@ function closePosudekElecOverlay() {
       <div class="pdf-view-col" id="pdf-view-col-sms">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem přes SMS</div>
         <img class="pdf-view-img" src="assets/posudek-sms.png" alt="Posudek podepsaný přes SMS">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ZAM detail: Zobrazit posudek (652-140 / 652-141) -->
+<div id="zam-posudek-modal" class="pdf-view-modal-shell">
+  <div class="pdf-view-dialog">
+    <div class="pdf-view-hdr">
+      <span class="pdf-view-hdr-title">Zobrazení podepsaného posudku</span>
+      <button class="pdf-view-hdr-close" onclick="closeZamPosudekModal()">✕</button>
+    </div>
+    <div class="pdf-view-body">
+      <div class="pdf-view-col">
+        <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem via zaměstnanecká zóna</div>
+        <img class="pdf-view-img" src="assets/zam-posudek1.png" alt="Podepsaný posudek — zaměstnanecká zóna">
+      </div>
+      <div class="pdf-view-col">
+        <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem přes SMS</div>
+        <img class="pdf-view-img" src="assets/zam-posudek2.png" alt="Podepsaný posudek — SMS">
       </div>
     </div>
   </div>
