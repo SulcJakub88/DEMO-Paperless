@@ -169,6 +169,9 @@ body {
 }
 .hdr-icon { font-size: 14px; color: #1459bf; }
 .hdr-title { font-size: 18px; font-weight: 700; color: #0d3380; letter-spacing: 0.02em; }
+.hdr-links { margin-left: auto; display: flex; gap: 22px; font-size: 10px; color: #1459bf; }
+.hdr-links span { cursor: pointer; }
+.hdr-links span:hover { text-decoration: underline; }
 
 /* filters */
 .filters {
@@ -1573,6 +1576,7 @@ body {
 .role-card:hover { border-color: #1459bf; background: #f0f6ff; }
 .role-card-icon { font-size: 26px; margin-bottom: 8px; }
 .role-card-name { font-size: 11px; font-weight: 800; color: #121212; margin-bottom: 4px; }
+.role-card-zone { display: block; font-size: 10px; font-weight: 600; color: #1459bf; margin-top: 1px; }
 .role-card-desc { font-size: 8px; color: #737373; line-height: 1.4; }
 .role-card.all { border-style: dashed; }
 #bottom-right-bar { position: fixed; bottom: 14px; right: 16px; z-index: 1100; display: flex; align-items: center; gap: 8px; }
@@ -2215,11 +2219,6 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 <div class="page" id="page1">
   <div class="p1-wrap">
 
-    <div class="p1-top-links">
-      <span>✕ Reset filtrů</span>
-      <span>⬇ Export</span>
-    </div>
-
     <div class="hdr-card" style="margin-top:8px;">
       <span class="hdr-icon">📅</span>
       <span class="hdr-title">REZERVACE</span>
@@ -2739,13 +2738,13 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
 <div class="page" id="page-zam">
   <div class="p1-wrap">
-    <div class="p1-top-links">
-      <span>✕ Reset filtrů</span>
-      <span>↓ Export</span>
-    </div>
     <div class="hdr-card" style="margin-top:8px;">
       <span class="hdr-icon">👥</span>
       <span class="hdr-title">ZAMĚSTNANCI</span>
+      <div class="hdr-links">
+        <span>✕ Reset filtrů</span>
+        <span>↓ Export</span>
+      </div>
     </div>
     <div class="filters">
       <div class="filter-search">
@@ -4466,6 +4465,7 @@ var _roleMeta = {
   fz:  { label: '👔 FZ',  chip: '👔 HR — Firemní zóna' },
   lz:  { label: '🩺 LZ',  chip: '🩺 Lékař — Lékařská zóna' },
   kl:  { label: '📞 KL',  chip: '📞 Operátor — Klientská linka' },
+  zam: { label: '🧑‍💼 ZZ', chip: '🧑‍💼 Zaměstnanec — Zaměstnanecká zóna' },
   all: { label: '🎬 Vše', chip: '🎬 Vše (režisér)' }
 };
 
@@ -4476,6 +4476,7 @@ function setRole(role) {
   document.getElementById('role-picker-overlay').classList.remove('active');
   if (role === 'lz') { showPage9(5); }
   else if (role === 'kl') { showPage3Digital(); }
+  else if (role === 'zam') { showPage1(); openMobileView(); }
   else { showPage1(); }
 }
 
@@ -5722,27 +5723,32 @@ function closePosudekElecOverlay() {
 <!-- ROLE PICKER -->
 <div id="role-picker-overlay">
   <div class="role-picker-box">
-    <p class="role-picker-title">Z čího pohledu chcete demo ukazovat?</p>
+    <p class="role-picker-title">Z jakého pohledu chcete DEMO vidět?</p>
     <p class="role-picker-sub">Volba skryje pomocné prvky, které do dané role nepatří. Roli lze kdykoli změnit tlačítkem vlevo dole.</p>
     <div class="role-picker-cards">
       <button class="role-card" onclick="setRole('fz')">
         <div class="role-card-icon">👔</div>
-        <div class="role-card-name">HR — Firemní zóna</div>
+        <div class="role-card-name">HR<span class="role-card-zone">Firemní zóna</span></div>
         <div class="role-card-desc">Odesílání žádostí, stavy rezervací, přijetí závěrů</div>
       </button>
       <button class="role-card" onclick="setRole('lz')">
         <div class="role-card-icon">🩺</div>
-        <div class="role-card-name">Lékař — Lékařská zóna</div>
+        <div class="role-card-name">Lékaře<span class="role-card-zone">Lékařská zóna</span></div>
         <div class="role-card-desc">Rezervace, průběh prohlídky, podpis posudku</div>
       </button>
       <button class="role-card" onclick="setRole('kl')">
         <div class="role-card-icon">📞</div>
-        <div class="role-card-name">Operátor — Klientská linka</div>
+        <div class="role-card-name">Operátor<span class="role-card-zone">Nové CRM</span></div>
         <div class="role-card-desc">Přiřazení lékaře, notifikace, dopady na FZ/LZ</div>
+      </button>
+      <button class="role-card" onclick="setRole('zam')">
+        <div class="role-card-icon">🧑‍💼</div>
+        <div class="role-card-name">Zaměstnanec<span class="role-card-zone">Zaměstnanecká zóna</span></div>
+        <div class="role-card-desc">Náhled a elektronický podpis posudku přes odkaz v e-mailu</div>
       </button>
       <button class="role-card all" onclick="setRole('all')">
         <div class="role-card-icon">🎬</div>
-        <div class="role-card-name">Vše (režisér)</div>
+        <div class="role-card-name">Admin<span class="role-card-zone">Vše</span></div>
         <div class="role-card-desc">Volný pohyb mezi zónami, všechna pomocná tlačítka</div>
       </button>
     </div>
