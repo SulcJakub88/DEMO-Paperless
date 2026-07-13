@@ -31,6 +31,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
+  padding-bottom: 46px; /* místo pro fixní tlačítko výběru role vlevo dole */
 }
 .sidebar-lz-wrap {
   display: none; margin-top: auto;
@@ -1580,7 +1581,8 @@ body {
 .role-card-desc { font-size: 8px; color: #737373; line-height: 1.4; }
 .role-card.all { border-style: dashed; }
 #bottom-right-bar { position: fixed; bottom: 14px; right: 16px; z-index: 1100; display: flex; align-items: center; gap: 8px; }
-#role-chip { background: #1459bf; color: #fff; font-size: 10px; font-weight: 700; font-family: inherit; padding: 5px 13px; border-radius: 20px; cursor: pointer; border: none; box-shadow: 0 2px 10px rgba(0,0,0,0.25); }
+#bottom-left-bar { position: fixed; bottom: 14px; left: 16px; z-index: 1100; width: 168px; }
+#role-chip { display: block; width: 100%; box-sizing: border-box; background: #1459bf; color: #fff; font-size: 9px; font-weight: 700; font-family: inherit; padding: 8px 10px; border-radius: 6px; cursor: pointer; border: none; text-align: left; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
 #role-chip:hover { background: #0f4494; }
 
 /* Role-based visibility */
@@ -5754,8 +5756,10 @@ function closePosudekElecOverlay() {
     </div>
   </div>
 </div>
-<div id="bottom-right-bar">
+<div id="bottom-left-bar">
   <button id="role-chip" onclick="openRolePicker()">🎬 Vše</button>
+</div>
+<div id="bottom-right-bar">
   <div id="page-indicator" data-full=""></div>
 </div>
 
