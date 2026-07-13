@@ -4,6 +4,24 @@ Klikací prototyp („demo") pro EUC PLS – digitalizace pracovnělékařských
 (pracovnělékařský posudek, elektronický podpis). Slouží k prezentacím klientům
 z pohledu různých rolí (HR / lékař / operátor / zaměstnanec).
 
+## Getting started (nový vývojář / nový chat)
+
+Repo je **veřejné**: <https://github.com/SulcJakub88/DEMO-Paperless>
+
+```bash
+git clone https://github.com/SulcJakub88/DEMO-Paperless.git
+cd DEMO-Paperless
+# spuštění náhledu (potřebuje jen Node.js / npx — žádný npm install):
+npx serve -p 5500 .
+# → otevři http://localhost:5500/index.html
+```
+
+Alternativně stačí `index.html` otevřít přímo v prohlížeči (funguje i bez serveru,
+protože assety jsou relativní PNG). V Claude Code se preview spouští configem
+`PaperlessDemo` z `.claude/launch.json` (statický server na portu 5500).
+
+Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
+
 ## Jak s tímto souborem pracovat (pro Claude)
 
 - **Celý prototyp je JEDEN soubor: `index.html`** (~6000 řádků, vanilla HTML+CSS+JS,
