@@ -24,12 +24,16 @@ Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
 
 ## Jak s tímto souborem pracovat (pro Claude)
 
-- **Celý prototyp je JEDEN soubor: `index.html`** (~6000 řádků, vanilla HTML+CSS+JS,
-  žádný build, žádné závislosti). Nemusíš číst celý soubor. Postupuj takto:
+- **NEČTI celý `index.html` ani neprocházej celý repozitář.** Prototyp je jeden
+  soubor (~6000 řádků, vanilla HTML+CSS+JS, žádný build). Tento CLAUDE.md je mapa,
+  díky které sáhneš rovnou na konkrétní místo a jen tam uděláš změnu. Postupuj takto:
   1. V tomto CLAUDE.md najdi relevantní stránku / modal / funkci a její kotvu
      (název funkce, `id="…"`, nebo komentář `<!-- PAGE … -->`).
   2. `grep -n` v `index.html` na tu kotvu → zjistíš přesný řádek.
   3. Přečti jen ten úsek (Read s offset/limit) a edituj.
+  Toto platí i pro jiný Claude Code / jiný účet — díky CLAUDE.md máš plný kontext,
+  aniž bys musel číst celý soubor. Celý soubor čti jen tehdy, když opravdu nevíš,
+  kde prvek je (a pak kotvu doplň do CLAUDE.md, ať to příště víš).
 - Assety jsou v `assets/` (lokální PNG). Nikdy neodkazuj na `figma.com/api/mcp/asset/…`
   URL — expirují (404). Nové obrázky z Figmy stáhni přes `download_assets` a ulož lokálně.
 - **Preview:** dev server běží na `http://localhost:5500` (statický server nad složkou).
@@ -39,9 +43,17 @@ Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
 ## Verzování (důležité — uživatelská konvence)
 
 - Repo: <https://github.com/SulcJakub88/DEMO-Paperless> (větev `main`).
-- Když uživatel řekne **„commit"** → `git add -A && git commit && git push`.
+- Když uživatel řekne **„commit"**:
+  1. **Nejdřív aktualizuj tento `CLAUDE.md`**, pokud změna přidala/přesunula
+     stránku, modal, funkci, stavovou proměnnou, asset nebo změnila flow —
+     uprav příslušnou kotvu/tabulku, ať mapa zůstane přesná.
+  2. Pak `git add -A && git commit && git push`.
   Commit message ve stylu `Verze N — <stručný popis>`, česky, končí
-  `Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>`.
+  `Co-Authored-By: Claude Code <noreply@anthropic.com>`.
+- **Proč:** CLAUDE.md se verzuje spolu s kódem. Když je po každém commitu aktuální,
+  má kterýkoli další Claude Code (i pod jiným účtem, na jiném stroji) po `git pull`
+  vždy platnou mapu a může sáhnout rovnou na konkrétní místo v `index.html`, aniž by
+  četl celý soubor nebo repozitář. Zastaralý CLAUDE.md = ztráta kontextu → udržuj ho.
 - Rollback = `git checkout <hash> -- .` nebo `git reset --hard <hash>` (po potvrzení).
 - Historie: V1 základ, V2 potvrzovací modal, V3 SMS PIN flow, V4 konzistence dat,
   V5 role picker + odmítnutí flow, V6 profil zaměstnance + zobrazit posudek.
