@@ -61,7 +61,13 @@ Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
 ## Technologie & konvence
 
 - Vanilla HTML + `<style>` + `<script>` v jednom souboru. Bez frameworků, bez npm.
-- **1440px fixed-width** layout. Fonty a barvy inline / v CSS třídách.
+- **Fluidní layout** (od V10): `.app` (FZ) a `.lz-app` (LZ) mají `width:100%;
+  min-width:1024px` — canvas se roztahuje na celou šířku okna prohlížeče,
+  pod 1024px se aktivuje horizontální scroll (`body{overflow-x:auto}`).
+  Dřív byl canvas natvrdo `width:1440px` podle Figmy; vnitřní komponenty
+  (sidebar 220px fixed, tabulky/karty width:100% svého kontejneru) se
+  přizpůsobí automaticky. KL-CRM (page3/4) bylo fluidní odjakživa.
+  Fonty a barvy inline / v CSS třídách.
 - Barvy: primární modrá `#1459bf` / `#0d3380`, růžová (aktivní nav / CTA) `#d92673`,
   zelená (způsobilý / úspěch) `#1a8026`, oranžová (varování) `#d97706`.
 - Jazyk UI: čeština. Kód (funkce/proměnné): camelCase, česko-anglicky.
