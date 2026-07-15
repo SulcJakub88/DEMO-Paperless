@@ -905,7 +905,7 @@ body {
   background: #fff;
   border-right: 1px solid #e6e6e6;
   min-height: 100vh; flex-shrink: 0;
-  padding: 16px 0 20px;
+  padding: 16px 0 46px;
   display: flex; flex-direction: column;
 }
 .lz-logo-row {
@@ -1226,7 +1226,7 @@ body {
 .lz-sidebar {
   width: 220px; min-width: 220px; background: #fff;
   border-right: 1px solid #e6e6e6; height: 100vh; overflow-y: auto;
-  flex-shrink: 0; padding: 0 0 20px;
+  flex-shrink: 0; padding: 0 0 46px;
   display: flex; flex-direction: column;
 }
 /* LZ Nástěnka (page6/8): scroll na celém obsahu, záhlaví i submenu sticky
@@ -1245,7 +1245,7 @@ body {
 .lz-nav-item.sub { padding-left: 24px; color: #737373; font-size: 8px; }
 .lz-nav-sep { height: 1px; background: #f0f0f0; margin: 8px 14px; }
 .lz-helper-bar2 {
-  margin-top: auto; padding: 12px 14px 0;
+  margin-top: auto; padding: 12px 14px 14px;
   border-top: 1px solid #f0f0f0;
 }
 .lz-helper-btn2 {
@@ -3455,11 +3455,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
       <div class="lz-nav-item active">NÁSTĚNKA</div>
-      <div class="lz-nav-item" onclick="showPage9(5)">REZERVACE</div>
+      <div class="lz-nav-item" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupnost</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -3538,11 +3538,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
       <div class="lz-nav-item active">NÁSTĚNKA</div>
-      <div class="lz-nav-item" onclick="showPage9(7)">REZERVACE</div>
+      <div class="lz-nav-item" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupnost</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -3626,7 +3626,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -3696,12 +3696,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="sidebar-logo">
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
-      <div class="lz-nav-item">NÁSTĚNKA</div>
+      <div class="lz-nav-item" onclick="_lzFromFZ===7?showPage8():showPage6()">NÁSTĚNKA</div>
       <div class="lz-nav-item active" style="cursor:pointer;" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -3793,12 +3793,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="sidebar-logo">
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
-      <div class="lz-nav-item">NÁSTĚNKA</div>
+      <div class="lz-nav-item" onclick="_lzFromFZ===7?showPage8():showPage6()">NÁSTĚNKA</div>
       <div class="lz-nav-item active" style="cursor:pointer;" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -3890,12 +3890,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="sidebar-logo">
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
-      <div class="lz-nav-item">NÁSTĚNKA</div>
-      <div class="lz-nav-item active" style="cursor:pointer;" onclick="showPage10()">REZERVACE</div>
+      <div class="lz-nav-item" onclick="_lzFromFZ===7?showPage8():showPage6()">NÁSTĚNKA</div>
+      <div class="lz-nav-item active" style="cursor:pointer;" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -3981,12 +3981,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="sidebar-logo">
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
-      <div class="lz-nav-item">NÁSTĚNKA</div>
+      <div class="lz-nav-item" onclick="_lzFromFZ===7?showPage8():showPage6()">NÁSTĚNKA</div>
       <div class="lz-nav-item active" style="cursor:pointer;" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
       <div class="lz-nav-sep"></div>
-      <div class="lz-nav-item">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
       <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
       <div class="lz-nav-item">DOKUMENTY A FAQ</div>
       <div class="lz-nav-sep"></div>
@@ -4349,7 +4349,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="sidebar-logo">
         <img src="assets/logo.png" alt="EUC PLS">
       </div>
-      <div class="lz-nav-item">NÁSTĚNKA</div>
+      <div class="lz-nav-item" onclick="_lzFromFZ===7?showPage8():showPage6()">NÁSTĚNKA</div>
       <div class="lz-nav-item" style="cursor:pointer;" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
       <div class="lz-nav-item">KALENDÁŘE</div>
       <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
@@ -4661,6 +4661,7 @@ function showPage5(fromCRM) {
 }
 
 function showPage6() {
+  _lzFromFZ = 5;
   hideAll();
   document.getElementById('page6').classList.add('active');
   setPageIndicator("Page 6", "Page 6 — LZ Nástěnka (digitální žádost)");
@@ -4701,6 +4702,7 @@ function showPage7(fromCRM) {
 }
 
 function showPage8() {
+  _lzFromFZ = 7;
   hideAll();
   document.getElementById('page8').classList.add('active');
   setPageIndicator("Page 8", "Page 8 — LZ Nástěnka (fyzická žádost)");
