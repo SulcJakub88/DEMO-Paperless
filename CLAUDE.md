@@ -68,6 +68,15 @@ Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
   (sidebar 220px fixed, tabulky/karty width:100% svého kontejneru) se
   přizpůsobí automaticky. KL-CRM (page3/4) bylo fluidní odjakživa.
   Fonty a barvy inline / v CSS třídách.
+- **Škála písma** (od V11): všechny `font-size` v souboru (v `<style>` i inline)
+  škálovány nahoru kvůli čitelnosti na běžných monitorech (originál byl
+  navržen na 7–9,5px dle Figmy, na reálné obrazovce nečitelné). Mapování:
+  hodnoty ≤14px dostaly +2px, hodnoty 15–18px +1px, nad 18px beze změny
+  (nadpisy/čísla už byly dost velké). `.data-table` (FZ) sloupce mají fixní
+  `<col>` šířky (`table-layout:fixed`) — ty byly úměrně (~1,2×) rozšířeny,
+  jinak by větší písmo víc ořezávalo text (`text-overflow:ellipsis`).
+  Když přidáváš nový `font-size`, drž se už zvětšené škály (viz aktuální
+  hodnoty v CSS), needěl ji zase zmenšovat na "figma" originál.
 - Barvy: primární modrá `#1459bf` / `#0d3380`, růžová (aktivní nav / CTA) `#d92673`,
   zelená (způsobilý / úspěch) `#1a8026`, oranžová (varování) `#d97706`.
 - Jazyk UI: čeština. Kód (funkce/proměnné): camelCase, česko-anglicky.
