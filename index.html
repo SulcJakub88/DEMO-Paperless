@@ -4644,7 +4644,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
           <tbody>
             <tr>
               <td>17.06.2026</td><td>17.06.2026</td><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td>
-              <td><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
+              <td id="hist-typ-cell"><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
               <td id="hist-sign-cell"><span class="lz-hist-badge sign-green">✍️&nbsp; Online podpis</span></td>
               <td><div class="lz-hist-pdf-btns" id="hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
               <td>PLS – základní</td>
@@ -5079,7 +5079,7 @@ function p13FyzConfirmEdit() {
 
 function p13FyzConfirmContinue() {
   document.getElementById('p13fyz-confirm-modal').classList.remove('active');
-  showPage14();
+  showPage14(true);
 }
 
 function openPrintModal() {
@@ -5398,9 +5398,15 @@ function showPageZam() {
   setPageIndicator('Page ZAM', 'FZ — Zaměstnanci');
 }
 
-function showPage14() {
+function showPage14(fromFyz) {
   hideAll();
   document.getElementById('page14').classList.add('active');
+  var typCell = document.getElementById('hist-typ-cell');
+  if (typCell) {
+    typCell.innerHTML = fromFyz
+      ? '<span class="lz-hist-badge o-orange">🖨️&nbsp; Fyzická žádost</span>'
+      : '<span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span>';
+  }
   var signCell = document.getElementById('hist-sign-cell');
   if (signCell) {
     if (_empSignMethod === 'fyzicky') {
@@ -5415,7 +5421,7 @@ function showPage14() {
   if (pdfBtns) {
     pdfBtns.style.display = (_empSignMethod === 'fyzicky' || _empSignMethod === 'odmitl') ? 'none' : 'flex';
   }
-  setPageIndicator("Page 14", "Page 14 — LZ Historie prohlídek");
+  setPageIndicator("Page 14", fromFyz ? "Page 14 — LZ Historie prohlídek | fyzická žádost" : "Page 14 — LZ Historie prohlídek");
   var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
   document.getElementById('lz14-back-btn').onclick = backFZFn;
   document.querySelector('#page14 .lz-hist-wrap').scrollTop = 0;
