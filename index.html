@@ -222,44 +222,53 @@ body {
 /* table */
 .tbl-count { font-size: 9px; color: #737373; margin-bottom: 3px; }
 
+/* ── Sdílený typografický a barevný systém pro VŠECHNY tabulky v appce.
+     Nová tabulka → přidej class="app-table" a dostane stejný vzhled
+     (hlavička, buňky, zebra) automaticky. Hover se řeší per-tabulku
+     přes var(--table-hover-bg), protože některé tabulky mají hover
+     záměrně omezený jen na některé řádky (viz .lz-rzv-table). ── */
+:root {
+  --table-header-bg: #f2f5fa;
+  --table-header-color: #4a4a4a;
+  --table-header-border: #dde3ec;
+  --table-cell-color: #121212;
+  --table-cell-border: #eef1f5;
+  --table-zebra-bg: #f7f9fc;
+  --table-hover-bg: #e8f0fc;
+  --table-badge-font-size: 8px;
+}
+.app-table { width: 100%; border-collapse: collapse; }
+.app-table th {
+  background: var(--table-header-bg); color: var(--table-header-color);
+  font-size: 9px; font-weight: 700; text-align: left;
+  padding: 10px 12px; border-bottom: 1px solid var(--table-header-border);
+  white-space: nowrap;
+}
+.app-table td {
+  font-size: 9.5px; color: var(--table-cell-color);
+  padding: 10px 12px; border-bottom: 1px solid var(--table-cell-border);
+  vertical-align: middle;
+}
+.app-table tbody tr:last-child td { border-bottom: none; }
+.app-table tbody tr:nth-child(even) td { background: var(--table-zebra-bg); }
+
 .data-table {
-  width: 100%;
-  border-collapse: collapse;
   table-layout: fixed;
 }
-.data-table thead tr {
-  background: #f2f5fa;
-  border: 1px solid #ccc;
-}
 .data-table th {
-  font-size: 8px;
-  font-weight: 700;
-  color: #737373;
-  text-align: left;
-  padding: 0 6px;
-  height: 28px;
-  white-space: nowrap;
   overflow: hidden;
 }
 .sort-ic { color: #adadad; font-weight: 400; }
 .data-table td {
-  font-size: 8.5px;
-  color: #121212;
-  padding: 0 6px;
-  height: 42px;
-  border-bottom: 0.5px solid #e6e6e6;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  vertical-align: middle;
 }
-.data-table tr.white { background: #fff; }
-.data-table tr.alt { background: #f7faff; }
 .data-table tr.clickable { cursor: pointer; }
-.data-table tr.clickable:hover td { background: #edf3fc; }
+.data-table tr.clickable:hover td { background: var(--table-hover-bg); }
 #page5 .data-table tbody tr:hover td,
 #page7 .data-table tbody tr:hover td,
-#page-zam .data-table tbody tr:hover td { background: #edf3fc; }
+#page-zam .data-table tbody tr:hover td { background: var(--table-hover-bg); }
 
 /* status badges */
 .sbadge {
@@ -269,7 +278,7 @@ body {
   height: 22px;
   border-radius: 4px;
   padding: 0 8px;
-  font-size: 7.5px;
+  font-size: var(--table-badge-font-size);
   font-weight: 700;
   color: #fff;
   white-space: nowrap;
@@ -1323,31 +1332,20 @@ body {
 .lz-rzv-adv { margin-left: auto; font-size: 9px; color: #1459bf; cursor: pointer; }
 .lz-rzv-count { font-size: 8.5px; color: #4a4a4a; margin-bottom: 6px; }
 .lz-rzv-table {
-  width: 100%; border-collapse: collapse;
   background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; overflow: hidden;
 }
-.lz-rzv-table th {
-  background: #f8fafc; font-size: 8.5px; font-weight: 700; color: #4a4a4a;
-  padding: 8px 10px; border-bottom: 1px solid #e6e6e6; text-align: left; white-space: nowrap;
-}
-.lz-rzv-table td {
-  font-size: 8.5px; color: #0d1f4c; padding: 8px 10px;
-  border-bottom: 1px solid #f0f0f0; vertical-align: middle;
-}
-.lz-rzv-table tr:last-child td { border-bottom: none; }
-.lz-rzv-table tr:nth-child(even) td { background: #f8fafc; }
 .lz-rzv-table tbody tr:nth-child(1):hover td,
-.lz-rzv-table tbody tr:nth-child(2):hover td { background: #e6f2ff !important; cursor: pointer; }
+.lz-rzv-table tbody tr:nth-child(2):hover td { background: var(--table-hover-bg) !important; cursor: pointer; }
 .lz-rzv-sort { color: #c0c0c0; margin-left: 3px; font-size: 7px; }
 .lz-rzv-badge-online {
   display: inline-flex; align-items: center; gap: 4px;
   border: 1px solid #1459bf; color: #1459bf; border-radius: 4px;
-  padding: 3px 8px; font-size: 7.5px; font-weight: 600; white-space: nowrap;
+  padding: 3px 8px; font-size: var(--table-badge-font-size); font-weight: 600; white-space: nowrap;
 }
 .lz-rzv-badge-prevzit {
   display: inline-flex; align-items: center; gap: 4px;
   background: #d92673; color: #fff; border-radius: 4px;
-  padding: 3px 8px; font-size: 7.5px; font-weight: 600; white-space: nowrap;
+  padding: 3px 8px; font-size: var(--table-badge-font-size); font-weight: 600; white-space: nowrap;
 }
 .lz-rzv-pager {
   display: flex; align-items: center; gap: 4px; padding: 12px 0 2px;
@@ -1579,12 +1577,10 @@ body {
 .lz-hist-fbtn { background: #fff; color: #1459bf; border: 1px solid #ccc; border-radius: 6px; padding: 0 14px; height: 32px; font-size: 9px; font-weight: 600; cursor: pointer; font-family: inherit; }
 .lz-hist-adv { margin-left: auto; font-size: 9px; color: #1459bf; cursor: pointer; }
 .lz-hist-count { font-size: 8.5px; color: #4a4a4a; margin-bottom: 6px; }
-.lz-hist-table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; overflow: hidden; }
-.lz-hist-table th { background: #f2f5fc; font-size: 8px; font-weight: 700; color: #737373; padding: 7px 8px; border-bottom: 1px solid #ccc; text-align: left; white-space: nowrap; }
-.lz-hist-table td { font-size: 8.5px; color: #121212; padding: 7px 8px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; white-space: nowrap; }
-.lz-hist-table tr:last-child td { border-bottom: none; }
-.lz-hist-table tr:nth-child(even) td { background: #f7f7fc; }
-.lz-hist-badge { display: inline-flex; align-items: center; border-radius: 6px; padding: 3px 8px; font-size: 8px; font-weight: 700; white-space: nowrap; }
+.lz-hist-table { background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; overflow: hidden; }
+.lz-hist-table th, .lz-hist-table td { white-space: nowrap; }
+.lz-hist-table tbody tr:hover td { background: var(--table-hover-bg); }
+.lz-hist-badge { display: inline-flex; align-items: center; border-radius: 6px; padding: 3px 8px; font-size: var(--table-badge-font-size); font-weight: 700; white-space: nowrap; }
 .lz-hist-badge.green { background: #d9f5de; color: #268c33; }
 .lz-hist-badge.orange { background: #fff0db; color: #bf5900; }
 .lz-hist-badge.pink { background: #d92673; color: #fff; }
@@ -2151,6 +2147,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
   background: #fff; border: 1px solid #ddd; border-radius: 10px;
   padding: 16px 20px; margin-bottom: 12px; max-width: 580px;
 }
+.zdet-section-wide { max-width: 100%; }
 .zdet-section-title { font-size: 13px; font-weight: 700; color: #1459bf; margin-bottom: 12px; }
 .zdet-field-lbl { font-size: 8.5px; color: #737373; margin-bottom: 3px; }
 .zdet-field-val {
@@ -2185,15 +2182,9 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
   width: 14px; height: 14px; border: 1.5px solid #ccc; border-radius: 50%;
   flex-shrink: 0; background: #fff;
 }
-.zdet-hist-table { width: 100%; border-collapse: collapse; }
-.zdet-hist-table th {
-  background: #f5f7fa; border: 1px solid #e0e0e0;
-  font-size: 8.5px; font-weight: 700; color: #1459bf; padding: 8px 10px; text-align: left;
-}
-.zdet-hist-table td { border: 0.5px solid #e0e0e0; font-size: 9px; color: #121212; padding: 10px; }
-.zdet-hist-table tr:nth-child(even) td { background: #f9fafe; }
+.zdet-hist-table tbody tr:hover td { background: var(--table-hover-bg); }
 .zdet-hist-tag {
-  border-radius: 6px; padding: 4px 10px; font-size: 8px; font-weight: 700; display: inline-block;
+  border-radius: 6px; padding: 4px 10px; font-size: var(--table-badge-font-size); font-weight: 700; display: inline-block;
 }
 .zdet-hist-tag.green { background: #d9f5de; color: #268c33; }
 .zdet-hist-tag.blue-dark { background: #bfe0f7; color: #1459bf; }
@@ -2284,7 +2275,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
     <div class="tbl-count">Nalezeno 138 záznamů</div>
 
-    <table class="data-table">
+    <table class="data-table app-table">
       <colgroup>
         <col class="c-jmeno"><col class="c-prijmeni"><col class="c-email">
         <col class="c-pozice"><col class="c-prac"><col class="c-termin1">
@@ -2686,7 +2677,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <span class="adv-filters">Rozšířené filtry <span>▾</span></span>
     </div>
     <div class="tbl-count">Nalezeno 138 záznamů</div>
-    <table class="data-table">
+    <table class="data-table app-table">
       <colgroup>
         <col class="c-jmeno"><col class="c-prijmeni"><col class="c-email">
         <col class="c-pozice"><col class="c-prac"><col class="c-termin1">
@@ -2747,7 +2738,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <span class="adv-filters">Rozšířené filtry <span>▾</span></span>
     </div>
     <div class="tbl-count">Nalezeno 138 záznamů</div>
-    <table class="data-table">
+    <table class="data-table app-table">
       <colgroup>
         <col class="c-jmeno"><col class="c-prijmeni"><col class="c-email">
         <col class="c-pozice"><col class="c-prac"><col class="c-termin1">
@@ -2810,7 +2801,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <span class="adv-filters">Rozšířené filtry <span>▾</span></span>
     </div>
     <div class="tbl-count">Nalezeno 99 záznamů</div>
-    <table class="data-table">
+    <table class="data-table app-table">
       <colgroup>
         <col style="width:100px"><col style="width:100px"><col style="width:120px">
         <col style="width:150px"><col style="width:170px"><col style="width:80px">
@@ -3082,9 +3073,9 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       </div>
 
       <!-- Historie záznamů -->
-      <div class="zdet-section">
+      <div class="zdet-section zdet-section-wide">
         <div class="zdet-section-title">Historie záznamů &nbsp;<span style="color:#1459bf;">ⓘ</span></div>
-        <table class="zdet-hist-table">
+        <table class="zdet-hist-table app-table">
           <thead>
             <tr>
               <th>Datum <span style="color:#ccc;">⋮</span></th>
@@ -3660,7 +3651,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <span class="lz-rzv-adv">Rozšířené filtry ▾</span>
       </div>
       <div class="lz-rzv-count">Nalezeno 10 záznamů</div>
-      <table class="lz-rzv-table">
+      <table class="lz-rzv-table app-table">
         <thead>
           <tr>
             <th>Příjmení <span class="lz-rzv-sort">⋮</span></th>
@@ -4627,7 +4618,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
           <span class="lz-hist-adv">Rozšířené filtry ▾</span>
         </div>
         <div class="lz-hist-count">Nalezeno 340 záznamů</div>
-        <table class="lz-hist-table">
+        <table class="lz-hist-table app-table">
           <thead>
             <tr>
               <th>Termín rezervace ⋮</th>
