@@ -1486,6 +1486,14 @@ body {
 #page13 .lz-app { height: 100%; }
 #page13 .lz-det-wrap { overflow-y: auto; }
 #page13 .lz-sidebar { height: 100%; overflow-y: auto; flex-shrink: 0; }
+/* ── Page 13 — fyzická žádost (z Page 11) ── */
+#page13-fyz { position: fixed; inset: 0; z-index: 200; display: none; overflow: hidden; }
+#page13-fyz.active { display: flex; }
+#page13-fyz .lz-app { height: 100%; }
+#page13-fyz .lz-det-wrap { overflow-y: auto; }
+#page13-fyz .lz-sidebar { height: 100%; overflow-y: auto; flex-shrink: 0; }
+#p13fyz-confirm-modal { position: fixed; inset: 0; z-index: 590; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
+#p13fyz-confirm-modal.active { display: flex; }
 .lz-det-sidenav-links { flex: 1; }
 .lz-det-btn-row { display: flex; flex-direction: column; gap: 6px; margin-top: 16px; }
 .lz-det-btn-red { width: 100%; background: #a61a1a; color: #fff; border: none; border-radius: 4px; padding: 8px 10px; font-size: 8px; font-weight: 700; cursor: pointer; font-family: inherit; text-align: center; }
@@ -3825,7 +3833,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
           <div class="lz-det-link">Prohlášení</div>
           <div class="lz-det-link">Seznam rizik dle kategorizace práce</div>
           <div class="lz-det-link">Seznam profesních rizik</div>
-          <button class="lz-det-startbtn" onclick="_p12RadioSel=3;showPage13()">Zahájit prohlídku</button>
+          <button class="lz-det-startbtn" onclick="showPage13Fyz()">Zahájit prohlídku</button>
         </div>
         <div class="lz-det-cards">
           <div class="lz-det-card">
@@ -3875,7 +3883,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
             <div class="lz-det-card-title">Seznam profesních rizik</div>
             <input class="lz-df-inp" value="" readonly>
           </div>
-          <button class="lz-det-startbtn" style="margin-top:4px;" onclick="_p12RadioSel=3;showPage13()">Zahájit prohlídku</button>
+          <button class="lz-det-startbtn" style="margin-top:4px;" onclick="showPage13Fyz()">Zahájit prohlídku</button>
         </div>
       </div>
     </div>
@@ -4251,6 +4259,241 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
   </div>
 </div><!-- /page13 -->
 
+<!-- PAGE 13-FYZ: LZ Rozpracovaná prohlídka | fyzická žádost (z Page 11) -->
+<div class="page" id="page13-fyz">
+  <div class="lz-app">
+    <aside class="lz-sidebar">
+      <div class="sidebar-logo">
+        <img src="assets/logo.png" alt="EUC PLS">
+      </div>
+      <div class="lz-nav-item" onclick="_lzFromFZ===7?showPage8():showPage6()">NÁSTĚNKA</div>
+      <div class="lz-nav-item active" style="cursor:pointer;" onclick="showPage9(_lzFromFZ)">REZERVACE</div>
+      <div class="lz-nav-item">KALENDÁŘE</div>
+      <div class="lz-nav-item sub">+ Nahlásit nedostupný</div>
+      <div class="lz-nav-sep"></div>
+      <div class="lz-nav-item" onclick="showPage14()">HISTORIE PROHLÍDEK</div>
+      <div class="lz-nav-item">PODKLADY PRO FAKTURACI</div>
+      <div class="lz-nav-item">DOKUMENTY A FAQ</div>
+      <div class="lz-nav-sep"></div>
+      <div class="lz-nav-item">MŮJ PROFIL</div>
+      <div class="lz-nav-item">ODHLÁSIT SE</div>
+      <div class="lz-helper-bar2">
+        <button class="lz-helper-btn2" data-hide="lz" id="lz13fyz-back-btn">← Zpět do FZ (Rezervace)</button>
+      </div>
+    </aside>
+    <div class="lz-det-wrap">
+      <div class="lz-det-topbar">
+        <div class="lz-det-avatar"></div>
+        <div>
+          <div class="lz-det-name">Lukáš Motl</div>
+          <div class="lz-det-type">PLS – základní</div>
+        </div>
+      </div>
+      <div class="lz-det-body">
+        <div class="lz-det-sidenav">
+          <div class="lz-det-back" onclick="showPage11()">Zpět na rezervace</div>
+          <div class="lz-det-sidenav-links">
+            <div class="lz-det-link">Detail prohlídky</div>
+            <div class="lz-det-link">Údaje o posuzované osobě</div>
+            <div class="lz-det-link">Žadatel</div>
+            <div class="lz-det-link">Poznámka k rezervaci</div>
+            <div class="lz-det-link">Prohlášení</div>
+            <div class="lz-det-link">Seznam rizik dle kategorizace práce</div>
+            <div class="lz-det-link">Seznam profesních rizik</div>
+            <div class="lz-det-link">Průběh prohlídky</div>
+            <div class="lz-det-link">Výkony k fakturaci</div>
+            <div class="lz-det-link">Termín rezervace</div>
+            <div class="lz-det-link">Datum prohlídky</div>
+            <div class="lz-det-link">Výsledek prohlídky</div>
+            <div class="lz-det-link">Zkrátit termín prohlídky</div>
+          </div>
+          <div class="lz-det-btn-row">
+            <button class="lz-det-btn-red" onclick="showPage9(_lzFromFZ)">Zrušit úpravy</button>
+          </div>
+        </div>
+        <div class="lz-det-cards">
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Detail prohlídky</div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Typ prohlídky</div>
+              <input class="lz-df-inp-dis" value="Vstupní prohlídka" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Důvod prohlídky</div>
+              <input class="lz-df-inp-dis" value="" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Způsob zpracování prohlídky</div>
+              <input class="lz-df-inp-dis" value="Fyzicky" readonly>
+            </div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Údaje o posuzované osobě</div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Jméno</div>
+              <input class="lz-df-inp-dis" value="Lukáš" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Příjmení</div>
+              <input class="lz-df-inp-dis" value="Motl" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Datum narození</div>
+              <input class="lz-df-inp-dis" value="25.03.1996" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Pohlaví</div>
+              <input class="lz-df-inp-dis" value="Muž" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Osobní číslo</div>
+              <input class="lz-df-inp-dis" value="" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Preferovaný jazyk</div>
+              <input class="lz-df-inp-dis" value="čeština" readonly>
+            </div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Žadatel</div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Název společnosti</div>
+              <input class="lz-df-inp-dis" value="Česká spořitelna, a.s." readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Pracovní pozice</div>
+              <input class="lz-df-inp-dis" value="" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">IČO</div>
+              <input class="lz-df-inp-dis" value="45244782" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Adresa sídla</div>
+              <textarea class="lz-df-ta-dis" readonly>Olbrachtova 1929/62, 140 00 Praha 4</textarea>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Datum vystavení</div>
+              <input class="lz-df-inp-dis" value="21.05.2026" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Jméno oprávněné osoby</div>
+              <input class="lz-df-inp-dis" value="" readonly>
+            </div>
+            <div class="lz-df">
+              <div class="lz-df-lbl">Pracovní činnosti</div>
+              <input class="lz-df-inp-dis" value="" readonly>
+            </div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Poznámka k rezervaci</div>
+            <textarea class="lz-df-ta-dis" readonly></textarea>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Prohlášení</div>
+            <input class="lz-df-inp-dis" value="" readonly>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Seznam rizik dle kategorizace práce</div>
+            <ul class="lz-df-risks">
+              <li>fyzická zátěž celková kat. 2</li>
+              <li>pracovní poloha kat. 2</li>
+              <li>vyšetření v základním rozsahu kat. 1</li>
+              <li>zátěž chladem kat. 2</li>
+              <li>obsluha transportních a vysokozdvižných vozíků</li>
+              <li>lokální svalová zátěž kat. 2</li>
+            </ul>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Seznam profesních rizik</div>
+            <input class="lz-df-inp-dis" value="" readonly>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title" style="margin-bottom:8px;">Průběh prohlídky (checklist)</div>
+            <div class="lz-det-checklist-hdr"><span></span><span>Nepřišel</span></div>
+            <div class="lz-det-checklist-row">
+              <span class="lz-det-checklist-name">PLS – základní</span>
+              <button class="lz-det-ano-btn">Ano</button>
+              <button class="lz-det-ne-btn">Ne</button>
+            </div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Výkony k fakturaci</div>
+            <div class="lz-det-price-row"><span>PLS – základní</span><span>500 Kč</span></div>
+            <div class="lz-det-add-link">+ Přidat další vyšetření</div>
+            <hr class="lz-det-price-sep">
+            <div class="lz-det-price-total"><span>Celkem</span><span>500 Kč</span></div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Termín rezervace</div>
+            <input class="lz-df-inp-dis" value="27.05.2026" readonly style="max-width:160px;">
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Datum provedení prohlídky</div>
+            <input class="lz-df-inp" value="26.05.2026" style="max-width:160px;">
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Výsledek prohlídky</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)"><div class="lz-det-vr-box"></div>Způsobilý/á</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)"><div class="lz-det-vr-box"></div>Způsobilý/á s podmínkou</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)"><div class="lz-det-vr-box"></div>Nezpůsobilý/á</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)"><div class="lz-det-vr-box"></div>Pozbyl dlouhodobé způsobilosti</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)"><div class="lz-det-vr-box"></div>Nepřišel</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)"><div class="lz-det-vr-box"></div>Probíhá</div>
+            <div class="lz-det-vr-row" onclick="p13fyzToggleVysledek(this)" style="margin-bottom:0;"><div class="lz-det-vr-box"></div>Absolvoval</div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Zkrátit termín prohlídky</div>
+            <div class="lz-det-zk-row"><div class="lz-det-zk-box"></div>Zkrátit termín prohlídky</div>
+          </div>
+
+          <div class="lz-det-card">
+            <div class="lz-det-card-title">Popis podmínky</div>
+            <input class="lz-df-inp" value="" style="max-width:200px;">
+          </div>
+
+          <div id="p13fyz-btn-row-edit" style="display:flex; gap:10px; padding-bottom:24px;">
+            <button class="lz-det-btn-red" style="width:auto; padding:9px 20px;" onclick="showPage9(_lzFromFZ)">Zrušit úpravy</button>
+            <button id="p13fyz-uzavrit-btn" class="lz-det-btn-green" style="width:auto; padding:9px 20px;" onclick="p13fyzUzavritProhlidku()" disabled>Uzavřít prohlídku</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page13-fyz -->
+
+<!-- Confirm-before-continue modal (page13-fyz) -->
+<div id="p13fyz-confirm-modal">
+  <div class="p13-confirm-dialog">
+    <p class="p13-confirm-title">⚠️ Zkontrolujte zadané údaje</p>
+    <p class="p13-confirm-text">Před pokračováním si prosím pečlivě zkontrolujte zadaná data, zejména:</p>
+    <ul class="p13-confirm-list">
+      <li><b>Výsledek prohlídky</b> (posudkový závěr)</li>
+      <li><b>Datum provedení prohlídky</b></li>
+      <li>Typ prohlídky a údaje o posuzované osobě</li>
+    </ul>
+    <div class="p13-confirm-warn">Kliknutím na „Pokračovat k podpisu" budou údaje uzamčeny a <b>již nepůjdou změnit</b>.</div>
+    <div class="p13-confirm-btns">
+      <button class="p13-confirm-edit" onclick="p13FyzConfirmEdit()">✏️ Upravit prohlídku</button>
+      <button class="p13-confirm-continue" onclick="p13FyzConfirmContinue()">Pokračovat k podpisu</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── Print modal (492-11028) ── -->
 <div id="p13-print-modal">
   <div class="p13-pdf-dialog">
@@ -4506,7 +4749,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
 
 <script>
-const allPages = ['page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12','page13','page14','page-zam','page-zam-detail'];
+const allPages = ['page1','page2','page3','page4','page5','page6','page7','page8','page9','page10','page11','page12','page13','page13-fyz','page14','page-zam','page-zam-detail'];
 
 var _role = 'all';
 var _roleMeta = {
@@ -4806,6 +5049,37 @@ function p13UpravitProhlidku() {
   document.getElementById('p13-btn-row-view').style.display = 'none';
   document.getElementById('p13-btn-row-sign').style.display = 'none';
   document.getElementById('p13-btn-row-edit').style.display = 'flex';
+}
+
+function showPage13Fyz() {
+  hideAll();
+  document.getElementById('page13-fyz').classList.add('active');
+  setPageIndicator('Page 13', 'Page 13 — LZ Rozpracovaná prohlídka | fyzická žádost');
+  var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
+  document.getElementById('lz13fyz-back-btn').onclick = backFZFn;
+  document.querySelectorAll('#page13-fyz .lz-det-vr-box').forEach(function(b){ b.classList.remove('checked'); });
+  document.getElementById('p13fyz-uzavrit-btn').disabled = true;
+  document.querySelector('#page13-fyz .lz-det-wrap').scrollTop = 0;
+}
+
+function p13fyzToggleVysledek(row) {
+  var box = row.querySelector('.lz-det-vr-box');
+  box.classList.toggle('checked');
+  var anyChecked = document.querySelectorAll('#page13-fyz .lz-det-vr-box.checked').length > 0;
+  document.getElementById('p13fyz-uzavrit-btn').disabled = !anyChecked;
+}
+
+function p13fyzUzavritProhlidku() {
+  document.getElementById('p13fyz-confirm-modal').classList.add('active');
+}
+
+function p13FyzConfirmEdit() {
+  document.getElementById('p13fyz-confirm-modal').classList.remove('active');
+}
+
+function p13FyzConfirmContinue() {
+  document.getElementById('p13fyz-confirm-modal').classList.remove('active');
+  showPage14();
 }
 
 function openPrintModal() {
