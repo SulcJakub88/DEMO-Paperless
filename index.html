@@ -5409,7 +5409,7 @@ function showPage14(fromFyz) {
   }
   var signCell = document.getElementById('hist-sign-cell');
   if (signCell) {
-    if (_empSignMethod === 'fyzicky') {
+    if (fromFyz || _empSignMethod === 'fyzicky') {
       signCell.innerHTML = '<span class="lz-hist-badge o-orange">🖨️&nbsp; Fyzický podpis</span>';
     } else if (_empSignMethod === 'odmitl') {
       signCell.innerHTML = '<span class="lz-hist-badge sign-red">✗&nbsp; Odmítl podepsat</span>';
@@ -5419,7 +5419,7 @@ function showPage14(fromFyz) {
   }
   var pdfBtns = document.getElementById('hist-pdf-btns');
   if (pdfBtns) {
-    pdfBtns.style.display = (_empSignMethod === 'fyzicky' || _empSignMethod === 'odmitl') ? 'none' : 'flex';
+    pdfBtns.style.display = (fromFyz || _empSignMethod === 'fyzicky' || _empSignMethod === 'odmitl') ? 'none' : 'flex';
   }
   setPageIndicator("Page 14", fromFyz ? "Page 14 — LZ Historie prohlídek | fyzická žádost" : "Page 14 — LZ Historie prohlídek");
   var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
