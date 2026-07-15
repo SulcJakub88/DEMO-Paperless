@@ -190,8 +190,12 @@ Odmítnutí (detail): odmitnuti-modal(poznámka) → [Potvrdit] → svedek-modal
 - `pdf-view-modal` — 2 sloupce (zóna vs SMS), sloupce se přepínají dle `_empSignMethod`.
 - `zam-posudek-modal` — „Zobrazit posudek" na profilu zaměstnance (2 podepsané posudky).
 - `posudek-elec-overlay` — fullscreen náhled elektronicky podepsaného posudku.
-- `sim-helper-overlay` — spouštěč simulací (notifikace/eskalace/přijetí závěru).
+- `sim-helper-overlay` — spouštěč simulací: notifikace (digital/fyzická), eskalace,
+  „Potvrzení seznámení se závěrem po přihlášení do FZ" (dřív „Přijetí závěru ve FZ").
 - `email-notif/eskal/potvrzeno/automaticky-modal`, `prijeti-zaveru-modal` — e-mailové šablony.
+  `prijeti-zaveru-modal` (=„Důležité upozornění") má 1. řádek Motl Lukáš.
+- `email-notif-physical-modal` — notifikace o **fyzickém** doručení posudku (layout dle 421-2,
+  předmět „Fyzické doručení posudku", data Lukáš Motl / ČS); open/closeEmailNotifPhysicalModal().
 - `role-picker-overlay` — výběr role (5 karet, zobrazí se při startu).
 
 ## Assety (`assets/`)

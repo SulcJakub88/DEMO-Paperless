@@ -1993,12 +1993,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 .sim-helper-close-link:hover { color: #555; }
 
 /* ── Email template modals ── */
-#email-notif-modal, #email-eskal-modal {
+#email-notif-modal, #email-eskal-modal, #email-notif-physical-modal {
   position: fixed; inset: 0; z-index: 960;
   display: none; align-items: center; justify-content: center;
   background: rgba(0,0,0,0.72);
 }
-#email-notif-modal.active, #email-eskal-modal.active { display: flex; }
+#email-notif-modal.active, #email-eskal-modal.active, #email-notif-physical-modal.active { display: flex; }
 .email-tpl-dialog {
   background: #f0f5fa; border-radius: 8px; width: 940px; max-height: 90vh;
   overflow-y: auto; box-shadow: 0 12px 50px rgba(0,0,0,0.4);
@@ -5353,6 +5353,14 @@ function closeEmailNotifModal() {
   document.getElementById('email-notif-modal').classList.remove('active');
 }
 
+function openEmailNotifPhysicalModal() {
+  document.getElementById('email-notif-physical-modal').classList.add('active');
+}
+
+function closeEmailNotifPhysicalModal() {
+  document.getElementById('email-notif-physical-modal').classList.remove('active');
+}
+
 function openEmailEskalModal() {
   document.getElementById('email-eskal-modal').classList.add('active');
 }
@@ -5969,9 +5977,10 @@ function closePosudekElecOverlay() {
   <div class="sim-helper-box">
     <p class="sim-helper-title" id="sim-helper-title">⚡ Simulovat kompletní online podpis</p>
     <p class="sim-helper-desc">Zvolte krok, který chcete simulovat:</p>
-    <button class="sim-helper-btn" onclick="openEmailNotifModal()">📧&nbsp; Notifikace o dokončení prohlídky</button>
+    <button class="sim-helper-btn" onclick="openEmailNotifModal()">📧&nbsp; Notifikační e-mail o dokončení elektronicky podepsaného posudku</button>
+    <button class="sim-helper-btn" onclick="openEmailNotifPhysicalModal()">📧&nbsp; Notifikační e-mail o fyzickém doručení</button>
     <button class="sim-helper-btn" onclick="openEmailEskalModal()">🔴&nbsp; Eskalační email</button>
-    <button class="sim-helper-btn" onclick="openPrijetiZaveruFlow()">✅&nbsp; Přijetí závěru ve FZ</button>
+    <button class="sim-helper-btn" onclick="openPrijetiZaveruFlow()">✅&nbsp; Potvrzení seznámení se závěrem po přihlášení do FZ</button>
     <button class="sim-helper-close-link" onclick="closeSimHelper()">✕ Zavřít</button>
   </div>
 </div>
@@ -6005,6 +6014,44 @@ function closePosudekElecOverlay() {
       <div class="em-warn-box">
         <p><b>⏰&nbsp; Upozornění:</b></p>
         <p>Pokud žádný autorizovaný uživatel nepotvrdí přijetí posudku do 5 dnů, bude posudek automaticky doručen na e-mailové adresy všech autorizovaných uživatelů FZ.</p>
+      </div>
+      <button class="em-cta blue">Přejít do Firemní zóny EUC PLS</button>
+      <div class="em-footer-hr"></div>
+      <p class="em-footer-txt">S pozdravem, Oddělení péče o klienty, EUC PLS &nbsp;|&nbsp; no-reply@euc.cz &nbsp;|&nbsp; Tato zpráva byla vygenerována automaticky.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     EMAIL MODAL — Notifikace o fyzickém doručení posudku (layout dle 421-2)
+═══════════════════════════════════ -->
+<div id="email-notif-physical-modal">
+  <div class="email-tpl-dialog">
+    <button class="email-tpl-close" onclick="closeEmailNotifPhysicalModal()">✕</button>
+    <p class="email-tpl-headline blue">📧&nbsp; NOTIFIKAČNÍ E-MAIL — Fyzické doručení posudku</p>
+    <div class="em-hdr-box">
+      <div class="em-hdr-row"><span class="em-hdr-lbl">Od:</span><span class="em-hdr-val">no-reply@euc.cz</span></div>
+      <div class="em-hdr-row"><span class="em-hdr-lbl">Komu:</span><span class="em-hdr-val">hr@csas.cz (všichni autorizovaní uživatelé FZ daného klienta)</span></div>
+      <div class="em-hdr-row"><span class="em-hdr-lbl">Předmět:</span><span class="em-hdr-val blue">Fyzické doručení posudku</span></div>
+    </div>
+    <div class="em-body-box">
+      <p class="em-body-title blue">Fyzické doručení posudku</p>
+      <div class="em-hr"></div>
+      <p class="em-greet">Dobrý den,</p>
+      <p class="em-txt">pracovnělékařská prohlídka zaměstnance <b>Lukáš Motl</b> (Česká spořitelna, a.s.) byla úspěšně dokončena. Výsledek prohlídky (posudkový závěr) je nyní dostupný ve Firemní zóně EUC PLS.</p>
+      <div class="em-callout-blue">
+        <p><b>👉&nbsp; Samotný lékařský posudek Vám nebude doručen elektronicky.</b></p>
+        <p>Posudek bude předán <b>fyzicky prostřednictvím zaměstnance</b>, který jej obdrží v tištěné podobě od lékaře a předá jej pověřené osobě u zaměstnavatele.</p>
+      </div>
+      <div class="em-info-grid">
+        <div class="em-info-row2"><b>Zaměstnanec:</b><span>Lukáš Motl</span></div>
+        <div class="em-info-row2"><b>Společnost:</b><span>Česká spořitelna, a.s.</span></div>
+        <div class="em-info-row2"><b>Typ prohlídky:</b><span>Vstupní prohlídka</span></div>
+        <div class="em-info-row2"><b>Datum prohlídky:</b><span>17.06.2026</span></div>
+      </div>
+      <div class="em-warn-box">
+        <p><b>ℹ️&nbsp; Poznámka:</b></p>
+        <p>Ve Firemní zóně EUC PLS si můžete kdykoli zobrazit posudkový závěr (zdravotní způsobilost). Tištěný posudek podepsaný lékařem předá zaměstnanec osobně pověřené osobě u zaměstnavatele.</p>
       </div>
       <button class="em-cta blue">Přejít do Firemní zóny EUC PLS</button>
       <div class="em-footer-hr"></div>
@@ -6072,8 +6119,8 @@ function closePosudekElecOverlay() {
       </thead>
       <tbody>
         <tr>
-          <td>Buřt</td>
-          <td>Tomáš</td>
+          <td>Motl</td>
+          <td>Lukáš</td>
           <td>Praha – Černý Most</td>
           <td><span class="pz-badge">🛡️&nbsp; Způsobilý</span></td>
           <td>Vstupní prohlídka</td>
