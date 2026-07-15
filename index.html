@@ -1434,27 +1434,33 @@ body {
   margin: 12px 0; display: flex; align-items: flex-start; gap: 8px;
 }
 .lz-ver-cbbox input[type="checkbox"] { margin-top: 1px; flex-shrink: 0; cursor: pointer; }
+.lz-ver-info-ico {
+  display: flex; align-items: center; justify-content: center;
+  width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0; margin-top: 1px;
+  background: #1459bf; color: #fff; font-size: 9px; font-weight: 800; font-style: italic;
+}
 .lz-ver-cblbl { font-size: 9px; color: #0d1f4c; line-height: 1.5; }
 .lz-ver-cblbl strong { display: block; margin-bottom: 2px; }
 .lz-ver-q { font-size: 10px; font-weight: 700; color: #0d1f4c; margin: 14px 0 8px; }
 .lz-ver-radio {
   border: 1px solid #e6e6e6; border-radius: 6px; padding: 10px 12px;
   margin-bottom: 6px; display: flex; align-items: flex-start; gap: 10px;
+  background: #fff; transition: border-color .15s, background .15s;
 }
-.lz-ver-radio.sel { background: #1459bf; border-color: #1459bf; }
+.lz-ver-radio.sel { background: #eff6ff; border-color: #1459bf; }
 .lz-ver-rdot {
-  width: 13px; height: 13px; border-radius: 50%; border: 2px solid #d1d5db;
+  width: 14px; height: 14px; border-radius: 50%; border: 2px solid #d1d5db;
   flex-shrink: 0; margin-top: 2px; background: #fff;
   display: flex; align-items: center; justify-content: center;
 }
-.lz-ver-radio.sel .lz-ver-rdot { border-color: rgba(255,255,255,0.7); }
+.lz-ver-radio.sel .lz-ver-rdot { border-color: #1459bf; }
 .lz-ver-radio.sel .lz-ver-rdot::after {
-  content: ''; width: 5px; height: 5px; border-radius: 50%; background: #fff;
+  content: ''; width: 7px; height: 7px; border-radius: 50%; background: #1459bf;
 }
 .lz-ver-rtitle { font-size: 9px; font-weight: 700; color: #0d1f4c; }
-.lz-ver-radio.sel .lz-ver-rtitle { color: #fff; }
+.lz-ver-radio.sel .lz-ver-rtitle { color: #1459bf; }
 .lz-ver-rdesc { font-size: 8px; color: #737373; margin-top: 2px; line-height: 1.4; }
-.lz-ver-radio.sel .lz-ver-rdesc { color: rgba(255,255,255,0.75); }
+.lz-ver-radio.sel .lz-ver-rdesc { color: #4a4a4a; }
 .lz-ver-phone-area { margin-top: 12px; }
 .lz-ver-phone-lbl { font-size: 8px; color: #9ca3af; margin-bottom: 2px; }
 .lz-ver-phone-helper { font-size: 8px; color: #9ca3af; margin-bottom: 4px; }
@@ -3910,7 +3916,9 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <div class="lz-det-sidenav">
           <div class="lz-det-back" onclick="showPage10()">Zpět na rezervace</div>
           <div class="lz-det-link">Modul fakturace</div>
-          <button class="lz-det-cancel-btn" onclick="showPage10()">Zrušit úpravy</button>
+          <div class="lz-det-btn-row">
+            <button class="lz-det-btn-red" onclick="showPage10()">Zrušit úpravy</button>
+          </div>
         </div>
         <div class="lz-det-cards">
           <div class="lz-ver-card">
@@ -3918,16 +3926,16 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
             <div class="lz-ver-subtitle">Kontaktní údaje</div>
             <div class="lz-df">
               <div class="lz-df-lbl">Číslo občanského průkazu</div>
-              <input class="lz-df-inp" value="5165151512" readonly>
+              <input class="lz-df-inp" value="5165151512">
               <div class="lz-ver-helper">Ověřte totožnost zaměstnance podle dokladu. U cizinců číslo pasu / řídicího...</div>
             </div>
             <div class="lz-df" style="margin-top:10px;">
               <div class="lz-df-lbl">E-mail zaměstnance</div>
-              <input class="lz-df-inp" value="lmotl@csas.cz" readonly>
+              <input class="lz-df-inp" value="lmotl@csas.cz">
               <div class="lz-ver-helper warn">Ověřte nebo doplňte osobní e-mail zaměstnance, na něj zašleme odkaz k podpisu (pracovní se neení !!!)</div>
             </div>
             <div class="lz-ver-cbbox">
-              <input type="checkbox" checked>
+              <div class="lz-ver-info-ico">i</div>
               <div class="lz-ver-cblbl">
                 <strong>Sdělte zaměstnanci:</strong>
                 „Na tento e-mail vám po prohlídce zašleme odkaz k podpisu posudku."
