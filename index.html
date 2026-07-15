@@ -9,14 +9,15 @@
 body {
   font-family: -apple-system, 'Inter', system-ui, sans-serif;
   background: #f0f5fa;
-  min-height: 100vh;
+  height: 100vh;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 /* ── WRAPPER ── */
 .app {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
   width: 1440px;
 }
 
@@ -26,7 +27,8 @@ body {
   min-width: 220px;
   background: #fff;
   border-right: 1px solid #e6e6e6;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
   flex-shrink: 0;
   position: relative;
   display: flex;
@@ -134,7 +136,7 @@ body {
 .nav-sub.active { color: #ff0096; text-decoration: underline; }
 
 /* ── PAGES ── */
-.page { display: none; flex: 1; flex-direction: column; }
+.page { display: none; flex: 1; flex-direction: column; min-height: 0; }
 .page.active { display: flex; }
 
 /* ══════════════════════════════
@@ -143,7 +145,11 @@ body {
 .p1-wrap {
   padding: 0 24px 24px;
   flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
+/* fixní záhlaví seznamových stránek – scrolluje jen tabulka pod ním */
+.p1-wrap > .hdr-card { position: sticky; top: 0; z-index: 6; }
 
 /* top-right tiny links */
 .p1-top-links {
@@ -251,6 +257,9 @@ body {
 .data-table tr.alt { background: #f7faff; }
 .data-table tr.clickable { cursor: pointer; }
 .data-table tr.clickable:hover td { background: #edf3fc; }
+#page5 .data-table tbody tr:hover td,
+#page7 .data-table tbody tr:hover td,
+#page-zam .data-table tbody tr:hover td { background: #edf3fc; }
 
 /* status badges */
 .sbadge {
@@ -324,14 +333,22 @@ body {
 /* ══════════════════════════════
    PAGE 2 — ŽÁDOST
 ══════════════════════════════ */
-#page2.active { flex-direction: row; }
+#page2.active { flex-direction: column; padding: 20px 24px 24px; overflow-y: auto; }
+
+/* full-width row wrapper for nav + form */
+.p2-cols { display: flex; flex-direction: row; flex: 1; min-height: 0; }
 
 /* secondary nav */
 .p2-nav {
   width: 200px;
   min-width: 200px;
-  padding: 120px 14px 20px;
+  padding: 20px 14px 20px 0;
   flex-shrink: 0;
+  position: sticky;
+  top: 90px;
+  align-self: flex-start;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
 }
 .p2-nav a {
   display: block;
@@ -356,7 +373,6 @@ body {
   flex: 1;
   max-width: 542px;
   padding: 20px 20px 60px 0;
-  overflow-y: auto;
 }
 
 .p2-hdr-card {
@@ -364,6 +380,10 @@ body {
   border: 1px solid #ccc;
   border-radius: 8px;
   height: 54px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 6;
   padding: 0 16px;
   display: flex;
   flex-direction: column;
@@ -1200,18 +1220,26 @@ body {
 ══════════════════════════════ */
 #page6, #page8 {
   position: fixed; inset: 0; z-index: 200;
-  display: none; overflow-y: auto;
+  display: none; overflow: hidden;
 }
 #page6.active, #page8.active { display: flex; }
 .lz-app {
-  display: flex; min-height: 100vh; width: 1440px; background: #f0f5fa;
+  display: flex; height: 100vh; width: 1440px; background: #f0f5fa;
 }
 .lz-sidebar {
   width: 220px; min-width: 220px; background: #fff;
-  border-right: 1px solid #e6e6e6; min-height: 100vh;
+  border-right: 1px solid #e6e6e6; height: 100vh; overflow-y: auto;
   flex-shrink: 0; padding: 0 0 20px;
   display: flex; flex-direction: column;
 }
+/* LZ Nástěnka (page6/8): scroll na celém obsahu, záhlaví i submenu sticky
+   (scrollbar u pravého okraje a od vrchu – stejně jako profil zaměstnance) */
+#page6 .lz-content, #page8 .lz-content {
+  display: flex; flex-direction: column; overflow-y: auto; min-height: 0;
+}
+.lz-header-card { flex-shrink: 0; position: sticky; top: 0; z-index: 6; }
+.lz-cols { align-items: flex-start; }
+.lz-subnav-col { position: sticky; top: 78px; align-self: flex-start; max-height: calc(100vh - 88px); overflow-y: auto; }
 .lz-nav-item {
   display: block; padding: 9px 14px; font-size: 9px;
   font-weight: 400; color: #121212; text-decoration: none; cursor: pointer; line-height: 1;
@@ -1269,9 +1297,11 @@ body {
 /* ── LZ Rezervace (page9) ── */
 #page9 {
   position: fixed; inset: 0; z-index: 200;
-  display: none; overflow-y: auto;
+  display: none; overflow: hidden;
 }
 #page9.active { display: flex; }
+#page9 .lz-content { overflow-y: auto; min-height: 0; }
+#page9 .lz-rzv-toprow { position: sticky; top: 0; z-index: 6; }
 .lz-rzv-toprow {
   display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
   background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; padding: 13px 18px;
@@ -1352,22 +1382,27 @@ body {
 /* ── LZ Detail prohlídky (page10, page11) ── */
 #page10, #page11 {
   position: fixed; inset: 0; z-index: 200;
-  display: none; overflow-y: auto;
+  display: none; overflow: hidden;
 }
 #page10.active, #page11.active { display: flex; }
-.lz-det-wrap { flex: 1; background: #f0f5fa; display: flex; flex-direction: column; }
+.lz-det-wrap { flex: 1; background: #f0f5fa; display: flex; flex-direction: column; min-height: 0; overflow-y: auto; }
 .lz-det-topbar {
+  flex-shrink: 0;
+  position: sticky; top: 0; z-index: 6;
   display: flex; align-items: center; gap: 12px;
-  padding: 14px 24px 13px; border-bottom: 1px solid #e6e6e6; background: #fff;
+  padding: 13px 18px; margin: 20px 24px 0;
+  background: #fff; border: 1px solid #e6e6e6; border-radius: 8px;
 }
 .lz-det-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: #d1d5db; flex-shrink: 0;
+  width: 36px; height: 36px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; line-height: 1;
 }
+.lz-det-avatar::before { content: "👤"; }
 .lz-det-name { font-size: 15px; font-weight: 800; color: #0d1f4c; }
 .lz-det-type { font-size: 9px; color: #737373; margin-top: 2px; }
-.lz-det-body { display: flex; gap: 0; padding: 20px 24px; flex: 1; }
-.lz-det-sidenav { width: 200px; min-width: 200px; flex-shrink: 0; padding-right: 20px; }
+.lz-det-body { display: flex; gap: 0; padding: 20px 24px; flex: 1; align-items: flex-start; }
+.lz-det-sidenav { width: 200px; min-width: 200px; flex-shrink: 0; padding-right: 20px; position: sticky; top: 82px; align-self: flex-start; max-height: calc(100vh - 92px); overflow-y: auto; }
 .lz-det-back { display: block; font-size: 9px; color: #737373; cursor: pointer; margin-bottom: 12px; }
 .lz-det-link { display: block; font-size: 9px; color: #1459bf; cursor: pointer; padding: 3px 0; line-height: 1.6; }
 .lz-det-startbtn {
@@ -1397,7 +1432,7 @@ body {
 .lz-df-risks li::before { content: "• "; }
 
 /* ── LZ Ověření zaměstnance (page12) ── */
-#page12 { position: fixed; inset: 0; z-index: 200; display: none; overflow-y: auto; }
+#page12 { position: fixed; inset: 0; z-index: 200; display: none; overflow: hidden; }
 #page12.active { display: flex; }
 .lz-ver-card { background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; padding: 18px 20px; max-width: 600px; }
 .lz-ver-title { font-size: 14px; font-weight: 800; color: #1459bf; margin-bottom: 14px; }
@@ -1531,8 +1566,8 @@ body {
 #page14.active { display: flex; }
 #page14 .lz-app { height: 100%; }
 #page14 .lz-hist-wrap { flex: 1; background: #f0f5fa; display: flex; flex-direction: column; overflow-y: auto; }
-.lz-hist-topbar { background: #fff; border-bottom: 1px solid #e6e6e6; padding: 10px 20px; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.lz-hist-title { font-size: 18px; font-weight: 800; color: #1459bf; }
+.lz-hist-topbar { background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; padding: 13px 18px; margin: 14px 20px 0; display: flex; align-items: center; gap: 10px; flex-shrink: 0; position: sticky; top: 0; z-index: 6; }
+.lz-hist-title { font-size: 18px; font-weight: 800; color: #0d1f4c; }
 .lz-hist-topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 18px; font-size: 9px; color: #737373; }
 .lz-hist-content { padding: 14px 20px; }
 .lz-hist-filterbar { background: #fff; border: 1px solid #e6e6e6; border-radius: 8px; padding: 10px 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -2072,14 +2107,16 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 }
 .prijeti-confirm-btn:hover { background: #fae0ed; }
 .prijeti-footer-note { font-size: 7px; color: #1a3380; text-align: center; max-width: 360px; line-height: 1.4; }
-/* ── page-zam-detail ── */
-#page-zam-detail { overflow: hidden; background: #f0f5fa; }
-#page-zam-detail.active { display: flex; }
-.zdet-outer { display: flex; flex: 1; overflow: hidden; }
+/* ── page-zam-detail (standardní FZ layout: plné záhlaví + submenu vlevo + obsah vpravo) ── */
+#page-zam-detail { background: #f0f5fa; }
+#page-zam-detail.active { display: flex; flex-direction: column; overflow-y: auto; padding: 20px 24px 24px; }
+.zdet-cols { display: flex; flex-direction: row; flex: 1; min-height: 0; }
 .zdet-subnav {
-  width: 196px; flex-shrink: 0; padding: 16px 14px;
+  width: 200px; min-width: 200px; flex-shrink: 0; padding: 20px 14px 20px 0;
   display: flex; flex-direction: column; gap: 0;
-  background: #f0f5fa; overflow-y: auto;
+  background: #f0f5fa;
+  position: sticky; top: 76px; align-self: flex-start;
+  max-height: calc(100vh - 96px); overflow-y: auto;
 }
 .zdet-nav-back {
   font-size: 9px; font-weight: 600; color: #1459bf; background: none; border: none;
@@ -2094,10 +2131,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
   padding: 8px 12px; cursor: pointer; font-family: inherit; width: 100%; text-align: left;
 }
 .zdet-nav-cta:hover { background: #fae0ed; }
-.zdet-main { flex: 1; overflow-y: auto; padding: 12px 20px 40px; }
+.zdet-main { flex: 1; padding: 20px 0 40px 0; }
 .zdet-hdr-card {
   background: #fff; border: 1px solid #ddd; border-radius: 8px;
-  padding: 14px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px;
+  flex-shrink: 0;
+  position: sticky; top: 0; z-index: 6;
 }
 .zdet-hdr-icon { font-size: 18px; flex-shrink: 0; }
 .zdet-hdr-info { flex: 1; }
@@ -2205,6 +2244,9 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     <div class="nav-item">ODHLÁSIT SE</div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-lz-wrap">
+    <button class="sidebar-lz-btn" id="sidebar-toggle-req-btn" style="margin-bottom:8px;">🔄 Přepnout na fyzickou žádost</button>
+    <button class="sidebar-sim-btn" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
+    <button class="sidebar-sim-btn" id="sidebar-email-print-btn" onclick="showEmailModal('physical')" style="margin-bottom:4px;">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
     <button class="sidebar-sim-btn" id="sidebar-kl-btn" data-hide="fz" style="margin-bottom:4px;">🖥️ Přejít do KL</button>
     <button class="sidebar-lz-btn" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
     <button class="sidebar-sim-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
@@ -2402,6 +2444,14 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 ═══════════════════════════════════ -->
 <div class="page" id="page2">
 
+  <!-- full-width header (zarovnané s hlavním obsahovým kontejnerem jako ostatní FZ stránky) -->
+  <div class="p2-hdr-card">
+    <div class="p2-hdr-title"><span style="font-size:16px;color:#1459bf;">📄</span> ŽÁDOST</div>
+    <div class="p2-hdr-sub">o provedení pracovnělékařské prohlídky a posouzení zdravotní způsobilosti k práci</div>
+  </div>
+
+  <div class="p2-cols">
+
   <!-- secondary nav -->
   <div class="p2-nav">
     <a href="#udaje">Údaje o posuzované osobě</a>
@@ -2416,11 +2466,6 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
   <!-- form -->
   <div class="p2-form">
-
-    <div class="p2-hdr-card">
-      <div class="p2-hdr-title"><span style="font-size:16px;color:#1459bf;">📄</span> ŽÁDOST</div>
-      <div class="p2-hdr-sub">o provedení pracovnělékařské prohlídky a posouzení zdravotní způsobilosti k práci</div>
-    </div>
 
     <!-- Údaje o posuzované osobě -->
     <div id="udaje">
@@ -2614,6 +2659,8 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     </div>
 
   </div><!-- /p2-form -->
+
+  </div><!-- /p2-cols -->
 </div><!-- /page2 -->
 
 <!-- PAGE 5: FZ Rezervace — po digitálním odeslání -->
@@ -2649,7 +2696,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <th>Status rezervace <span class="sort-ic">⋮</span></th><th>Typ prohlídky <span class="sort-ic">⋮</span></th>
       </tr></thead>
       <tbody>
-        <tr class="white" style="background:#f0f6ff;">
+        <tr class="white" id="p5-motl-row">
           <td>Lukáš</td><td>Motl</td><td>lmotl@csas.cz</td>
           <td>specialista Klientského centra plus</td><td>Staré nám. 28, Rychnov nad Kněžnou, 516 01</td>
           <td>26.01.2102 00:00</td><td>06.08.2026 15:30</td><td>26.09.2018</td>
@@ -2710,7 +2757,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <th>Status rezervace <span class="sort-ic">⋮</span></th><th>Typ prohlídky <span class="sort-ic">⋮</span></th>
       </tr></thead>
       <tbody>
-        <tr class="white" style="background:#fff8f0;">
+        <tr class="white" id="p7-motl-row">
           <td>Lukáš</td><td>Motl</td><td>lmotl@csas.cz</td>
           <td>specialista Klientského centra plus</td><td>Staré nám. 28, Rychnov nad Kněžnou, 516 01</td>
           <td>26.01.2102 00:00</td><td>06.08.2026 15:30</td><td>26.09.2018</td>
@@ -2855,7 +2902,20 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
 <!-- PAGE ZAM DETAIL: FZ — Profil zaměstnance elektronicky podepsáno (443-1000) -->
 <div class="page" id="page-zam-detail">
-  <div class="zdet-outer">
+  <!-- Header card (plná šířka, zarovnané jako ostatní FZ záhlaví) -->
+  <div class="zdet-hdr-card">
+    <span class="zdet-hdr-icon">👤</span>
+    <div class="zdet-hdr-info">
+      <div class="zdet-hdr-name">Lukáš Motl</div>
+      <div class="zdet-hdr-sub">Profil zaměstnance</div>
+    </div>
+    <div class="zdet-hdr-actions">
+      <span class="zdet-hdr-act">✏️ Upravit profil</span>
+      <span class="zdet-hdr-act">↓ Export</span>
+      <span class="zdet-hdr-act red">✕ Ukončit zaměstnance</span>
+    </div>
+  </div>
+  <div class="zdet-cols">
     <!-- Secondary sub-nav -->
     <div class="zdet-subnav">
       <button class="zdet-nav-back" onclick="showPageZam()">← Zpět na zaměstnance</button>
@@ -2868,21 +2928,8 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <a class="zdet-nav-link">Historie záznamů</a>
       <button class="zdet-nav-cta">Vytvořit novou žádost</button>
     </div>
-    <!-- Main scrollable content -->
+    <!-- Main content -->
     <div class="zdet-main">
-      <!-- Header card -->
-      <div class="zdet-hdr-card">
-        <span class="zdet-hdr-icon">👤</span>
-        <div class="zdet-hdr-info">
-          <div class="zdet-hdr-name">Lukáš Motl</div>
-          <div class="zdet-hdr-sub">Profil zaměstnance</div>
-        </div>
-        <div class="zdet-hdr-actions">
-          <span class="zdet-hdr-act">✏️ Upravit profil</span>
-          <span class="zdet-hdr-act">↓ Export</span>
-          <span class="zdet-hdr-act red">✕ Ukončit zaměstnance</span>
-        </div>
-      </div>
 
       <!-- Stav prohlídek -->
       <div class="zdet-section">
@@ -4322,7 +4369,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     </aside>
     <div class="lz-hist-wrap">
       <div class="lz-hist-topbar">
-        <span class="lz-hist-title">👤&nbsp; Historie prohlídek &nbsp;ⓘ</span>
+        <span class="lz-hist-title">👤&nbsp; Historie prohlídek</span>
         <div class="lz-hist-topbar-actions">
           <span>✕&nbsp; Reset filtrů</span>
           <span>↓&nbsp; export</span>
@@ -4486,7 +4533,29 @@ function openRolePicker() {
   document.getElementById('role-picker-overlay').classList.add('active');
 }
 
+// Sjednotí šířku barevných badge v každé tabulce (sekci) zvlášť:
+// všem badge v dané tabulce nastaví min-width = šířka nejširšího badge v ní.
+function equalizeBadges() {
+  var sel = '.sbadge, .zam-badge, .lz-rzv-badge-online, .lz-rzv-badge-prevzit, .lz-hist-badge, .pz-badge';
+  document.querySelectorAll('table').forEach(function (tbl) {
+    var badges = Array.prototype.slice.call(tbl.querySelectorAll(sel));
+    if (!badges.length) return;
+    badges.forEach(function (b) { b.style.minWidth = ''; });
+    var max = 0;
+    badges.forEach(function (b) {
+      var w = b.getBoundingClientRect().width;
+      if (w > max) max = w;
+    });
+    if (max <= 0) return; // tabulka není vidět (getBoundingClientRect = 0)
+    badges.forEach(function (b) {
+      b.style.minWidth = Math.ceil(max) + 'px';
+      b.style.justifyContent = 'center';
+    });
+  });
+}
+
 function setPageIndicator(short, full) {
+  equalizeBadges();
   var el = document.getElementById('page-indicator');
   if (!el) return;
   el.textContent = _roleMeta[_role].label + ' · ' + short;
@@ -4561,7 +4630,7 @@ function showResult4() {
 }
 
 function showPage5FromCRM() {
-  var badge = document.querySelector('#page5 tr[style*="f0f6ff"] td .sbadge');
+  var badge = document.querySelector('#p5-motl-row .sbadge');
   if (badge) {
     badge.className = 'sbadge sb-netisknout';
     badge.firstChild.textContent = 'Objednán – netisknout žádost';
@@ -4571,7 +4640,7 @@ function showPage5FromCRM() {
 
 function showPage5(fromCRM) {
   if (!fromCRM) {
-    var badge = document.querySelector('#page5 tr[style*="f0f6ff"] td .sbadge');
+    var badge = document.querySelector('#p5-motl-row .sbadge');
     if (badge) {
       badge.className = 'sbadge sb-b';
       badge.firstChild.textContent = 'Žádost o termín odeslána – digitálně';
@@ -4583,6 +4652,11 @@ function showPage5(fromCRM) {
   btn.onclick = showPage6;
   var klBtn = document.getElementById('sidebar-kl-btn');
   klBtn.onclick = showPage3Digital;
+  var toggleBtn = document.getElementById('sidebar-toggle-req-btn');
+  toggleBtn.textContent = '🔄 Přepnout na fyzickou žádost';
+  toggleBtn.onclick = function () { showPage7(); };
+  document.getElementById('sidebar-email-online-btn').style.display = '';
+  document.getElementById('sidebar-email-print-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 5", "Page 5 — FZ Odeslat žádost (digitální cesta)");
   window.scrollTo(0, 0);
@@ -4596,7 +4670,7 @@ function showPage6() {
 }
 
 function showPage7FromCRM() {
-  var badge = document.querySelector('#page7 tr[style*="fff8f0"] td .sbadge');
+  var badge = document.querySelector('#p7-motl-row .sbadge');
   if (badge) {
     badge.className = 'sbadge sb-vytisknout';
     badge.firstChild.textContent = 'Objednán – vytiskněte žádost';
@@ -4606,7 +4680,7 @@ function showPage7FromCRM() {
 
 function showPage7(fromCRM) {
   if (!fromCRM) {
-    var badge = document.querySelector('#page7 tr[style*="fff8f0"] td .sbadge');
+    var badge = document.querySelector('#p7-motl-row .sbadge');
     if (badge) {
       badge.className = 'sbadge sb-vytisknout';
       badge.firstChild.textContent = 'Žádost o termín odeslána – papírově';
@@ -4618,6 +4692,11 @@ function showPage7(fromCRM) {
   btn.onclick = showPage8;
   var klBtn = document.getElementById('sidebar-kl-btn');
   klBtn.onclick = showPage3Physical;
+  var toggleBtn = document.getElementById('sidebar-toggle-req-btn');
+  toggleBtn.textContent = '🔄 Přepnout na digitální žádost';
+  toggleBtn.onclick = function () { showPage5(); };
+  document.getElementById('sidebar-email-online-btn').style.display = 'none';
+  document.getElementById('sidebar-email-print-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 7", "Page 7 — FZ Odeslat žádost (fyzická cesta)");
   window.scrollTo(0, 0);
@@ -5302,6 +5381,56 @@ function openPosudekElecOverlay() {
 function closePosudekElecOverlay() {
   document.getElementById('posudek-elec-overlay').classList.remove('active');
 }
+
+/* ── Scroll odkudkoli: kolečko myši scrolluje hlavní obsah i mimo něj ──
+   (nemusíš najet myší přímo na obsah – funguje i nad sidebarem/záhlavím). */
+(function () {
+  var SCROLL_SELECTORS = [
+    '.p1-wrap', '#page2', '#page-zam-detail',
+    '.lz-content', '.lz-det-wrap', '.lz-hist-wrap'
+  ];
+  function getMainScrollArea() {
+    var els = document.querySelectorAll(SCROLL_SELECTORS.join(','));
+    for (var i = 0; i < els.length; i++) {
+      var el = els[i];
+      if (el.offsetParent === null && getComputedStyle(el).position !== 'fixed') continue;
+      if (el.getClientRects().length === 0) continue;
+      var ov = getComputedStyle(el).overflowY;
+      if ((ov === 'auto' || ov === 'scroll') && el.scrollHeight > el.clientHeight + 1) return el;
+    }
+    return null;
+  }
+  // Najde prvek pod kurzorem, který sám umí odscrollovat v daném směru.
+  function scrollableUnder(node, dy) {
+    while (node && node.nodeType === 1 && node !== document.body) {
+      var s = getComputedStyle(node);
+      if (/(auto|scroll)/.test(s.overflowY) && node.scrollHeight > node.clientHeight + 1) {
+        var atTop = node.scrollTop <= 0;
+        var atBot = node.scrollTop + node.clientHeight >= node.scrollHeight - 1;
+        if ((dy < 0 && !atTop) || (dy > 0 && !atBot)) return node;
+      }
+      node = node.parentNode;
+    }
+    return null;
+  }
+  // Je kurzor nad modálem/overlayem (fixed, z-index >= 300)? Pak se nepleteme.
+  function overOverlay(node) {
+    while (node && node.nodeType === 1) {
+      var s = getComputedStyle(node);
+      if (s.position === 'fixed' && (parseInt(s.zIndex, 10) || 0) >= 300) return true;
+      node = node.parentNode;
+    }
+    return false;
+  }
+  document.addEventListener('wheel', function (e) {
+    if (overOverlay(e.target)) return;                 // modály scrollují samy
+    if (scrollableUnder(e.target, e.deltaY)) return;   // obsah/submenu pod kurzorem scrolluje nativně
+    var area = getMainScrollArea();
+    if (!area) return;
+    area.scrollTop += e.deltaY;
+    e.preventDefault();
+  }, { passive: false });
+})();
 </script>
 <!-- ── Digital sign modal (500-11361) ── -->
 <!-- SMS PIN modal (387-4759): Náhled posudku k podpisu zaměstnance prostřednictvím SMS -->

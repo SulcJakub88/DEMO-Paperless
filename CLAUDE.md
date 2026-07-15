@@ -68,6 +68,21 @@ Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
 - Texty a rozměry se dělají **1:1 podle Figma** (file key `YjZdOTEj614bbcj8fjxdKK`).
   Uživatel posílá odkazy s `node-id`; přes Figma MCP `get_metadata` / `download_assets`.
 
+### Layout & scrolling (celé demo, V7)
+- **Fixní chrome, scrolluje jen obsah:** `body`/`.app`/`.lz-app` mají `height:100vh`
+  (`body{overflow-y:hidden}`). Na každé stránce zůstává fixní **sidebar**, **záhlaví**
+  a **submenu**; scrolluje jen hlavní obsahová oblast. Scrollovací kontejnery:
+  `.p1-wrap` (seznamy), `#page2` (ŽÁDOST), `#page-zam-detail` (profil), `.lz-content`
+  (nástěnka/rezervace), `.lz-det-wrap` (LZ detail 10–13), `.lz-hist-wrap` (historie 14).
+  Záhlaví/submenu drží přes `position:sticky` (submenu s `top:` offsetem pod záhlavím).
+- **Scroll odkudkoli:** globální `wheel` handler (konec `<script>`, `SCROLL_SELECTORS`)
+  přeposílá kolečko na hlavní obsah i když je kurzor nad sidebarem/záhlavím/submenu;
+  respektuje vnořené scrollovatelné prvky a modály (`z-index ≥ 300`).
+- **Standardní FZ vzor stránky** (page2 ŽÁDOST, page-zam-detail profil): plné záhlaví
+  nahoře (`padding:20px 24px 24px`, `sticky top:0`), pod ním řádek submenu (200px,
+  `sticky`) + obsah. Barevné badge ve sloupcích (status/výsledek/závěr) mají jednotnou
+  šířku dle nejširšího v sekci.
+
 ## Architektura navigace
 
 Multi-page SPA řízená JS. Klíč: `const allPages = [...]` (řádek ~4461).
@@ -134,7 +149,10 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
 ```
 FZ: page1 → (klik řádek) → page2 → [Odeslat digitálně] → page5
                                   → [Odeslat fyzicky]   → page7
-page5/7 sidebar: [Přejít do KL] → page3/4 ; [Přejít do LZ] → page6/8
+page5/7 sidebar (režisér): [Přepnout na fyzickou/digitální žádost] přepíná page5↔page7
+            (mění status Motla; řádky `#p5-motl-row`/`#p7-motl-row`, hover + zebra bez
+            trvalého podbarvení); [Náhled e-mailu — online/tisk] → showEmailModal(digital|physical)
+            (page5 obě tlačítka, page7 jen tisk); [Přejít do KL] → page3/4 ; [Přejít do LZ] → page6/8
 KL page3/4: [Hledat lékaře]→výsledek→ [Přejít do FZ]→page5/7 (status Motla se změní)
             karty typu žádosti přepínají page3↔page4
 
