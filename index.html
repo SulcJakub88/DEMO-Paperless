@@ -1345,6 +1345,7 @@ body {
 }
 .lz-rzv-table tr:last-child td { border-bottom: none; }
 .lz-rzv-table tr:nth-child(even) td { background: #f8fafc; }
+.lz-rzv-table tbody tr:hover td { background: #e6f2ff !important; cursor: pointer; }
 .lz-rzv-sort { color: #c0c0c0; margin-left: 3px; font-size: 7px; }
 .lz-rzv-badge-online {
   display: inline-flex; align-items: center; gap: 4px;
@@ -3636,9 +3637,8 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     </aside>
     <div class="lz-content">
       <div class="lz-rzv-toprow">
-        <span style="font-size:16px;">🎫</span>
+        <span style="font-size:16px;">📅</span>
         <span class="lz-rzv-title">Rezervace</span>
-        <span class="lz-rzv-info">i</span>
         <div class="lz-rzv-header-actions">
           <span>✕ Reset filtrů</span>
           <span>↓ export</span>
@@ -3647,7 +3647,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-rzv-filterbar">
         <div class="lz-rzv-search"><span style="font-size:10px;">🔍</span><span>Hledat</span></div>
         <button class="lz-rzv-btn-primary">Aktuální den</button>
-        <button class="lz-rzv-btn-outline">Aktuální týden</button>
+        <button class="lz-rzv-btn-primary">Aktuální týden</button>
         <span class="lz-rzv-adv">Rozšířené filtry ▾</span>
       </div>
       <div class="lz-rzv-count">Nalezeno 10 záznamů</div>
@@ -4398,7 +4398,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
           </thead>
           <tbody>
             <tr>
-              <td>17.06.2026</td><td></td><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td>
+              <td>17.06.2026</td><td>17.06.2026</td><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td>
               <td><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
               <td id="hist-sign-cell"><span class="lz-hist-badge sign-green">✍️&nbsp; Online podpis</span></td>
               <td><div class="lz-hist-pdf-btns" id="hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
@@ -4662,7 +4662,7 @@ function showPage5(fromCRM) {
 function showPage6() {
   hideAll();
   document.getElementById('page6').classList.add('active');
-  setPageIndicator("Page 6", "Page 6 — FZ Potvrzení odeslání (digitální cesta)");
+  setPageIndicator("Page 6", "Page 6 — LZ Nástěnka (digitální žádost)");
   window.scrollTo(0, 0);
 }
 
@@ -4702,7 +4702,7 @@ function showPage7(fromCRM) {
 function showPage8() {
   hideAll();
   document.getElementById('page8').classList.add('active');
-  setPageIndicator("Page 8", "Page 8 — FZ Potvrzení odeslání (fyzická cesta)");
+  setPageIndicator("Page 8", "Page 8 — LZ Nástěnka (fyzická žádost)");
   window.scrollTo(0, 0);
 }
 
@@ -4735,7 +4735,7 @@ function showPage10() {
 function showPage11() {
   hideAll();
   document.getElementById('page11').classList.add('active');
-  setPageIndicator("Page 11", "Page 11 — LZ Detail prohlídky (Kotková)");
+  setPageIndicator("Page 11", "Page 11 — LZ Detail prohlídky (fyzická)");
   var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
   document.getElementById('lz11-back-btn').onclick = backFZFn;
   document.getElementById('lz11-back-rez').onclick = function() { showPage9(_lzFromFZ); };
