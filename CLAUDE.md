@@ -99,6 +99,17 @@ Multi-page SPA řízená JS. Klíč: `const allPages = [...]` (řádek ~4461).
   `.sidebar-zam-wrap` (default skryté, toggle v `showPage*` a `hideAll`).
 - `#page-indicator` (vpravo dole) ukazuje aktuální stránku + prefix role.
   `#role-chip` vedle něj otevírá role picker.
+- **LZ menu navigace (`.lz-sidebar`, všech 8 LZ stránek 6,8,9–14):** položky
+  NÁSTĚNKA / REZERVACE / HISTORIE PROHLÍDEK jsou funkční na každé LZ stránce
+  (`onclick` vede na výchozí stránku sekce — Nástěnka → `showPage6()`/`showPage8()`
+  dle `_lzFromFZ`, Rezervace → `showPage9(_lzFromFZ)`, Historie → `showPage14()`).
+  `_lzFromFZ` (5=digitální/7=fyzická cesta) nastavují i `showPage6()`/`showPage8()`,
+  ne jen `showPage9()`, takže zůstává platné odkudkoli v LZ. Ostatní položky
+  (KALENDÁŘE, PODKLADY PRO FAKTURACI, DOKUMENTY A FAQ, MŮJ PROFIL, ODHLÁSIT SE)
+  nemají cílovou stránku a zůstávají neaktivní.
+- `.lz-sidebar` má `padding-bottom:46px` (stejně jako FZ `.sidebar`), aby
+  pomocná tlačítka (`.lz-helper-bar2`, např. „Zpět do FZ") nekolidovala
+  s fixním `#bottom-left-bar` (tlačítko „Vše (režisér)" vlevo dole).
 
 ## Mapa stránek (id → význam)
 
