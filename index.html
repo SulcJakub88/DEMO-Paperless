@@ -490,13 +490,31 @@ body {
 }
 .risk-row:last-child { margin-bottom: 0; }
 .rch {
-  width: 14px; height: 14px;
-  border: 1px solid #ccc;
-  border-radius: 7px;
+  width: 18px; height: 18px;
+  border: 2px solid #d0d0d0;
+  border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
 }
-.rch.checked { background: #ccc; border-color: #ccc; }
+.rch.checked {
+  background: #1459bf;
+  border-color: #1459bf;
+  box-shadow: 0 0 0 3px rgba(20, 89, 191, 0.15);
+}
+.rch.checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
 .risk-row span { font-size: 10px; color: #121212; }
 
 /* edit icon */
