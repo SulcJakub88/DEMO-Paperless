@@ -36,17 +36,37 @@ body {
   flex-direction: column;
   padding-bottom: 46px; /* místo pro fixní tlačítko výběru role vlevo dole */
 }
-.sidebar-lz-wrap {
-  display: none; margin-top: auto;
-  padding: 12px 14px 14px; border-top: 1px solid #f0f0f0;
+.sidebar-lz-wrap, .helper-bar {
+  margin-top: auto; padding: 12px 14px 14px; border-top: 1px solid #f0f0f0;
+  position: relative;
 }
+.sidebar-lz-wrap { display: none; }
 .sidebar-lz-wrap.visible { display: block; }
-.sidebar-lz-btn {
-  display: block; width: 100%; background: #e8f2ff; color: #1459bf;
-  border: 1px solid #4d80d9; border-radius: 5px; padding: 7px 10px;
-  font-size: 10.5px; font-weight: 600; cursor: pointer; font-family: inherit;
-  text-align: left;
+
+/* ── Pomocné akce: kompaktní spouštěč + hover flyout ── */
+.helper-trigger {
+  display: flex; align-items: center; gap: 6px; width: 100%; box-sizing: border-box;
+  background: #fff; color: #4a4a4a; border: 1px solid #d8d8d8; border-radius: 5px;
+  padding: 7px 10px; font-size: 10.5px; font-weight: 600; cursor: pointer;
+  font-family: inherit; text-align: left;
 }
+.helper-trigger:hover { background: #f2f2f2; }
+.helper-flyout {
+  position: fixed; margin-left: 8px;
+  background: #fff; border: 1px solid #e0e0e0; border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.18); padding: 6px; width: 260px;
+  display: flex; flex-direction: column; gap: 2px;
+  opacity: 0; visibility: hidden; transform: translateX(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 1200;
+}
+.helper-flyout.open { opacity: 1; visibility: visible; transform: translateX(0); }
+.helper-flyout-item {
+  display: block; width: 100%; box-sizing: border-box; background: #fff; color: #4a4a4a;
+  border: none; border-radius: 5px; padding: 8px 10px; font-size: 10.5px; font-weight: 600;
+  cursor: pointer; font-family: inherit; text-align: left;
+}
+.helper-flyout-item:hover { background: #f2f2f2; }
 
 .sidebar-logo {
   display: flex;
@@ -1263,16 +1283,6 @@ body {
 .lz-nav-item.active { color: #d92673; }
 .lz-nav-item.sub { padding-left: 24px; color: #737373; font-size: 10px; }
 .lz-nav-sep { height: 1px; background: #f0f0f0; margin: 8px 14px; }
-.lz-helper-bar2 {
-  margin-top: auto; padding: 12px 14px 14px;
-  border-top: 1px solid #f0f0f0;
-}
-.lz-helper-btn2 {
-  display: block; width: 100%; background: #e8f2ff; color: #1459bf;
-  border: 1px solid #4d80d9; border-radius: 5px; padding: 7px 10px;
-  font-size: 10.5px; font-weight: 600; cursor: pointer; font-family: inherit;
-  text-align: left;
-}
 .lz-content { flex: 1; padding: 20px 24px; }
 .lz-header-card {
   background: #fff; border: 1px solid #e6e6e6; border-radius: 8px;
@@ -2006,16 +2016,6 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 }
 .em-legal-note { font-size: 11px; color: #737373; line-height: 1.4; margin-bottom: 12px; }
 
-/* ── Sidebar: Simulovat kompletní online podpis ── */
-.sidebar-sim-btn {
-  display: block; width: 100%; background: #e8f2ff; color: #1459bf;
-  border: 1px solid #4d80d9; border-radius: 5px; padding: 7px 10px;
-  font-size: 10.5px; font-weight: 600; cursor: pointer;
-  font-family: inherit; text-align: left; margin-top: 6px;
-}
-.sidebar-sim-btn:hover { background: #d8e8fc; }
-.sidebar-lz-btn:hover, .lz-helper-btn2:hover { background: #d8e8fc; }
-
 /* ── Helper overlay ── */
 #sim-helper-overlay, #sim-helper-overlay-fyz {
   position: fixed; inset: 0; z-index: 950;
@@ -2283,17 +2283,23 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     <div class="nav-item">ODHLÁSIT SE</div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-lz-wrap">
-    <button class="sidebar-lz-btn" id="sidebar-toggle-req-btn" style="margin-bottom:8px;">🔄 Přepnout na fyzickou žádost</button>
-    <button class="sidebar-sim-btn" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
-    <button class="sidebar-sim-btn" id="sidebar-email-print-btn" onclick="showEmailModal('physical')" style="margin-bottom:4px;">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
-    <button class="sidebar-sim-btn" id="sidebar-kl-btn" data-hide="fz" style="margin-bottom:4px;">🖥️ Přejít do KL</button>
-    <button class="sidebar-lz-btn" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
-    <button class="sidebar-sim-btn" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
-    <button class="sidebar-sim-btn" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
+    <button class="helper-trigger">⚙️ Pomocné akce</button>
+    <div class="helper-flyout">
+      <button class="helper-flyout-item" id="sidebar-toggle-req-btn">🔄 Přepnout na fyzickou žádost</button>
+      <button class="helper-flyout-item" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
+      <button class="helper-flyout-item" id="sidebar-email-print-btn" onclick="showEmailModal('physical')">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
+      <button class="helper-flyout-item" id="sidebar-kl-btn" data-hide="fz">🖥️ Přejít do KL</button>
+      <button class="helper-flyout-item" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
+      <button class="helper-flyout-item" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
+      <button class="helper-flyout-item" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
+    </div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
-    <button class="sidebar-sim-btn" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
-    <button class="sidebar-sim-btn" onclick="openEmailAutomatickyModal()" style="margin-top:6px;">📧 Náhled — Automaticky doručeno</button>
+    <button class="helper-trigger">⚙️ Pomocné akce</button>
+    <div class="helper-flyout">
+      <button class="helper-flyout-item" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
+      <button class="helper-flyout-item" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>
+    </div>
   </div>
 </aside>
 
@@ -3510,9 +3516,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" onclick="showPage8()" style="margin-bottom:8px;">🔄 Přepnout na fyzickou žádost</button>
-        <button class="lz-helper-btn2" data-hide="lz" onclick="showPage5()">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" onclick="showPage8()">🔄 Přepnout na fyzickou žádost</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="showPage5()">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-content">
@@ -3594,9 +3603,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" onclick="showPage6()" style="margin-bottom:8px;">🔄 Přepnout na digitální žádost</button>
-        <button class="lz-helper-btn2" data-hide="lz" onclick="showPage7()">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" onclick="showPage6()">🔄 Přepnout na digitální žádost</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="showPage7()">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-content">
@@ -3679,8 +3691,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz9-back-btn">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz9-back-btn">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-content">
@@ -3754,8 +3769,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz10-back-btn">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz10-back-btn">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -3851,8 +3869,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz11-back-btn">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz11-back-btn">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -3948,8 +3969,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz12-back-btn">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz12-back-btn">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -4041,8 +4065,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz13-back-btn">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz13-back-btn">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -4317,8 +4344,11 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz13fyz-back-btn">← Zpět do FZ (Rezervace)</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz13fyz-back-btn">← Zpět do FZ (Rezervace)</button>
+        </div>
       </div>
     </aside>
     <div class="lz-det-wrap">
@@ -4644,9 +4674,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="lz-helper-bar2">
-        <button class="lz-helper-btn2" data-hide="lz" id="lz14-back-btn">← Zpět do FZ (Rezervace)</button>
-        <button class="sidebar-sim-btn" data-hide="lz" onclick="startSimOnlinePodpisFromLZ14()" style="margin-top:6px;">✓ Podpis posudku za zaměstnance a lékaře dokončen</button>
+      <div class="helper-bar">
+        <button class="helper-trigger">⚙️ Pomocné akce</button>
+        <div class="helper-flyout">
+          <button class="helper-flyout-item" data-hide="lz" id="lz14-back-btn">← Zpět do FZ (Rezervace)</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="startSimOnlinePodpisFromLZ14()">✓ Podpis posudku za zaměstnance a lékaře dokončen</button>
+        </div>
       </div>
     </aside>
     <div class="lz-hist-wrap">
@@ -5646,6 +5679,35 @@ document.addEventListener('DOMContentLoaded', function() {
   setPageIndicator('Page 1', 'Page 1 — FZ Rezervace');
   openRolePicker();
 });
+
+/* ── Pomocné akce: hover flyout (zobrazit ihned, skrýt s ~180ms zpožděním) ──
+   .helper-flyout je position:fixed (aby ho neořízl overflow:auto sidebaru),
+   takže při otevření dopočítáme jeho pozici z rectu spouštěče. Protože je
+   fixed (vizuálně mimo wrap), hover se sleduje i přímo na flyoutu — jinak
+   by mouseleave z wrapu flyout zavřel dřív, než na něj kurzor stihne najet. ── */
+(function () {
+  document.querySelectorAll('.sidebar-lz-wrap, .helper-bar').forEach(function (wrap) {
+    var flyout = wrap.querySelector('.helper-flyout');
+    if (!flyout) return;
+    var hideTimer = null;
+    function show() {
+      clearTimeout(hideTimer);
+      var rect = wrap.getBoundingClientRect();
+      flyout.style.left = rect.right + 'px';
+      flyout.style.bottom = (window.innerHeight - rect.bottom) + 'px';
+      flyout.classList.add('open');
+    }
+    function scheduleHide() {
+      hideTimer = setTimeout(function () {
+        flyout.classList.remove('open');
+      }, 180);
+    }
+    wrap.addEventListener('mouseenter', show);
+    wrap.addEventListener('mouseleave', scheduleHide);
+    flyout.addEventListener('mouseenter', show);
+    flyout.addEventListener('mouseleave', scheduleHide);
+  });
+})();
 
 /* ── Simulovat kompletní online podpis ── */
 function openEmailPotvrzenoModal() {
