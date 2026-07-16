@@ -1930,8 +1930,35 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 .zam-badge-info { color: rgba(255,255,255,0.6); font-size: 11px; margin-left: 2px; }
 
 /* ── PDF view modal ── */
-#pdf-view-modal, #zam-posudek-modal { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); }
-#pdf-view-modal.active, #zam-posudek-modal.active { display: flex; }
+#pdf-view-modal, #zam-posudek-modal, #zam-zaznam-modal { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); }
+#pdf-view-modal.active, #zam-posudek-modal.active, #zam-zaznam-modal.active { display: flex; }
+
+/* ── Zobrazit záznam (fyzicky podepsáno) — repro Figma 657:6 ── */
+.zrec-dialog {
+  background: #fff; border-radius: 14px; width: 420px; max-height: 90vh;
+  overflow-y: auto; box-shadow: 0 12px 50px rgba(0,0,0,0.4);
+  font-family: inherit; position: relative; padding: 24px 22px 28px;
+}
+.zrec-close {
+  position: absolute; top: 14px; right: 14px; background: #e0e0e0; border: none;
+  border-radius: 4px; width: 24px; height: 24px; cursor: pointer; font-size: 13px;
+  color: #737373; font-family: inherit; display: flex; align-items: center; justify-content: center;
+}
+.zrec-hdr { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
+.zrec-hdr img { height: 26px; }
+.zrec-hdr-export { font-size: 9.5px; color: #737373; text-align: right; line-height: 1.5; }
+.zrec-name-card {
+  background: #eaf1fb; border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 20px;
+}
+.zrec-name { font-size: 19px; font-weight: 800; color: #1459bf; }
+.zrec-subtitle { font-size: 12px; font-weight: 700; color: #0d3380; margin-top: 3px; }
+.zrec-section-title { font-size: 15px; font-weight: 800; color: #1459bf; margin: 18px 0 10px; }
+.zrec-section-title:first-of-type { margin-top: 0; }
+.zrec-field-lbl { font-size: 10.5px; color: #737373; margin-bottom: 4px; }
+.zrec-field-val {
+  background: #eaf1fb; border-radius: 6px; padding: 9px 12px;
+  font-size: 12px; font-weight: 700; color: #121212; margin-bottom: 12px;
+}
 .pdf-view-dialog { background: #f5f5f7; border-radius: 10px; width: 960px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.4); font-family: inherit; }
 .pdf-view-hdr { background: #ededed; border-bottom: 1px solid #d8d8d8; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
 .pdf-view-hdr-title { font-size: 14px; font-weight: 800; color: #121212; }
@@ -1990,12 +2017,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 .sidebar-lz-btn:hover, .lz-helper-btn2:hover { background: #d8e8fc; }
 
 /* ── Helper overlay ── */
-#sim-helper-overlay {
+#sim-helper-overlay, #sim-helper-overlay-fyz {
   position: fixed; inset: 0; z-index: 950;
   display: none; align-items: center; justify-content: center;
   background: rgba(0,0,0,0.72);
 }
-#sim-helper-overlay.active { display: flex; }
+#sim-helper-overlay.active, #sim-helper-overlay-fyz.active { display: flex; }
 .sim-helper-box {
   background: #fff; border-radius: 12px; padding: 28px 32px; width: 420px;
   display: flex; flex-direction: column; gap: 12px;
@@ -2089,12 +2116,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 .em-dev-note p { font-size: 10px; color: #737373; margin: 2px 0; }
 
 /* ── Přijetí závěru modal (528-47) ── */
-#prijeti-zaveru-modal {
+#prijeti-zaveru-modal, #prijeti-zaveru-modal-physical {
   position: fixed; inset: 0; z-index: 955;
   display: none; align-items: center; justify-content: center;
   background: rgba(0,0,0,0.6);
 }
-#prijeti-zaveru-modal.active { display: flex; }
+#prijeti-zaveru-modal.active, #prijeti-zaveru-modal-physical.active { display: flex; }
 .prijeti-dialog {
   background: #fff; border: 1px solid #e0e0e0; border-radius: 16px;
   width: 860px; max-height: 90vh; overflow-y: auto;
@@ -2262,6 +2289,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     <button class="sidebar-sim-btn" id="sidebar-kl-btn" data-hide="fz" style="margin-bottom:4px;">🖥️ Přejít do KL</button>
     <button class="sidebar-lz-btn" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
     <button class="sidebar-sim-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
+    <button class="sidebar-sim-btn" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
     <button class="sidebar-sim-btn" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
@@ -2958,12 +2986,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <div class="zdet-field-lbl">Typ prohlídky &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
         <div class="zdet-field-val">Vstupní</div>
         <div class="zdet-field-lbl">Způsob podpisu &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
-        <div class="zdet-field-val">Elektronicky podepsáno</div>
+        <div class="zdet-field-val" id="zdet-sign-method-val">Elektronicky podepsáno</div>
         <div class="zdet-field-lbl">Způsob převzetí posudku zaměstnavatelem &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
         <div class="zdet-field-val">Potvrzeno v aplikaci Firemní zóny</div>
         <div class="zdet-tag-row">
           <span class="zdet-tag green">📄 Stáhnout posudek</span>
-          <span class="zdet-tag blue" onclick="openZamPosudekModal()">📄 Zobrazit posudek</span>
+          <span class="zdet-tag blue" id="zdet-view-tag" onclick="openZamPosudekModal()">📄 Zobrazit posudek</span>
         </div>
         <div class="zdet-field-lbl">Datum poslední prohlídky mimo poskytovatele EUC &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
         <div class="zdet-toggle-row">
@@ -4910,6 +4938,7 @@ function showPage5(fromCRM) {
   toggleBtn.onclick = function () { showPage7(); };
   document.getElementById('sidebar-email-online-btn').style.display = '';
   document.getElementById('sidebar-email-print-btn').style.display = '';
+  document.getElementById('sidebar-sim-physical-btn').style.display = 'none';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 5", "Page 5 — FZ Odeslat žádost (digitální cesta)");
   window.scrollTo(0, 0);
@@ -4951,6 +4980,7 @@ function showPage7(fromCRM) {
   toggleBtn.onclick = function () { showPage5(); };
   document.getElementById('sidebar-email-online-btn').style.display = 'none';
   document.getElementById('sidebar-email-print-btn').style.display = '';
+  document.getElementById('sidebar-sim-physical-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 7", "Page 7 — FZ Odeslat žádost (fyzická cesta)");
   window.scrollTo(0, 0);
@@ -4967,6 +4997,7 @@ function showPage8() {
 var _lzFromFZ = 5;
 var _p12RadioSel = 1;
 var _p12Phone = '+420 765 876 579';
+var _motlDeliveryMethod = 'elektronicky';
 
 function showPage9(fromFZPage) {
   _lzFromFZ = fromFZPage;
@@ -5398,7 +5429,10 @@ function showPageZamDetail() {
   document.getElementById('page-zam-detail').classList.add('active');
   document.getElementById('nav-zamestnanci').classList.add('active');
   document.getElementById('sidebar-zam-wrap').classList.add('visible');
-  setPageIndicator('Page ZAM-DETAIL', 'FZ — Profil zaměstnance elektronicky podepsáno');
+  applyMotlDeliveryMethodToDetail();
+  setPageIndicator('Page ZAM-DETAIL', _motlDeliveryMethod === 'fyzicky'
+    ? 'FZ — Profil zaměstnance fyzicky podepsáno'
+    : 'FZ — Profil zaměstnance elektronicky podepsáno');
 }
 
 function showPageZam() {
@@ -5672,6 +5706,7 @@ function openPrijetiZaveruFlow() {
 
 function closePrijetiZaveru() {
   document.getElementById('prijeti-zaveru-modal').classList.remove('active');
+  _motlDeliveryMethod = 'elektronicky';
 }
 
 function openPosudekElecOverlay() {
@@ -5680,6 +5715,54 @@ function openPosudekElecOverlay() {
 
 function closePosudekElecOverlay() {
   document.getElementById('posudek-elec-overlay').classList.remove('active');
+}
+
+/* ── Simulovat kompletní fyzický podpis ── */
+function startSimFyzickyPodpis() {
+  showPageZam();
+  document.getElementById('sim-helper-overlay-fyz').classList.add('active');
+}
+
+function closeSimHelperFyz() {
+  document.getElementById('sim-helper-overlay-fyz').classList.remove('active');
+}
+
+function openPrijetiZaveruFlowPhysical() {
+  closeSimHelperFyz();
+  document.getElementById('prijeti-zaveru-modal-physical').classList.add('active');
+}
+
+function closePrijetiZaveruPhysical() {
+  document.getElementById('prijeti-zaveru-modal-physical').classList.remove('active');
+}
+
+function confirmPrijetiZaveruPhysical() {
+  closePrijetiZaveruPhysical();
+  _motlDeliveryMethod = 'fyzicky';
+  showPageZam();
+}
+
+function openZamZaznamModal() {
+  document.getElementById('zam-zaznam-modal').classList.add('active');
+}
+
+function closeZamZaznamModal() {
+  document.getElementById('zam-zaznam-modal').classList.remove('active');
+}
+
+function applyMotlDeliveryMethodToDetail() {
+  var valEl = document.getElementById('zdet-sign-method-val');
+  var tagEl = document.getElementById('zdet-view-tag');
+  if (!valEl || !tagEl) return;
+  if (_motlDeliveryMethod === 'fyzicky') {
+    valEl.textContent = 'Fyzicky podepsáno';
+    tagEl.innerHTML = '📄 Zobrazit záznam';
+    tagEl.onclick = openZamZaznamModal;
+  } else {
+    valEl.textContent = 'Elektronicky podepsáno';
+    tagEl.innerHTML = '📄 Zobrazit posudek';
+    tagEl.onclick = openZamPosudekModal;
+  }
 }
 
 /* ── Scroll odkudkoli: kolečko myši scrolluje hlavní obsah i mimo něj ──
@@ -6282,6 +6365,57 @@ function closePosudekElecOverlay() {
 </div>
 
 <!-- ═══════════════════════════════════
+     HELPER OVERLAY — Simulovat kompletní fyzický podpis
+═══════════════════════════════════ -->
+<div id="sim-helper-overlay-fyz">
+  <div class="sim-helper-box">
+    <p class="sim-helper-title">⚡ Simulovat kompletní fyzický podpis</p>
+    <p class="sim-helper-desc">Zvolte krok, který chcete simulovat:</p>
+    <button class="sim-helper-btn" onclick="openEmailNotifPhysicalModal()">📧&nbsp; Notifikační e-mail o fyzickém doručení</button>
+    <button class="sim-helper-btn" onclick="openPrijetiZaveruFlowPhysical()">✅&nbsp; Přijetí závěru ve FZ</button>
+    <button class="sim-helper-close-link" onclick="closeSimHelperFyz()">✕ Zavřít</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     MODAL — Přijetí závěru ve FZ (fyzická cesta)
+═══════════════════════════════════ -->
+<div id="prijeti-zaveru-modal-physical">
+  <div class="prijeti-dialog">
+    <p class="prijeti-title">Důležité upozornění!</p>
+    <p class="prijeti-desc">U níže uvedeného zaměstnance došlo ke změně posudkového závěru. Pro pokračování do aplikace prosím potvrďte, že jste se s touto změnou seznámili.</p>
+    <table class="prijeti-tbl">
+      <thead>
+        <tr>
+          <th>Příjmení</th>
+          <th>Jméno</th>
+          <th>Pracoviště</th>
+          <th>Posudkový závěr</th>
+          <th>Typ prohlídky</th>
+          <th>Způsob doručení posudku</th>
+          <th>Pracovní zařazení</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Motl</td>
+          <td>Lukáš</td>
+          <td>Praha – Černý Most</td>
+          <td><span class="pz-badge">🛡️&nbsp; Způsobilý</span></td>
+          <td>Vstupní prohlídka</td>
+          <td><span class="pz-sign-tag phys">Fyzicky podepsáno</span></td>
+          <td>Hasič</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="prijeti-footer">
+      <button class="prijeti-confirm-btn" onclick="confirmPrijetiZaveruPhysical()">Potvrdit</button>
+      <p class="prijeti-footer-note">Kliknutím na „Potvrdit přijetí" potvrdíte, že jste se s výsledkem prohlídky seznámili. Tištěný posudek podepsaný lékařem předá zaměstnanec osobně pověřené osobě u zaměstnavatele.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
      EMAIL MODAL — 421-2 Notifikace o dokončení prohlídky
 ═══════════════════════════════════ -->
 <div id="email-notif-modal">
@@ -6482,6 +6616,49 @@ function closePosudekElecOverlay() {
         <img class="pdf-view-img" src="assets/zam-posudek2.png" alt="Podepsaný posudek — SMS">
       </div>
     </div>
+  </div>
+</div>
+
+<!-- ZAM detail: Zobrazit záznam (fyzicky podepsáno) — repro Figma 657:6 -->
+<div id="zam-zaznam-modal">
+  <div class="zrec-dialog">
+    <button class="zrec-close" onclick="closeZamZaznamModal()">✕</button>
+    <div class="zrec-hdr">
+      <img src="assets/logo.png" alt="EUC PLS">
+      <div class="zrec-hdr-export">Export proveden 16.07.2026 22:12<br>uživatelem Test FZ</div>
+    </div>
+    <div class="zrec-name-card">
+      <div class="zrec-name">Lukáš Motl</div>
+      <div class="zrec-subtitle">Lékařský posudek - výstup</div>
+    </div>
+
+    <div class="zrec-section-title">Prohlídka</div>
+    <div class="zrec-field-lbl">Typ prohlídky</div>
+    <div class="zrec-field-val">Vstupní prohlídka</div>
+    <div class="zrec-field-lbl">Datum prohlídky</div>
+    <div class="zrec-field-val">17.06.2026</div>
+    <div class="zrec-field-lbl">Přijetí závěru</div>
+    <div class="zrec-field-val">16.07.2026</div>
+    <div class="zrec-field-lbl">Prohlídku provedl</div>
+    <div class="zrec-field-val">MUDr. Tomáš Závodský</div>
+    <div class="zrec-field-lbl">Posudkový závěr</div>
+    <div class="zrec-field-val">Způsobilý</div>
+
+    <div class="zrec-section-title">Osobní údaje</div>
+    <div class="zrec-field-lbl">Jméno</div>
+    <div class="zrec-field-val">Lukáš</div>
+    <div class="zrec-field-lbl">Příjmení</div>
+    <div class="zrec-field-val">Motl</div>
+    <div class="zrec-field-lbl">Datum narození</div>
+    <div class="zrec-field-val">25.03.1996</div>
+    <div class="zrec-field-lbl">Rodné číslo</div>
+    <div class="zrec-field-val">9603250367</div>
+    <div class="zrec-field-lbl">Pohlaví</div>
+    <div class="zrec-field-val">Muž</div>
+    <div class="zrec-field-lbl">Osobní číslo zaměstnance</div>
+    <div class="zrec-field-val">513343</div>
+    <div class="zrec-field-lbl">Preferovaný jazyk</div>
+    <div class="zrec-field-val" style="margin-bottom:0;">Čeština</div>
   </div>
 </div>
 </body>
