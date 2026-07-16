@@ -490,18 +490,30 @@ body {
 }
 .risk-row:last-child { margin-bottom: 0; }
 .rch {
-  width: 18px; height: 18px;
+  width: 20px; height: 20px;
   border: 2px solid #d0d0d0;
   border-radius: 50%;
   background: #fff;
   flex-shrink: 0;
   transition: all 0.2s ease;
   cursor: pointer;
+  position: relative;
 }
 .rch.checked {
   background: #1459bf;
   border-color: #1459bf;
-  box-shadow: 0 0 0 3px rgba(20, 89, 191, 0.15);
+  box-shadow: 0 0 0 2px rgba(20, 89, 191, 0.3);
+}
+.rch.checked::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 50%;
 }
 .risk-row span { font-size: 10px; color: #121212; }
 
