@@ -2288,7 +2288,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     <button class="sidebar-sim-btn" id="sidebar-email-print-btn" onclick="showEmailModal('physical')" style="margin-bottom:4px;">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
     <button class="sidebar-sim-btn" id="sidebar-kl-btn" data-hide="fz" style="margin-bottom:4px;">🖥️ Přejít do KL</button>
     <button class="sidebar-lz-btn" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
-    <button class="sidebar-sim-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
+    <button class="sidebar-sim-btn" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
     <button class="sidebar-sim-btn" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
@@ -4938,7 +4938,8 @@ function showPage5(fromCRM) {
   toggleBtn.onclick = function () { showPage7(); };
   document.getElementById('sidebar-email-online-btn').style.display = '';
   document.getElementById('sidebar-email-print-btn').style.display = '';
-  document.getElementById('sidebar-sim-physical-btn').style.display = 'none';
+  document.getElementById('sidebar-sim-online-btn').style.display = '';
+  document.getElementById('sidebar-sim-physical-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 5", "Page 5 — FZ Odeslat žádost (digitální cesta)");
   window.scrollTo(0, 0);
@@ -4980,6 +4981,7 @@ function showPage7(fromCRM) {
   toggleBtn.onclick = function () { showPage5(); };
   document.getElementById('sidebar-email-online-btn').style.display = 'none';
   document.getElementById('sidebar-email-print-btn').style.display = '';
+  document.getElementById('sidebar-sim-online-btn').style.display = 'none';
   document.getElementById('sidebar-sim-physical-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 7", "Page 7 — FZ Odeslat žádost (fyzická cesta)");
