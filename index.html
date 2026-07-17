@@ -2301,6 +2301,9 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
     <div class="helper-flyout">
       <button class="helper-flyout-item" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
       <button class="helper-flyout-item" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>
+      <button class="helper-flyout-item" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>
+      <button class="helper-flyout-item" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>
+      <button class="helper-flyout-item" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>
     </div>
   </div>
 </aside>
@@ -5493,6 +5496,21 @@ function showPageZam() {
   var zamSignMethodLabels = { zona: 'online-email', sms: 'online-sms', fyzicky: 'fyzicky' };
   var zamSuffix = zamSignMethodLabels[_empSignMethod];
   setPageIndicator('Page ZAM', 'FZ — Zaměstnanci' + (zamSuffix ? ' (' + zamSuffix + ')' : ''));
+}
+
+function showPageZamOnlineEmail() {
+  _empSignMethod = 'zona';
+  showPageZam();
+}
+
+function showPageZamOnlineSms() {
+  _empSignMethod = 'sms';
+  showPageZam();
+}
+
+function showPageZamFyzicky() {
+  _empSignMethod = 'fyzicky';
+  showPageZam();
 }
 
 function showPage14(fromFyz) {
