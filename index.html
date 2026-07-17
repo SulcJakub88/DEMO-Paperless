@@ -2017,12 +2017,12 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 .em-legal-note { font-size: 11px; color: #737373; line-height: 1.4; margin-bottom: 12px; }
 
 /* ── Helper overlay ── */
-#sim-helper-overlay, #sim-helper-overlay-fyz {
+#sim-helper-overlay, #sim-helper-overlay-fyz, #sim-helper-overlay-sms {
   position: fixed; inset: 0; z-index: 950;
   display: none; align-items: center; justify-content: center;
   background: rgba(0,0,0,0.72);
 }
-#sim-helper-overlay.active, #sim-helper-overlay-fyz.active { display: flex; }
+#sim-helper-overlay.active, #sim-helper-overlay-fyz.active, #sim-helper-overlay-sms.active { display: flex; }
 .sim-helper-box {
   background: #fff; border-radius: 12px; padding: 28px 32px; width: 420px;
   display: flex; flex-direction: column; gap: 12px;
@@ -2291,7 +2291,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <button class="helper-flyout-item" id="sidebar-kl-btn" data-hide="fz">🖥️ Přejít do KL</button>
       <button class="helper-flyout-item" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
       <button class="helper-flyout-item" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
-      <button class="helper-flyout-item" id="sidebar-sim-online-sms-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis – SMS</button>
+      <button class="helper-flyout-item" id="sidebar-sim-online-sms-btn" onclick="startSimOnlinePodpisSMS()">⚡ Simulovat kompletní online podpis – SMS</button>
       <button class="helper-flyout-item" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
     </div>
   </div>
@@ -5742,6 +5742,15 @@ function closeSimHelper() {
   document.getElementById('sim-helper-overlay').classList.remove('active');
 }
 
+function startSimOnlinePodpisSMS() {
+  showPageZam();
+  document.getElementById('sim-helper-overlay-sms').classList.add('active');
+}
+
+function closeSimHelperSMS() {
+  document.getElementById('sim-helper-overlay-sms').classList.remove('active');
+}
+
 function openEmailNotifModal() {
   document.getElementById('email-notif-modal').classList.add('active');
 }
@@ -5768,6 +5777,7 @@ function closeEmailEskalModal() {
 
 function openPrijetiZaveruFlow() {
   closeSimHelper();
+  closeSimHelperSMS();
   document.getElementById('prijeti-zaveru-modal').classList.add('active');
 }
 
@@ -6441,6 +6451,20 @@ function applyMotlDeliveryMethodToDetail() {
     <button class="sim-helper-btn" onclick="openEmailNotifPhysicalModal()">📧&nbsp; Notifikační e-mail o fyzickém doručení</button>
     <button class="sim-helper-btn" onclick="openPrijetiZaveruFlowPhysical()">✅&nbsp; Přijetí závěru ve FZ</button>
     <button class="sim-helper-close-link" onclick="closeSimHelperFyz()">✕ Zavřít</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════
+     HELPER OVERLAY — Simulovat kompletní online podpis – SMS
+═══════════════════════════════════ -->
+<div id="sim-helper-overlay-sms">
+  <div class="sim-helper-box">
+    <p class="sim-helper-title">⚡ Simulovat kompletní online podpis – SMS</p>
+    <p class="sim-helper-desc">Zvolte krok, který chcete simulovat:</p>
+    <button class="sim-helper-btn" onclick="openEmailNotifModal()">📧&nbsp; Notifikační e-mail o dokončení elektronicky podepsaného posudku</button>
+    <button class="sim-helper-btn" onclick="openEmailEskalModal()">🔴&nbsp; Eskalační email</button>
+    <button class="sim-helper-btn" onclick="openPrijetiZaveruFlow()">✅&nbsp; Potvrzení seznámení se závěrem po přihlášení do FZ</button>
+    <button class="sim-helper-close-link" onclick="closeSimHelperSMS()">✕ Zavřít</button>
   </div>
 </div>
 
