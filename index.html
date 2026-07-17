@@ -1970,6 +1970,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
   font-size: 12px; font-weight: 700; color: #121212; margin-bottom: 12px;
 }
 .pdf-view-dialog { background: #f5f5f7; border-radius: 10px; width: 960px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 12px 50px rgba(0,0,0,0.4); font-family: inherit; }
+.pdf-view-dialog-single { width: 480px; }
 .pdf-view-hdr { background: #ededed; border-bottom: 1px solid #d8d8d8; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
 .pdf-view-hdr-title { font-size: 14px; font-weight: 800; color: #121212; }
 .pdf-view-hdr-close { background: #e0e0e0; border: none; border-radius: 4px; width: 22px; height: 22px; cursor: pointer; font-size: 13px; color: #737373; font-family: inherit; display: flex; align-items: center; justify-content: center; }
@@ -5178,6 +5179,8 @@ function closePrintModal() {
 var _empSignMethod = 'zona'; // 'zona' | 'sms' | 'fyzicky'
 
 function openZamPosudekModal() {
+  document.getElementById('zam-posudek-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
+  document.getElementById('zam-posudek-col-sms').style.display = (_empSignMethod === 'sms') ? 'flex' : 'none';
   document.getElementById('zam-posudek-modal').classList.add('active');
 }
 function closeZamPosudekModal() {
@@ -5764,6 +5767,7 @@ function closeEmailAutomatickyModal() {
 
 function startSimOnlinePodpis() {
   document.getElementById('sim-helper-title').textContent = '⚡ Simulovat kompletní online podpis';
+  _empSignMethod = 'zona';
   showPageZam();
   document.getElementById('sim-helper-overlay').classList.add('active');
 }
@@ -5779,6 +5783,7 @@ function closeSimHelper() {
 }
 
 function startSimOnlinePodpisSMS() {
+  _empSignMethod = 'sms';
   showPageZam();
   document.getElementById('sim-helper-overlay-sms').classList.add('active');
 }
@@ -6728,17 +6733,17 @@ function applyMotlDeliveryMethodToDetail() {
 
 <!-- ZAM detail: Zobrazit posudek (652-140 / 652-141) -->
 <div id="zam-posudek-modal" class="pdf-view-modal-shell">
-  <div class="pdf-view-dialog">
+  <div class="pdf-view-dialog pdf-view-dialog-single">
     <div class="pdf-view-hdr">
       <span class="pdf-view-hdr-title">Zobrazení podepsaného posudku</span>
       <button class="pdf-view-hdr-close" onclick="closeZamPosudekModal()">✕</button>
     </div>
     <div class="pdf-view-body">
-      <div class="pdf-view-col">
+      <div class="pdf-view-col" id="zam-posudek-col-zona" style="border-right:none;">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem via zaměstnanecká zóna</div>
         <img class="pdf-view-img" src="assets/zam-posudek1.png" alt="Podepsaný posudek — zaměstnanecká zóna">
       </div>
-      <div class="pdf-view-col">
+      <div class="pdf-view-col" id="zam-posudek-col-sms" style="border-right:none;">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem přes SMS</div>
         <img class="pdf-view-img" src="assets/zam-posudek2.png" alt="Podepsaný posudek — SMS">
       </div>
