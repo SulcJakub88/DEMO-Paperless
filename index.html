@@ -5381,6 +5381,9 @@ function p13ConfirmEdit() {
 function openSignModal() {
   document.getElementById('p13-sign-modal').classList.add('active');
   // reset state
+  document.getElementById('sign-panel-normal').style.display = '';
+  document.getElementById('sign-panel-loading').style.display = 'none';
+  document.getElementById('sign-panel-success').style.display = 'none';
   document.getElementById('sign-state-0').style.display = '';
   document.getElementById('sign-state-1').style.display = 'none';
   document.getElementById('sign-state-2').style.display = 'none';
