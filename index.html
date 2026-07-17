@@ -5450,7 +5450,8 @@ function signCloseAndFinish() {
   document.getElementById('p13-sign-card-unsigned').style.display = 'none';
   document.getElementById('p13-sign-card-signed').style.display = 'flex';
   document.getElementById('p13-podpis-zamestnance').style.display = '';
-  setPageIndicator('Page 13 - signed', 'Page 13 — LZ Rozpracovaná prohlídka | Podpis lékaře dokončen');
+  var signedSuffix = _p12RadioSel === 2 ? ' (SMS)' : ' (email)';
+  setPageIndicator('Page 13 - signed', 'Page 13 — LZ Rozpracovaná prohlídka | Podpis lékaře dokončen' + signedSuffix);
 }
 function closeSignModal() {
   document.getElementById('p13-sign-modal').classList.remove('active');
@@ -5504,7 +5505,10 @@ function showPage14(fromFyz) {
   if (pdfBtns) {
     pdfBtns.style.display = (fromFyz || _empSignMethod === 'fyzicky' || _empSignMethod === 'odmitl') ? 'none' : 'flex';
   }
-  setPageIndicator("Page 14", fromFyz ? "Page 14 — LZ Historie prohlídek | fyzická žádost" : "Page 14 — LZ Historie prohlídek");
+  var empSignMethodLabels = { zona: 'Zaslat na e-mail', sms: 'Zaslat PIN na telefon', fyzicky: 'Vytisknout', odmitl: 'Odmítnutí' };
+  setPageIndicator("Page 14", fromFyz
+    ? "Page 14 — LZ Historie prohlídek | fyzická žádost"
+    : "Page 14 — LZ Historie prohlídek | " + (empSignMethodLabels[_empSignMethod] || 'Zaslat na e-mail'));
   var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
   document.getElementById('lz14-back-btn').onclick = backFZFn;
   document.querySelector('#page14 .lz-hist-wrap').scrollTop = 0;
