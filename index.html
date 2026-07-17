@@ -2291,6 +2291,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <button class="helper-flyout-item" id="sidebar-kl-btn" data-hide="fz">🖥️ Přejít do KL</button>
       <button class="helper-flyout-item" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
       <button class="helper-flyout-item" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
+      <button class="helper-flyout-item" id="sidebar-sim-online-sms-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis – SMS</button>
       <button class="helper-flyout-item" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
     </div>
   </div>
@@ -4972,6 +4973,7 @@ function showPage5(fromCRM) {
   document.getElementById('sidebar-email-online-btn').style.display = '';
   document.getElementById('sidebar-email-print-btn').style.display = '';
   document.getElementById('sidebar-sim-online-btn').style.display = '';
+  document.getElementById('sidebar-sim-online-sms-btn').style.display = '';
   document.getElementById('sidebar-sim-physical-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 5", "Page 5 — FZ Odeslat žádost (digitální cesta)");
@@ -5015,6 +5017,7 @@ function showPage7(fromCRM) {
   document.getElementById('sidebar-email-online-btn').style.display = 'none';
   document.getElementById('sidebar-email-print-btn').style.display = '';
   document.getElementById('sidebar-sim-online-btn').style.display = 'none';
+  document.getElementById('sidebar-sim-online-sms-btn').style.display = 'none';
   document.getElementById('sidebar-sim-physical-btn').style.display = '';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 7", "Page 7 — FZ Odeslat žádost (fyzická cesta)");
