@@ -5482,7 +5482,7 @@ function showPageZamDetail() {
   applyMotlDeliveryMethodToDetail();
   setPageIndicator('Page ZAM-DETAIL', _motlDeliveryMethod === 'fyzicky'
     ? 'FZ — Profil zaměstnance fyzicky podepsáno'
-    : 'FZ — Profil zaměstnance elektronicky podepsáno');
+    : 'FZ — Profil zaměstnance elektronicky podepsáno' + (_empSignMethod === 'sms' ? ' (online-sms)' : ' (online-email)'));
 }
 
 function showPageZam() {
