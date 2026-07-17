@@ -5490,7 +5490,9 @@ function showPageZam() {
   document.getElementById('page-zam').classList.add('active');
   document.getElementById('nav-zamestnanci').classList.add('active');
   document.getElementById('sidebar-zam-wrap').classList.add('visible');
-  setPageIndicator('Page ZAM', 'FZ — Zaměstnanci');
+  var zamSignMethodLabels = { zona: 'online-email', sms: 'online-sms', fyzicky: 'fyzicky' };
+  var zamSuffix = zamSignMethodLabels[_empSignMethod];
+  setPageIndicator('Page ZAM', 'FZ — Zaměstnanci' + (zamSuffix ? ' (' + zamSuffix + ')' : ''));
 }
 
 function showPage14(fromFyz) {
@@ -5536,6 +5538,7 @@ function showPage14Sms() {
 }
 
 function showPage14Fyz() {
+  _empSignMethod = 'fyzicky';
   showPage14(true);
 }
 
@@ -5837,6 +5840,7 @@ function closePosudekElecOverlay() {
 
 /* ── Simulovat kompletní fyzický podpis ── */
 function startSimFyzickyPodpis() {
+  _empSignMethod = 'fyzicky';
   showPageZam();
   document.getElementById('sim-helper-overlay-fyz').classList.add('active');
 }
