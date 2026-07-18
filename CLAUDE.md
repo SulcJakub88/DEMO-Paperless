@@ -199,6 +199,19 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   `renderZamFlyoutList()`), onclick `showPageZamDetailOnlineEmail()/OnlineSms()/
   Fyzicky()`, které nastaví `_empSignMethod`+`_motlDeliveryMethod` a zůstanou
   na profilu.
+- **„Pomocné akce" flyouty se skupinovým popiskem** (`.helper-flyout-label` +
+  `.helper-flyout-divider`, stejný vzor napříč FZ i LZ) — používej vždy, když
+  flyout obsahuje ≥2 logicky odlišné kategorie akcí; pro flyouty s jen 1
+  homogenní skupinou (LZ page9–13/13-fyz mají jediné tlačítko „← Zpět do FZ")
+  se popisky nepřidávají.
+  - `#sidebar-lz-wrap` (FZ page1/2/5/7): „Navigace" (přepnout žádost, Přejít
+    do KL/LZ) → „Simulace podpisu" (3 tlačítka) → „Náhled e-mailu" (2 tlačítka).
+    Statické skupiny — na page5/7 je vždy aspoň 1 položka viditelná v každé
+    skupině, takže se nikdy nemusí schovávat celý label/divider.
+  - `#page14` helper-flyout: „Stav prohlídky" (5 přepínačů demo-stavu,
+    `updatePage14HelperFlyout()` zvýrazní aktuální) → „Přejít do FZ
+    Zaměstnanci" (4 kontextové zástupce, vždy právě 1 viditelný dle
+    `_page14State`).
 
 ## Hlavní flow (sekvenční přehled)
 

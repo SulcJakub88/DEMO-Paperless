@@ -2304,14 +2304,19 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
   <div class="sidebar-lz-wrap" id="sidebar-lz-wrap">
     <button class="helper-trigger">⚙️ Pomocné akce</button>
     <div class="helper-flyout">
+      <div class="helper-flyout-label">Navigace</div>
       <button class="helper-flyout-item" id="sidebar-toggle-req-btn">🔄 Přepnout na fyzickou žádost</button>
-      <button class="helper-flyout-item" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
-      <button class="helper-flyout-item" id="sidebar-email-print-btn" onclick="showEmailModal('physical')">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
       <button class="helper-flyout-item" id="sidebar-kl-btn" data-hide="fz">🖥️ Přejít do KL</button>
       <button class="helper-flyout-item" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
+      <div class="helper-flyout-divider"></div>
+      <div class="helper-flyout-label">Simulace podpisu</div>
       <button class="helper-flyout-item" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
       <button class="helper-flyout-item" id="sidebar-sim-online-sms-btn" onclick="startSimOnlinePodpisSMS()">⚡ Simulovat kompletní online podpis – SMS</button>
       <button class="helper-flyout-item" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
+      <div class="helper-flyout-divider"></div>
+      <div class="helper-flyout-label">Náhled e-mailu</div>
+      <button class="helper-flyout-item" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
+      <button class="helper-flyout-item" id="sidebar-email-print-btn" onclick="showEmailModal('physical')">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
     </div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
@@ -4708,15 +4713,18 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <div class="helper-bar">
         <button class="helper-trigger">⚙️ Pomocné akce</button>
         <div class="helper-flyout">
+          <div class="helper-flyout-label">Stav prohlídky</div>
           <button class="helper-flyout-item" id="p14flyout-email" onclick="showPage14Email()">✉️ Page 14 | Zaslat na e-mail</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-email" onclick="showPageZamOnlineEmail()">→ FZ — Zaměstnanci (online-email)</button>
           <button class="helper-flyout-item" id="p14flyout-sms" onclick="showPage14Sms()">💬 Page 14 | Zaslat PIN na telefon</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-sms" onclick="showPageZamOnlineSms()">→ FZ — Zaměstnanci (online-sms)</button>
           <button class="helper-flyout-item" id="p14flyout-fyzicka" onclick="showPage14Fyz()">🖨️ Page 14 | Fyzická žádost</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-fyzicka" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
           <button class="helper-flyout-item" id="p14flyout-vytisknout" onclick="showPage14Print()">🖨️ Page 14 | Vytisknout</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-vytisknout" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
           <button class="helper-flyout-item" id="p14flyout-odmitnuti" onclick="showPage14Odmitnuti()">✕ Page 14 | Odmítnutí</button>
+          <div class="helper-flyout-divider"></div>
+          <div class="helper-flyout-label">Přejít do FZ Zaměstnanci</div>
+          <button class="helper-flyout-item" id="p14flyout-fz-email" onclick="showPageZamOnlineEmail()">→ FZ — Zaměstnanci (online-email)</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-sms" onclick="showPageZamOnlineSms()">→ FZ — Zaměstnanci (online-sms)</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-fyzicka" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-vytisknout" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
         </div>
       </div>
     </aside>
