@@ -1942,6 +1942,8 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
 /* ── PDF view modal ── */
 #pdf-view-modal, #zam-posudek-modal, #zam-zaznam-modal { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); }
 #pdf-view-modal.active, #zam-posudek-modal.active, #zam-zaznam-modal.active { display: flex; }
+/* Zobrazit záznam musí být nad modálem "Důležité upozornění" (z-index 955), stejně jako posudek-elec-overlay (970) u online flow */
+#zam-zaznam-modal { z-index: 970; }
 
 /* ── Zobrazit záznam (fyzicky podepsáno) — repro Figma 657:6 ── */
 .zrec-dialog {
