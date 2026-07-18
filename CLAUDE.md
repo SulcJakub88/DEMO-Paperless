@@ -199,6 +199,14 @@ KL page3/4: [Hledat lékaře]→výsledek→ [Přejít do FZ]→page5/7 (status 
             (`bottom`) dopočítává JS `positionCrmHelperBar()` (voláno ze
             `setPageIndicator()`) podle reálné výšky role-chipu (1 vs 2 řádky textu),
             aby se stack nikdy nepřekryl s tlačítkem role vlevo dole.
+            `showResult3()/showResult4()` po nalezení lékaře volají
+            `collapseCrmPreResultSections('p3'|'p4')` — sbalí karty „TYP PŘÍCHOZÍ
+            ŽÁDOSTI"/„PREFERENCE KLIENTA" (`#p3-typ-bar/-card`, `#p3-pref-bar/-card`,
+            obdoba pro p4) a schová druhé AKCE tlačítko (`#btn-hledat3-alt`/`-4-alt`),
+            ať se celý výsledek (`SOUHRN DOPADU` v `.crm-ir-grid`, 3 sloupce místo
+            stackování) vejde na výšku obrazovky bez scrollu (cíl: MacBook 13",
+            ~1280×800/720). `showPage3Digital()/Physical()` volají opak —
+            `restoreCrmPreResultSections()` — při novém vstupu na stránku.
 
 LZ: page9 → (klik řádek) → page10 (online cesta) NEBO page11 (fyzická cesta)
 

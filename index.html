@@ -1113,13 +1113,13 @@ body {
    CRM INLINE RESULT SECTION
 ══════════════════════════════ */
 .crm-result {
-  display: none; margin-top: 14px;
+  display: none; margin-top: 12px;
   border: 1px solid #c8d8ee; border-radius: 8px; overflow: hidden;
 }
 .crm-result.visible { display: block; }
 .crm-result-head {
   background: linear-gradient(135deg,#f0f6ff,#e8f2ff);
-  padding: 18px 20px 16px; border-bottom: 1px solid #c8d8ee;
+  padding: 13px 18px 12px; border-bottom: 1px solid #c8d8ee;
 }
 .crm-result-head.amber {
   background: linear-gradient(135deg,#fffbf0,#fff3e0);
@@ -1127,50 +1127,52 @@ body {
 }
 .crm-rbadge {
   display: inline-flex; align-items: center; gap: 5px;
-  border-radius: 20px; padding: 3px 12px; font-size: 12.5px; font-weight: 700; margin-bottom: 8px;
+  border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 700; margin-bottom: 6px;
 }
 .crm-rbadge.green { background: #e8f5ec; color: #166534; }
 .crm-rbadge.amber { background: #fff3e0; color: #9a3412; }
-.crm-result-title { font-size: 18px; font-weight: 800; color: #0d1f4c; margin: 0 0 5px; }
-.crm-result-sub { font-size: 12.5px; color: #5a6a85; line-height: 1.55; margin: 0; }
-.crm-result-body { background: #fff; padding: 16px 20px; }
+.crm-result-title { font-size: 16px; font-weight: 800; color: #0d1f4c; margin: 0 0 4px; }
+.crm-result-sub { font-size: 12px; color: #5a6a85; line-height: 1.4; margin: 0; }
+.crm-result-body { background: #fff; padding: 12px 18px; }
 .crm-impact-label {
-  font-size: 11.5px; font-weight: 700; color: #9aacbf;
-  letter-spacing: .07em; text-transform: uppercase; margin-bottom: 10px;
+  font-size: 11px; font-weight: 700; color: #9aacbf;
+  letter-spacing: .07em; text-transform: uppercase; margin-bottom: 8px;
 }
+/* Souhrn dopadu — 3 sloupce vedle sebe místo stackování, ať se výsledek
+   vejde na výšku bez scrollu (viz showResult3/4 + MacBook 13" požadavek). */
+.crm-ir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .crm-ir {
-  display: flex; gap: 12px; align-items: flex-start;
-  padding: 10px 12px; background: #f7f9fc;
-  border: 1px solid #e6eaf2; border-radius: 6px; margin-bottom: 7px;
+  display: flex; gap: 8px; align-items: flex-start;
+  padding: 8px 10px; background: #f7f9fc;
+  border: 1px solid #e6eaf2; border-radius: 6px; margin-bottom: 0;
 }
-.crm-ir:last-child { margin-bottom: 0; }
-.crm-ir-ic { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
-.crm-ir-lbl { font-size: 12px; color: #9aacbf; margin-bottom: 1px; }
-.crm-ir-val { font-size: 13px; font-weight: 600; color: #0d1f4c; }
+.crm-ir-ic { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+.crm-ir-lbl { font-size: 10.5px; color: #9aacbf; margin-bottom: 1px; }
+.crm-ir-val { font-size: 11.5px; font-weight: 600; color: #0d1f4c; line-height: 1.3; }
 .crm-ir-val.warn { color: #b45309; }
 .crm-result-foot {
-  background: #f7f9fc; padding: 13px 20px 16px;
+  background: #f7f9fc; padding: 10px 18px 12px;
   border-top: 1px solid #e6eaf2;
-  display: flex; gap: 10px; flex-wrap: wrap;
+  display: flex; gap: 8px; flex-wrap: wrap;
 }
 .crm-cta-email {
-  height: 36px; padding: 0 15px;
+  height: 32px; padding: 0 13px;
   background: #fff; color: #5a6a85;
   border: 1.5px solid #ccc; border-radius: 6px;
-  font-size: 12.5px; font-weight: 600; cursor: pointer;
+  font-size: 11.5px; font-weight: 600; cursor: pointer;
   font-family: inherit; white-space: nowrap;
 }
 .crm-cta-fz {
-  height: 36px; padding: 0 15px;
+  height: 32px; padding: 0 13px;
   background: #1459bf; color: #fff; border: none;
-  border-radius: 6px; font-size: 12.5px; font-weight: 700;
+  border-radius: 6px; font-size: 11.5px; font-weight: 700;
   cursor: pointer; font-family: inherit; white-space: nowrap;
 }
 .crm-cta-lz {
-  height: 36px; padding: 0 15px;
+  height: 32px; padding: 0 13px;
   background: #fff; color: #1459bf;
   border: 1.5px solid #4d80d9; border-radius: 6px;
-  font-size: 12.5px; font-weight: 600; cursor: pointer;
+  font-size: 11.5px; font-weight: 600; cursor: pointer;
   font-family: inherit; white-space: nowrap;
 }
 
@@ -3232,8 +3234,8 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </div>
 
       <!-- TYP PŘÍCHOZÍ ŽÁDOSTI -->
-      <div class="crm-bar">TYP PŘÍCHOZÍ ŽÁDOSTI</div>
-      <div class="crm-card">
+      <div class="crm-bar" id="p3-typ-bar">TYP PŘÍCHOZÍ ŽÁDOSTI</div>
+      <div class="crm-card" id="p3-typ-card">
         <div class="crm-two-col">
           <div class="crm-choice active" style="cursor:pointer;" onclick="showPage3Digital()">
             🌐&nbsp; FZ online žádost<br>
@@ -3247,8 +3249,8 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </div>
 
       <!-- PREFERENCE KLIENTA -->
-      <div class="crm-bar">PREFERENCE KLIENTA <span class="crm-bar-right">Nastaveno při onboardingu — nelze měnit zde</span></div>
-      <div class="crm-card">
+      <div class="crm-bar" id="p3-pref-bar">PREFERENCE KLIENTA <span class="crm-bar-right">Nastaveno při onboardingu — nelze měnit zde</span></div>
+      <div class="crm-card" id="p3-pref-card">
         <div class="crm-three-col">
           <div class="crm-pref active">
             <div class="crm-pref-icon">🌐</div>
@@ -3275,7 +3277,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <div class="crm-bar">AKCE</div>
       <div class="crm-card">
         <button class="crm-btn-blue" id="btn-hledat3" onclick="showResult3()">🔍&nbsp; Hledat vhodného lékaře</button>
-        <button class="crm-btn-outline" style="margin-top:6px;">🔄&nbsp; Hledat alternativního lékaře</button>
+        <button class="crm-btn-outline" id="btn-hledat3-alt" style="margin-top:6px;">🔄&nbsp; Hledat alternativního lékaře</button>
       </div>
 
       <!-- VÝSLEDEK PŘIŘAZENÍ -->
@@ -3287,17 +3289,19 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         </div>
         <div class="crm-result-body">
           <div class="crm-impact-label">SOUHRN DOPADU NA JEDNOTLIVÉ AKTÉRY</div>
-          <div class="crm-ir">
-            <div class="crm-ir-ic">📧</div>
-            <div><div class="crm-ir-lbl">E-mail zaměstnanci</div><div class="crm-ir-val">Šablona 2 – tisk žádosti není nutný</div></div>
-          </div>
-          <div class="crm-ir">
-            <div class="crm-ir-ic">📋</div>
-            <div><div class="crm-ir-lbl">Status rezervace ve FZ</div><div class="crm-ir-val">Objednán – netisknout žádost</div></div>
-          </div>
-          <div class="crm-ir">
-            <div class="crm-ir-ic">🏥</div>
-            <div><div class="crm-ir-lbl">Status rezervace v LZ</div><div class="crm-ir-val">Objednán/a – žádost online</div></div>
+          <div class="crm-ir-grid">
+            <div class="crm-ir">
+              <div class="crm-ir-ic">📧</div>
+              <div><div class="crm-ir-lbl">E-mail zaměstnanci</div><div class="crm-ir-val">Šablona 2 – tisk žádosti není nutný</div></div>
+            </div>
+            <div class="crm-ir">
+              <div class="crm-ir-ic">📋</div>
+              <div><div class="crm-ir-lbl">Status rezervace ve FZ</div><div class="crm-ir-val">Objednán – netisknout žádost</div></div>
+            </div>
+            <div class="crm-ir">
+              <div class="crm-ir-ic">🏥</div>
+              <div><div class="crm-ir-lbl">Status rezervace v LZ</div><div class="crm-ir-val">Objednán/a – žádost online</div></div>
+            </div>
           </div>
         </div>
         <div class="crm-result-foot">
@@ -3354,8 +3358,8 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </div>
 
       <!-- TYP PŘÍCHOZÍ ŽÁDOSTI -->
-      <div class="crm-bar">TYP PŘÍCHOZÍ ŽÁDOSTI</div>
-      <div class="crm-card">
+      <div class="crm-bar" id="p4-typ-bar">TYP PŘÍCHOZÍ ŽÁDOSTI</div>
+      <div class="crm-card" id="p4-typ-card">
         <div class="crm-two-col">
           <div class="crm-choice" style="cursor:pointer;" onclick="showPage3Digital()">
             🌐&nbsp; FZ online žádost<br>
@@ -3369,8 +3373,8 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </div>
 
       <!-- PREFERENCE KLIENTA -->
-      <div class="crm-bar">PREFERENCE KLIENTA <span class="crm-bar-right">Nastaveno při onboardingu — nelze měnit zde</span></div>
-      <div class="crm-card">
+      <div class="crm-bar" id="p4-pref-bar">PREFERENCE KLIENTA <span class="crm-bar-right">Nastaveno při onboardingu — nelze měnit zde</span></div>
+      <div class="crm-card" id="p4-pref-card">
         <div class="crm-three-col">
           <div class="crm-pref">
             <div class="crm-pref-icon">🌐</div>
@@ -3397,7 +3401,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <div class="crm-bar">AKCE</div>
       <div class="crm-card">
         <button class="crm-btn-blue" id="btn-hledat4" onclick="showResult4()">🔍&nbsp; Hledat vhodného lékaře</button>
-        <button class="crm-btn-outline" style="margin-top:6px;">🔄&nbsp; Hledat alternativního lékaře</button>
+        <button class="crm-btn-outline" id="btn-hledat4-alt" style="margin-top:6px;">🔄&nbsp; Hledat alternativního lékaře</button>
       </div>
 
       <!-- VÝSLEDEK PŘIŘAZENÍ -->
@@ -3409,17 +3413,19 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         </div>
         <div class="crm-result-body">
           <div class="crm-impact-label">SOUHRN DOPADU NA JEDNOTLIVÉ AKTÉRY</div>
-          <div class="crm-ir">
-            <div class="crm-ir-ic">📧</div>
-            <div><div class="crm-ir-lbl">E-mail zaměstnanci</div><div class="crm-ir-val warn">Šablona 1 – tisk žádosti nutný</div></div>
-          </div>
-          <div class="crm-ir">
-            <div class="crm-ir-ic">📋</div>
-            <div><div class="crm-ir-lbl">Status rezervace ve FZ</div><div class="crm-ir-val warn">Objednán – vytiskněte žádost ⚠️</div></div>
-          </div>
-          <div class="crm-ir">
-            <div class="crm-ir-ic">🏥</div>
-            <div><div class="crm-ir-lbl">Status rezervace v LZ</div><div class="crm-ir-val">Objednán/a – převzít žádost od pacienta</div></div>
+          <div class="crm-ir-grid">
+            <div class="crm-ir">
+              <div class="crm-ir-ic">📧</div>
+              <div><div class="crm-ir-lbl">E-mail zaměstnanci</div><div class="crm-ir-val warn">Šablona 1 – tisk žádosti nutný</div></div>
+            </div>
+            <div class="crm-ir">
+              <div class="crm-ir-ic">📋</div>
+              <div><div class="crm-ir-lbl">Status rezervace ve FZ</div><div class="crm-ir-val warn">Objednán – vytiskněte žádost ⚠️</div></div>
+            </div>
+            <div class="crm-ir">
+              <div class="crm-ir-ic">🏥</div>
+              <div><div class="crm-ir-lbl">Status rezervace v LZ</div><div class="crm-ir-val">Objednán/a – převzít žádost od pacienta</div></div>
+            </div>
           </div>
         </div>
         <div class="crm-result-foot">
@@ -4940,11 +4946,32 @@ function showPage2() {
   window.scrollTo(0, 0);
 }
 
+// Sbalí/vrátí "TYP PŘÍCHOZÍ ŽÁDOSTI" + "PREFERENCE KLIENTA" a druhé AKCE
+// tlačítko na page3/4 — info je po nalezení lékaře už shrnuté v hlavičce
+// výsledku, takže se sbalením celý výsledek vejde na výšku bez scrollu.
+function collapseCrmPreResultSections(prefix) {
+  ['typ-bar', 'typ-card', 'pref-bar', 'pref-card'].forEach(function (suffix) {
+    var el = document.getElementById(prefix + '-' + suffix);
+    if (el) el.style.display = 'none';
+  });
+  var alt = document.getElementById('btn-hledat' + prefix.slice(1) + '-alt');
+  if (alt) alt.style.display = 'none';
+}
+function restoreCrmPreResultSections(prefix) {
+  ['typ-bar', 'typ-card', 'pref-bar', 'pref-card'].forEach(function (suffix) {
+    var el = document.getElementById(prefix + '-' + suffix);
+    if (el) el.style.display = '';
+  });
+  var alt = document.getElementById('btn-hledat' + prefix.slice(1) + '-alt');
+  if (alt) alt.style.display = '';
+}
+
 function showPage3Digital() {
   hideAll();
   document.getElementById('page3').classList.add('active');
   setPageIndicator('Page 3', 'Page 3 — KL Přiřazení lékaře (digitální žádost)');
   document.getElementById('result3').classList.remove('visible');
+  restoreCrmPreResultSections('p3');
   var btn = document.getElementById('btn-hledat3');
   if (btn) { btn.textContent = '🔍  Hledat vhodného lékaře'; btn.disabled = false; }
   window.scrollTo(0, 0);
@@ -4954,6 +4981,7 @@ function showPage3Physical() {
   hideAll();
   document.getElementById('page4').classList.add('active');
   document.getElementById('result4').classList.remove('visible');
+  restoreCrmPreResultSections('p4');
   var btn = document.getElementById('btn-hledat4');
   if (btn) { btn.textContent = '🔍  Hledat vhodného lékaře'; btn.disabled = false; }
   setPageIndicator("Page 4", "Page 4 — KL Přiřazení lékaře (fyzická žádost)");
@@ -4965,10 +4993,8 @@ function showResult3() {
   btn.textContent = '✓  Lékař byl nalezen';
   btn.style.background = '#16a34a';
   btn.disabled = true;
+  collapseCrmPreResultSections('p3');
   document.getElementById('result3').classList.add('visible');
-  setTimeout(function() {
-    document.getElementById('result3').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
 }
 
 function showResult4() {
@@ -4976,10 +5002,8 @@ function showResult4() {
   btn.textContent = '✓  Lékař byl nalezen';
   btn.style.background = '#16a34a';
   btn.disabled = true;
+  collapseCrmPreResultSections('p4');
   document.getElementById('result4').classList.add('visible');
-  setTimeout(function() {
-    document.getElementById('result4').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }, 100);
 }
 
 function showPage5FromCRM() {
