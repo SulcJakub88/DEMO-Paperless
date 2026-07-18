@@ -1660,6 +1660,12 @@ body.role-kl [data-hide~="kl"] { display: none !important; }
 [data-show] { display: none !important; }
 body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
+/* CRM (page3/page4) helper bar — stacked above #bottom-left-bar */
+.crm-kl-helper-bar { position: fixed; left: 16px; bottom: 51px; z-index: 1100; width: 168px; display: flex; flex-direction: column; gap: 6px; }
+.crm-kl-helper-bar .crm-back-btn { margin-left: 0; display: block; width: 100%; box-sizing: border-box; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+body.role-kl .crm-kl-helper-bar [data-show~="kl"] { display: block !important; }
+body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important; }
+
 /* SMS PIN modal (387-4759) */
 #sms-pin-modal { position: fixed; inset: 0; z-index: 600; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); }
 #sms-pin-modal.active { display: flex; }
@@ -3198,8 +3204,10 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <span class="crm-breadcrumb">FZ-2026-0524-001</span>
       <span class="crm-breadcrumb-sep">›</span>
       <span class="crm-breadcrumb-active">Přiřazení lékaře</span>
-      <button class="crm-back-btn" data-hide="kl" onclick="showPage5()">← Zpět do FZ</button>
-      <button class="crm-back-btn" data-show="kl" onclick="showPage3Physical()" style="border-style:dashed;">🖨 Přepnout na fyzickou žádost</button>
+    </div>
+    <div class="crm-kl-helper-bar">
+      <button class="crm-back-btn" data-show="kl all" onclick="showPage3Physical()" style="border-style:dashed;">🖨 Přepnout na fyzickou žádost</button>
+      <button class="crm-back-btn" onclick="showPage5()">← Zpět do FZ</button>
     </div>
     <div class="crm-wrap">
       <div class="crm-title">📞&nbsp;&nbsp;Přiřazení lékaře</div>
@@ -3318,8 +3326,10 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <span class="crm-breadcrumb">FZ-2026-0524-001</span>
       <span class="crm-breadcrumb-sep">›</span>
       <span class="crm-breadcrumb-active">Přiřazení lékaře</span>
-      <button class="crm-back-btn" data-hide="kl" onclick="showPage7()">← Zpět do FZ</button>
-      <button class="crm-back-btn" data-show="kl" onclick="showPage3Digital()" style="border-style:dashed;">🌐 Přepnout na digitální žádost</button>
+    </div>
+    <div class="crm-kl-helper-bar">
+      <button class="crm-back-btn" data-show="kl all" onclick="showPage3Digital()" style="border-style:dashed;">🌐 Přepnout na digitální žádost</button>
+      <button class="crm-back-btn" onclick="showPage7()">← Zpět do FZ</button>
     </div>
     <div class="crm-wrap">
       <div class="crm-title">📞&nbsp;&nbsp;Přiřazení lékaře</div>
@@ -4888,10 +4898,21 @@ function equalizeBadges() {
 
 function setPageIndicator(short, full) {
   equalizeBadges();
+  positionCrmHelperBar();
   var el = document.getElementById('page-indicator');
   if (!el) return;
   el.textContent = _roleMeta[_role].label + ' · ' + short;
   el.setAttribute('data-full', full);
+}
+
+// Zavěsí .crm-kl-helper-bar (page3/page4) nad #bottom-left-bar — výška role-chip
+// se liší dle délky textu role (1–2 řádky), takže offset dopočítá dynamicky.
+function positionCrmHelperBar() {
+  var chip = document.getElementById('bottom-left-bar');
+  var bars = document.querySelectorAll('.crm-kl-helper-bar');
+  if (!chip || !bars.length) return;
+  var h = chip.getBoundingClientRect().height;
+  bars.forEach(function (bar) { bar.style.bottom = (14 + h + 8) + 'px'; });
 }
 
 function hideAll() {
