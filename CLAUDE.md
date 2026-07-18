@@ -188,6 +188,12 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   první pohled vidět, na jaké variantě stránky ZAMĚSTNANCI se právě nacházíme;
   (3) schová `#zamflyout-potvrzeno`/`-automaticky` (náhledy e-mailových
   notifikací) na variantě "fyzicky" — posudek se tam nedoručuje e-mailem.
+  **`#sidebar-zam-wrap` je sdílený mezi page-zam (seznam) i page-zam-detail
+  (profil)** — obsah „Pomocné akce" flyoutu se proto při každém vstupu
+  přestavuje přes `renderZamFlyoutList()` (5 položek, viz výše) nebo
+  `renderZamFlyoutDetail()` (jen 2 zástupci — varianty JINÉ než aktuální,
+  onclick `showPageZamDetailOnlineEmail()/OnlineSms()/Fyzicky()`, které
+  nastaví `_empSignMethod`+`_motlDeliveryMethod` a zůstanou na profilu).
 
 ## Hlavní flow (sekvenční přehled)
 

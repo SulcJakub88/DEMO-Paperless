@@ -5530,27 +5530,19 @@ function closePrintSuccess() {
   showPage14();
 }
 
-function showPageZamDetail() {
-  hideAll();
-  document.getElementById('page-zam-detail').classList.add('active');
-  document.getElementById('nav-zamestnanci').classList.add('active');
-  document.getElementById('sidebar-zam-wrap').classList.add('visible');
-  applyMotlDeliveryMethodToDetail();
-  setPageIndicator('Page ZAM-DETAIL', _motlDeliveryMethod === 'fyzicky'
-    ? 'FZ — Profil zaměstnance fyzicky podepsáno'
-    : 'FZ — Profil zaměstnance elektronicky podepsáno' + (_empSignMethod === 'sms' ? ' (online-sms)' : ' (online-email)'));
-}
-
-function showPageZam() {
-  hideAll();
-  document.getElementById('page-zam').classList.add('active');
-  document.getElementById('nav-zamestnanci').classList.add('active');
-  document.getElementById('sidebar-zam-wrap').classList.add('visible');
-  var zamSignMethodLabels = { zona: 'online-email', sms: 'online-sms', fyzicky: 'fyzicky' };
-  var zamSuffix = zamSignMethodLabels[_empSignMethod];
-  setPageIndicator('Page ZAM' + (zamSuffix ? ' (' + zamSuffix + ')' : ''), 'FZ — Zaměstnanci' + (zamSuffix ? ' (' + zamSuffix + ')' : ''));
-  // Zvýrazní tlačítko v "Pomocné akce", které odpovídá aktuálnímu _empSignMethod,
-  // ať je vidět, na jaké variantě stránky ZAMĚSTNANCI se právě nacházíme.
+// #sidebar-zam-wrap je sdílený mezi page-zam (seznam) a page-zam-detail
+// (profil) — obsah "Pomocné akce" flyoutu se proto přestavuje dle kontextu:
+// na seznamu 5 položek (náhledy + 3 varianty seznamu), na profilu jen 2
+// zástupci (varianty JINÉ než ta aktuální).
+function renderZamFlyoutList() {
+  var flyout = document.querySelector('#sidebar-zam-wrap .helper-flyout');
+  if (!flyout) return;
+  flyout.innerHTML =
+    '<button class="helper-flyout-item" id="zamflyout-potvrzeno" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>' +
+    '<button class="helper-flyout-item" id="zamflyout-automaticky" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>' +
+    '<button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>' +
+    '<button class="helper-flyout-item" id="zamflyout-sms" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>' +
+    '<button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>';
   ['zona', 'sms', 'fyzicky'].forEach(function (m) {
     var el = document.getElementById('zamflyout-' + m);
     if (el) el.classList.toggle('active', _empSignMethod === m);
@@ -5562,6 +5554,65 @@ function showPageZam() {
   var automatickyBtn = document.getElementById('zamflyout-automaticky');
   if (potvrzenoBtn) potvrzenoBtn.style.display = onlineOnlyDisplay;
   if (automatickyBtn) automatickyBtn.style.display = onlineOnlyDisplay;
+}
+
+function renderZamFlyoutDetail() {
+  var flyout = document.querySelector('#sidebar-zam-wrap .helper-flyout');
+  if (!flyout) return;
+  var current = _motlDeliveryMethod === 'fyzicky' ? 'fyzicky' : (_empSignMethod === 'sms' ? 'sms' : 'zona');
+  var variants = {
+    zona: { icon: '✉️', label: 'FZ profil zaměstnance elektronicky podepsáno (online-email)', fn: 'showPageZamDetailOnlineEmail()' },
+    sms: { icon: '💬', label: 'FZ profil zaměstnance elektronicky podepsáno (online-sms)', fn: 'showPageZamDetailOnlineSms()' },
+    fyzicky: { icon: '🖨️', label: 'FZ profil zaměstnance fyzicky podepsáno', fn: 'showPageZamDetailFyzicky()' }
+  };
+  var html = '';
+  ['zona', 'sms', 'fyzicky'].forEach(function (k) {
+    if (k === current) return;
+    var v = variants[k];
+    html += '<button class="helper-flyout-item" onclick="' + v.fn + '">' + v.icon + '&nbsp; ' + v.label + '</button>';
+  });
+  flyout.innerHTML = html;
+}
+
+function showPageZamDetail() {
+  hideAll();
+  document.getElementById('page-zam-detail').classList.add('active');
+  document.getElementById('nav-zamestnanci').classList.add('active');
+  document.getElementById('sidebar-zam-wrap').classList.add('visible');
+  applyMotlDeliveryMethodToDetail();
+  setPageIndicator('Page ZAM-DETAIL', _motlDeliveryMethod === 'fyzicky'
+    ? 'FZ — Profil zaměstnance fyzicky podepsáno'
+    : 'FZ — Profil zaměstnance elektronicky podepsáno' + (_empSignMethod === 'sms' ? ' (online-sms)' : ' (online-email)'));
+  renderZamFlyoutDetail();
+}
+
+function showPageZam() {
+  hideAll();
+  document.getElementById('page-zam').classList.add('active');
+  document.getElementById('nav-zamestnanci').classList.add('active');
+  document.getElementById('sidebar-zam-wrap').classList.add('visible');
+  var zamSignMethodLabels = { zona: 'online-email', sms: 'online-sms', fyzicky: 'fyzicky' };
+  var zamSuffix = zamSignMethodLabels[_empSignMethod];
+  setPageIndicator('Page ZAM' + (zamSuffix ? ' (' + zamSuffix + ')' : ''), 'FZ — Zaměstnanci' + (zamSuffix ? ' (' + zamSuffix + ')' : ''));
+  renderZamFlyoutList();
+}
+
+function showPageZamDetailOnlineEmail() {
+  _empSignMethod = 'zona';
+  _motlDeliveryMethod = 'elektronicky';
+  showPageZamDetail();
+}
+
+function showPageZamDetailOnlineSms() {
+  _empSignMethod = 'sms';
+  _motlDeliveryMethod = 'elektronicky';
+  showPageZamDetail();
+}
+
+function showPageZamDetailFyzicky() {
+  _empSignMethod = 'fyzicky';
+  _motlDeliveryMethod = 'fyzicky';
+  showPageZamDetail();
 }
 
 function showPageZamOnlineEmail() {
