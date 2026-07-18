@@ -77,6 +77,10 @@ Jediné závislosti: **Node.js** (kvůli `npx serve`) a prohlížeč. Nic víc.
   jinak by větší písmo víc ořezávalo text (`text-overflow:ellipsis`).
   Když přidáváš nový `font-size`, drž se už zvětšené škály (viz aktuální
   hodnoty v CSS), needěl ji zase zmenšovat na "figma" originál.
+  KL-CRM (page3/4, `.crm-*` třídy) do V11 škálování spadalo jen částečně —
+  dodatečně zvětšeno (`.crm-wrap` 726→860px, `.crm-title` 19→22px, `.crm-card`/
+  `.crm-choice`/`.crm-pref`/`.crm-btn-*`/`.crm-result*` texty a paddingy +1–2px
+  resp. ~20 %), ať se prostor na page3/4 využije lépe a obsah je čitelnější.
 - Barvy: primární modrá `#1459bf` / `#0d3380`, růžová (aktivní nav / CTA) `#d92673`,
   zelená (způsobilý / úspěch) `#1a8026`, oranžová (varování) `#d97706`.
 - Jazyk UI: čeština. Kód (funkce/proměnné): camelCase, česko-anglicky.
