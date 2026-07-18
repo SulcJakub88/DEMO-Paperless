@@ -2312,8 +2312,8 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
     <button class="helper-trigger">⚙️ Pomocné akce</button>
     <div class="helper-flyout">
-      <button class="helper-flyout-item" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
-      <button class="helper-flyout-item" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>
+      <button class="helper-flyout-item" id="zamflyout-potvrzeno" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
+      <button class="helper-flyout-item" id="zamflyout-automaticky" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>
       <button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>
       <button class="helper-flyout-item" id="zamflyout-sms" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>
       <button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>
@@ -5555,6 +5555,13 @@ function showPageZam() {
     var el = document.getElementById('zamflyout-' + m);
     if (el) el.classList.toggle('active', _empSignMethod === m);
   });
+  // Náhledy e-mailových notifikací dávají smysl jen pro online (elektronické)
+  // varianty — na "fyzicky" se posudek nedoručuje e-mailem, takže se schovají.
+  var onlineOnlyDisplay = _empSignMethod === 'fyzicky' ? 'none' : '';
+  var potvrzenoBtn = document.getElementById('zamflyout-potvrzeno');
+  var automatickyBtn = document.getElementById('zamflyout-automaticky');
+  if (potvrzenoBtn) potvrzenoBtn.style.display = onlineOnlyDisplay;
+  if (automatickyBtn) automatickyBtn.style.display = onlineOnlyDisplay;
 }
 
 function showPageZamOnlineEmail() {

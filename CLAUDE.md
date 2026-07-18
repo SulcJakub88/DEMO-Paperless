@@ -185,7 +185,9 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   `#page-indicator` (ne jen do hover tooltipu) — např. „Page ZAM (fyzicky)"; (2)
   zvýrazní `.active` odpovídající tlačítko v „Pomocné akce" flyoutu
   (`#zamflyout-zona`/`-sms`/`-fyzicky`, sidebar `#sidebar-zam-wrap`), ať je na
-  první pohled vidět, na jaké variantě stránky ZAMĚSTNANCI se právě nacházíme.
+  první pohled vidět, na jaké variantě stránky ZAMĚSTNANCI se právě nacházíme;
+  (3) schová `#zamflyout-potvrzeno`/`-automaticky` (náhledy e-mailových
+  notifikací) na variantě "fyzicky" — posudek se tam nedoručuje e-mailem.
 
 ## Hlavní flow (sekvenční přehled)
 
