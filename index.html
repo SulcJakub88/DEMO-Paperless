@@ -1651,7 +1651,7 @@ body {
 .role-card-desc { font-size: 10px; color: #737373; line-height: 1.4; }
 .role-card.all { border-style: dashed; }
 #bottom-right-bar { position: fixed; bottom: 14px; right: 16px; z-index: 1100; display: flex; align-items: center; gap: 8px; }
-#bottom-left-bar { position: fixed; bottom: 14px; left: 16px; z-index: 1100; width: 168px; }
+#bottom-left-bar { position: fixed; bottom: 14px; left: 14px; z-index: 1100; width: 192px; }
 #role-chip { display: block; width: 100%; box-sizing: border-box; background: #1459bf; color: #fff; font-size: 11px; font-weight: 700; font-family: inherit; padding: 8px 10px; border-radius: 6px; cursor: pointer; border: none; text-align: left; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
 #role-chip:hover { background: #0f4494; }
 
@@ -1663,7 +1663,7 @@ body.role-kl [data-hide~="kl"] { display: none !important; }
 body.role-kl [data-show~="kl"] { display: inline-block !important; }
 
 /* CRM (page3/page4) helper bar — stacked above #bottom-left-bar */
-.crm-kl-helper-bar { position: fixed; left: 16px; bottom: 51px; z-index: 1100; width: 168px; display: flex; flex-direction: column; gap: 6px; }
+.crm-kl-helper-bar { position: fixed; left: 14px; bottom: 51px; z-index: 1100; width: 192px; display: flex; flex-direction: column; gap: 6px; }
 .crm-kl-helper-bar .crm-back-btn { margin-left: 0; display: block; width: 100%; box-sizing: border-box; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
 body.role-kl .crm-kl-helper-bar [data-show~="kl"] { display: block !important; }
 body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important; }
@@ -2208,7 +2208,6 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
   background: #fff; border: 1px solid #ddd; border-radius: 10px;
   padding: 16px 20px; margin-bottom: 12px; max-width: 580px;
 }
-.zdet-section-wide { max-width: 100%; }
 .zdet-section-title { font-size: 15px; font-weight: 700; color: #1459bf; margin-bottom: 12px; }
 .zdet-field-lbl { font-size: 10.5px; color: #737373; margin-bottom: 3px; }
 .zdet-field-val {
@@ -3146,7 +3145,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </div>
 
       <!-- Historie záznamů -->
-      <div class="zdet-section zdet-section-wide">
+      <div class="zdet-section">
         <div class="zdet-section-title">Historie záznamů &nbsp;<span style="color:#1459bf;">ⓘ</span></div>
         <table class="zdet-hist-table app-table">
           <thead>
