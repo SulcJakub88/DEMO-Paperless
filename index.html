@@ -2314,9 +2314,9 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
     <div class="helper-flyout">
       <button class="helper-flyout-item" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
       <button class="helper-flyout-item" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>
-      <button class="helper-flyout-item" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>
-      <button class="helper-flyout-item" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>
-      <button class="helper-flyout-item" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>
+      <button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>
+      <button class="helper-flyout-item" id="zamflyout-sms" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>
+      <button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>
     </div>
   </div>
 </aside>
@@ -5548,7 +5548,13 @@ function showPageZam() {
   document.getElementById('sidebar-zam-wrap').classList.add('visible');
   var zamSignMethodLabels = { zona: 'online-email', sms: 'online-sms', fyzicky: 'fyzicky' };
   var zamSuffix = zamSignMethodLabels[_empSignMethod];
-  setPageIndicator('Page ZAM', 'FZ — Zaměstnanci' + (zamSuffix ? ' (' + zamSuffix + ')' : ''));
+  setPageIndicator('Page ZAM' + (zamSuffix ? ' (' + zamSuffix + ')' : ''), 'FZ — Zaměstnanci' + (zamSuffix ? ' (' + zamSuffix + ')' : ''));
+  // Zvýrazní tlačítko v "Pomocné akce", které odpovídá aktuálnímu _empSignMethod,
+  // ať je vidět, na jaké variantě stránky ZAMĚSTNANCI se právě nacházíme.
+  ['zona', 'sms', 'fyzicky'].forEach(function (m) {
+    var el = document.getElementById('zamflyout-' + m);
+    if (el) el.classList.toggle('active', _empSignMethod === m);
+  });
 }
 
 function showPageZamOnlineEmail() {

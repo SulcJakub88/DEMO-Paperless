@@ -181,6 +181,11 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   `_empSignMethod` i `_motlDeliveryMethod` zároveň, aby se seznam Zaměstnanci
   i detail profilu neshodly (dřív nastavovaly jen `_empSignMethod` → klik na
   řádek Motla v „FZ Zaměstnanci (fyzicky)" ukazoval chybně elektronicky podepsaný profil).
+  `showPageZam()` navíc: (1) zapisuje aktuální variantu i do krátkého labelu
+  `#page-indicator` (ne jen do hover tooltipu) — např. „Page ZAM (fyzicky)"; (2)
+  zvýrazní `.active` odpovídající tlačítko v „Pomocné akce" flyoutu
+  (`#zamflyout-zona`/`-sms`/`-fyzicky`, sidebar `#sidebar-zam-wrap`), ať je na
+  první pohled vidět, na jaké variantě stránky ZAMĚSTNANCI se právě nacházíme.
 
 ## Hlavní flow (sekvenční přehled)
 
