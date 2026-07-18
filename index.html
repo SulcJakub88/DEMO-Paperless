@@ -69,6 +69,11 @@ body {
 .helper-flyout-item:hover { background: #f2f2f2; }
 .helper-flyout-item.active { background: #fdf0f7; color: #d92673; font-weight: 800; }
 .helper-flyout-item.active:hover { background: #fbe4ee; }
+.helper-flyout-label {
+  font-size: 9px; font-weight: 700; color: #9a9a9a; text-transform: uppercase;
+  letter-spacing: 0.05em; padding: 6px 10px 3px;
+}
+.helper-flyout-divider { height: 1px; background: #ececec; margin: 4px 6px; }
 
 .sidebar-logo {
   display: flex;
@@ -5534,26 +5539,29 @@ function closePrintSuccess() {
 // (profil) — obsah "Pomocné akce" flyoutu se proto přestavuje dle kontextu:
 // na seznamu 5 položek (náhledy + 3 varianty seznamu), na profilu jen 2
 // zástupci (varianty JINÉ než ta aktuální).
+// Flyout je logicky rozdělen do 2 skupin: (1) "ZOBRAZIT VARIANTU" — primární
+// akce, přepíná demo-stav seznamu Zaměstnanci (fyzicky/online-email/online-sms),
+// aktuální varianta zvýrazněna .active; (2) "NÁHLED E-MAILU" — druhotné
+// podpůrné náhledy, relevantní jen pro online (elektronické) varianty, na
+// "fyzicky" se celá skupina i divider schová (posudek se nedoručuje e-mailem).
 function renderZamFlyoutList() {
   var flyout = document.querySelector('#sidebar-zam-wrap .helper-flyout');
   if (!flyout) return;
+  var isFyzicky = _empSignMethod === 'fyzicky';
   flyout.innerHTML =
-    '<button class="helper-flyout-item" id="zamflyout-potvrzeno" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>' +
-    '<button class="helper-flyout-item" id="zamflyout-automaticky" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>' +
+    '<div class="helper-flyout-label">Zobrazit variantu</div>' +
     '<button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>' +
     '<button class="helper-flyout-item" id="zamflyout-sms" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>' +
-    '<button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>';
+    '<button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>' +
+    (isFyzicky ? '' :
+      '<div class="helper-flyout-divider"></div>' +
+      '<div class="helper-flyout-label">Náhled e-mailu</div>' +
+      '<button class="helper-flyout-item" id="zamflyout-potvrzeno" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>' +
+      '<button class="helper-flyout-item" id="zamflyout-automaticky" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>');
   ['zona', 'sms', 'fyzicky'].forEach(function (m) {
     var el = document.getElementById('zamflyout-' + m);
     if (el) el.classList.toggle('active', _empSignMethod === m);
   });
-  // Náhledy e-mailových notifikací dávají smysl jen pro online (elektronické)
-  // varianty — na "fyzicky" se posudek nedoručuje e-mailem, takže se schovají.
-  var onlineOnlyDisplay = _empSignMethod === 'fyzicky' ? 'none' : '';
-  var potvrzenoBtn = document.getElementById('zamflyout-potvrzeno');
-  var automatickyBtn = document.getElementById('zamflyout-automaticky');
-  if (potvrzenoBtn) potvrzenoBtn.style.display = onlineOnlyDisplay;
-  if (automatickyBtn) automatickyBtn.style.display = onlineOnlyDisplay;
 }
 
 function renderZamFlyoutDetail() {
