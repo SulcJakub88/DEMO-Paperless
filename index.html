@@ -5561,15 +5561,15 @@ function renderZamFlyoutDetail() {
   if (!flyout) return;
   var current = _motlDeliveryMethod === 'fyzicky' ? 'fyzicky' : (_empSignMethod === 'sms' ? 'sms' : 'zona');
   var variants = {
+    fyzicky: { icon: '🖨️', label: 'FZ profil zaměstnance fyzicky podepsáno', fn: 'showPageZamDetailFyzicky()' },
     zona: { icon: '✉️', label: 'FZ profil zaměstnance elektronicky podepsáno (online-email)', fn: 'showPageZamDetailOnlineEmail()' },
-    sms: { icon: '💬', label: 'FZ profil zaměstnance elektronicky podepsáno (online-sms)', fn: 'showPageZamDetailOnlineSms()' },
-    fyzicky: { icon: '🖨️', label: 'FZ profil zaměstnance fyzicky podepsáno', fn: 'showPageZamDetailFyzicky()' }
+    sms: { icon: '💬', label: 'FZ profil zaměstnance elektronicky podepsáno (online-sms)', fn: 'showPageZamDetailOnlineSms()' }
   };
   var html = '';
-  ['zona', 'sms', 'fyzicky'].forEach(function (k) {
-    if (k === current) return;
+  ['fyzicky', 'zona', 'sms'].forEach(function (k) {
     var v = variants[k];
-    html += '<button class="helper-flyout-item" onclick="' + v.fn + '">' + v.icon + '&nbsp; ' + v.label + '</button>';
+    var activeCls = k === current ? ' active' : '';
+    html += '<button class="helper-flyout-item' + activeCls + '" onclick="' + v.fn + '">' + v.icon + '&nbsp; ' + v.label + '</button>';
   });
   flyout.innerHTML = html;
 }

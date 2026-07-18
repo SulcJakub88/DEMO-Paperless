@@ -191,9 +191,11 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   **`#sidebar-zam-wrap` je sdílený mezi page-zam (seznam) i page-zam-detail
   (profil)** — obsah „Pomocné akce" flyoutu se proto při každém vstupu
   přestavuje přes `renderZamFlyoutList()` (5 položek, viz výše) nebo
-  `renderZamFlyoutDetail()` (jen 2 zástupci — varianty JINÉ než aktuální,
-  onclick `showPageZamDetailOnlineEmail()/OnlineSms()/Fyzicky()`, které
-  nastaví `_empSignMethod`+`_motlDeliveryMethod` a zůstanou na profilu).
+  `renderZamFlyoutDetail()` (všechny 3 varianty fyzicky/online-email/
+  online-sms, `.active` na té aktuální — stejný vizuální vzor jako u
+  `renderZamFlyoutList()`), onclick `showPageZamDetailOnlineEmail()/OnlineSms()/
+  Fyzicky()`, které nastaví `_empSignMethod`+`_motlDeliveryMethod` a zůstanou
+  na profilu.
 
 ## Hlavní flow (sekvenční přehled)
 
