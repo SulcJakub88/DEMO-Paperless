@@ -1994,7 +1994,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
   background: rgba(0,0,0,0.65); cursor: pointer;
 }
 #posudek-elec-overlay.active { display: flex; }
-.posudek-elec-img { width: 429px; height: 610px; object-fit: cover; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); pointer-events: none; }
+.posudek-elec-img { width: 468px; height: 668px; object-fit: cover; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); pointer-events: none; }
 
 /* ── Email modals: potvrzeno + automaticky ── */
 #email-potvrzeno-modal, #email-automaticky-modal {
@@ -5851,6 +5851,7 @@ function closePrijetiZaveru() {
 }
 
 function openPosudekElecOverlay() {
+  document.getElementById('posudek-elec-img').src = (_empSignMethod === 'sms') ? 'assets/posudek-elec-sms.png' : 'assets/posudek-elec.png';
   document.getElementById('posudek-elec-overlay').classList.add('active');
 }
 
@@ -6734,9 +6735,9 @@ function applyMotlDeliveryMethodToDetail() {
   </div>
 </div>
 
-<!-- Posudek elektronicky podepsáno detail (531-48) -->
+<!-- Posudek elektronicky podepsáno detail (531-48) — 1:1 dle Figma 670-12 pro SMS -->
 <div id="posudek-elec-overlay" onclick="closePosudekElecOverlay()">
-  <img class="posudek-elec-img" src="assets/posudek-elec.png" alt="Lékařský posudek — elektronicky podepsáno">
+  <img class="posudek-elec-img" id="posudek-elec-img" src="assets/posudek-elec.png" alt="Lékařský posudek — elektronicky podepsáno">
 </div>
 
 <div id="pdf-view-modal">
