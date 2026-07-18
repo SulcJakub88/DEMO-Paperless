@@ -67,6 +67,8 @@ body {
   cursor: pointer; font-family: inherit; text-align: left;
 }
 .helper-flyout-item:hover { background: #f2f2f2; }
+.helper-flyout-item.active { background: #fdf0f7; color: #d92673; font-weight: 800; }
+.helper-flyout-item.active:hover { background: #fbe4ee; }
 
 .sidebar-logo {
   display: flex;
@@ -4686,15 +4688,15 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <div class="helper-flyout">
           <button class="helper-flyout-item" data-hide="lz" id="lz14-back-btn">← Zpět do FZ (Rezervace)</button>
           <button class="helper-flyout-item" data-hide="lz" onclick="startSimOnlinePodpisFromLZ14()">✓ Podpis posudku za zaměstnance a lékaře dokončen</button>
-          <button class="helper-flyout-item" onclick="showPage14Email()">✉️ Page 14 | Zaslat na e-mail</button>
-          <button class="helper-flyout-item" onclick="showPageZamOnlineEmail()">→ FZ — Zaměstnanci (online-email)</button>
-          <button class="helper-flyout-item" onclick="showPage14Sms()">💬 Page 14 | Zaslat PIN na telefon</button>
-          <button class="helper-flyout-item" onclick="showPageZamOnlineSms()">→ FZ — Zaměstnanci (online-sms)</button>
-          <button class="helper-flyout-item" onclick="showPage14Fyz()">🖨️ Page 14 | Fyzická žádost</button>
-          <button class="helper-flyout-item" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
-          <button class="helper-flyout-item" onclick="showPage14Print()">🖨️ Page 14 | Vytisknout</button>
-          <button class="helper-flyout-item" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
-          <button class="helper-flyout-item" onclick="showPage14Odmitnuti()">✕ Page 14 | Odmítnutí</button>
+          <button class="helper-flyout-item" id="p14flyout-email" onclick="showPage14Email()">✉️ Page 14 | Zaslat na e-mail</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-email" onclick="showPageZamOnlineEmail()">→ FZ — Zaměstnanci (online-email)</button>
+          <button class="helper-flyout-item" id="p14flyout-sms" onclick="showPage14Sms()">💬 Page 14 | Zaslat PIN na telefon</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-sms" onclick="showPageZamOnlineSms()">→ FZ — Zaměstnanci (online-sms)</button>
+          <button class="helper-flyout-item" id="p14flyout-fyzicka" onclick="showPage14Fyz()">🖨️ Page 14 | Fyzická žádost</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-fyzicka" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
+          <button class="helper-flyout-item" id="p14flyout-vytisknout" onclick="showPage14Print()">🖨️ Page 14 | Vytisknout</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-vytisknout" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
+          <button class="helper-flyout-item" id="p14flyout-odmitnuti" onclick="showPage14Odmitnuti()">✕ Page 14 | Odmítnutí</button>
         </div>
       </div>
     </aside>
@@ -5186,6 +5188,7 @@ function closePrintModal() {
 }
 
 var _empSignMethod = 'zona'; // 'zona' | 'sms' | 'fyzicky'
+var _page14State = 'email'; // 'email' | 'sms' | 'fyzicka' | 'vytisknout' | 'odmitnuti'
 
 function openZamPosudekModal() {
   document.getElementById('zam-posudek-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
@@ -5549,6 +5552,30 @@ function showPage14(fromFyz) {
   var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
   document.getElementById('lz14-back-btn').onclick = backFZFn;
   document.querySelector('#page14 .lz-hist-wrap').scrollTop = 0;
+
+  if (fromFyz) {
+    _page14State = 'fyzicka';
+  } else if (_empSignMethod === 'sms') {
+    _page14State = 'sms';
+  } else if (_empSignMethod === 'fyzicky') {
+    _page14State = 'vytisknout';
+  } else if (_empSignMethod === 'odmitl') {
+    _page14State = 'odmitnuti';
+  } else {
+    _page14State = 'email';
+  }
+  updatePage14HelperFlyout();
+}
+
+function updatePage14HelperFlyout() {
+  ['email', 'sms', 'fyzicka', 'vytisknout', 'odmitnuti'].forEach(function (state) {
+    var btn = document.getElementById('p14flyout-' + state);
+    if (btn) btn.classList.toggle('active', state === _page14State);
+  });
+  ['email', 'sms', 'fyzicka', 'vytisknout'].forEach(function (state) {
+    var fzBtn = document.getElementById('p14flyout-fz-' + state);
+    if (fzBtn) fzBtn.style.display = (state === _page14State) ? '' : 'none';
+  });
 }
 
 function showPage14Email() {
