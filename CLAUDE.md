@@ -170,6 +170,13 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   řídí flow na page13. `_p12Phone` — telefon z page12 → propíše se do SMS PIN modalu.
 - `_empSignMethod` (`zona|sms|fyzicky|odmitl`) — jak zaměstnanec podepsal; řídí
   badge + tlačítka na page14 (`showPage14()`) a který sloupec ukáže `pdf-view-modal`.
+- `_motlDeliveryMethod` (`elektronicky|fyzicky`) — řídí text na profilu zaměstnance
+  (`showPageZamDetail()` / `applyMotlDeliveryMethodToDetail()`: "Fyzicky podepsáno"
+  vs "Elektronicky podepsáno" + tlačítka Zobrazit/Stáhnout záznam/posudek).
+  Zástupci `showPageZamOnlineEmail()/OnlineSms()/Fyzicky()` nastavují **oba**
+  `_empSignMethod` i `_motlDeliveryMethod` zároveň, aby se seznam Zaměstnanci
+  i detail profilu neshodly (dřív nastavovaly jen `_empSignMethod` → klik na
+  řádek Motla v „FZ Zaměstnanci (fyzicky)" ukazoval chybně elektronicky podepsaný profil).
 
 ## Hlavní flow (sekvenční přehled)
 
