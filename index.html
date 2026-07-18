@@ -3001,7 +3001,7 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
         <div class="zdet-field-lbl">Způsob převzetí posudku zaměstnavatelem &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
         <div class="zdet-field-val">Potvrzeno v aplikaci Firemní zóny</div>
         <div class="zdet-tag-row">
-          <span class="zdet-tag green">📄 Stáhnout posudek</span>
+          <span class="zdet-tag green" id="zdet-download-tag">📄 Stáhnout posudek</span>
           <span class="zdet-tag blue" id="zdet-view-tag" onclick="openZamPosudekModal()">📄 Zobrazit posudek</span>
         </div>
         <div class="zdet-field-lbl">Datum poslední prohlídky mimo poskytovatele EUC &nbsp;<span style="color:#1459bf;font-weight:700;">ⓘ</span></div>
@@ -5893,15 +5893,18 @@ function closeZamZaznamModal() {
 function applyMotlDeliveryMethodToDetail() {
   var valEl = document.getElementById('zdet-sign-method-val');
   var tagEl = document.getElementById('zdet-view-tag');
+  var dlEl = document.getElementById('zdet-download-tag');
   if (!valEl || !tagEl) return;
   if (_motlDeliveryMethod === 'fyzicky') {
     valEl.textContent = 'Fyzicky podepsáno';
     tagEl.innerHTML = '📄 Zobrazit záznam';
     tagEl.onclick = openZamZaznamModal;
+    if (dlEl) dlEl.innerHTML = '📄 Stáhnout záznam';
   } else {
     valEl.textContent = 'Elektronicky podepsáno';
     tagEl.innerHTML = '📄 Zobrazit posudek';
     tagEl.onclick = openZamPosudekModal;
+    if (dlEl) dlEl.innerHTML = '📄 Stáhnout posudek';
   }
 }
 
@@ -6557,7 +6560,7 @@ function applyMotlDeliveryMethodToDetail() {
           <td>Praha – Černý Most</td>
           <td><span class="pz-badge">🛡️&nbsp; Způsobilý</span></td>
           <td>Vstupní prohlídka</td>
-          <td><span class="pz-sign-tag phys">Fyzicky podepsáno</span></td>
+          <td><span class="pz-sign-tag phys" onclick="openZamZaznamModal()" style="cursor:pointer;">Fyzicky podepsáno</span></td>
           <td>Hasič</td>
         </tr>
       </tbody>
