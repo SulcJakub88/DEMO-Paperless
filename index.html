@@ -4686,7 +4686,6 @@ body.role-kl [data-show~="kl"] { display: inline-block !important; }
       <div class="helper-bar">
         <button class="helper-trigger">⚙️ Pomocné akce</button>
         <div class="helper-flyout">
-          <button class="helper-flyout-item" data-hide="lz" id="lz14-back-btn">← Zpět do FZ (Rezervace)</button>
           <button class="helper-flyout-item" data-hide="lz" onclick="startSimOnlinePodpisFromLZ14()">✓ Podpis posudku za zaměstnance a lékaře dokončen</button>
           <button class="helper-flyout-item" id="p14flyout-email" onclick="showPage14Email()">✉️ Page 14 | Zaslat na e-mail</button>
           <button class="helper-flyout-item" id="p14flyout-fz-email" onclick="showPageZamOnlineEmail()">→ FZ — Zaměstnanci (online-email)</button>
@@ -5549,8 +5548,6 @@ function showPage14(fromFyz) {
   setPageIndicator("Page 14", fromFyz
     ? "Page 14 — LZ Historie prohlídek | fyzická žádost"
     : "Page 14 — LZ Historie prohlídek | " + (empSignMethodLabels[_empSignMethod] || 'Zaslat na e-mail'));
-  var backFZFn = _lzFromFZ === 7 ? showPage7 : showPage5;
-  document.getElementById('lz14-back-btn').onclick = backFZFn;
   document.querySelector('#page14 .lz-hist-wrap').scrollTop = 0;
 
   if (fromFyz) {
