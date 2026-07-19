@@ -159,7 +159,7 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
 - pozice „specialista Klientského centra plus", pracoviště
   „Staré nám. 28, Rychnov nad Kněžnou, 516 01", bydliště „Křemenec 69, Konice, 79852"
 - IČO ČS 45244782, sídlo „Olbrachtova 1929/62, Praha 4"
-- **Lékař = MUDr. Tomáš Závodský** (podpis, certifikát `MUDr_Zavodsky.pfx`).
+- **Lékař = MUDr. David Janko** (podpis, certifikát `MUDr.David-Janko.pfx`).
 - Ostatní řádky v tabulkách (Hanuš, Vydrová, Nováková…) jsou „pozadí" — needituj je.
 - Pozor: jména zapečená v **obrázcích posudku** (Kohoutová Michaela, David Janko,
   Jitka Vacovská) nelze změnit z kódu — jen výměnou assetu z Figmy.
