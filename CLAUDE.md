@@ -154,15 +154,21 @@ Multi-page SPA řízená JS. Klíč: `const allPages = [...]` (řádek ~4461).
 
 ## Konzistentní demo data (napříč celou aplikací)
 
-Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna, a.s.**:
-- nar. 25.03.1996, Muž, RČ 9603250367, e-mail `lmotl@csas.cz`, os. č. 513343
+Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Zenit Banka, a.s.**:
+- nar. 25.03.1996, Muž, RČ 9603250367, e-mail `lmotl@zenitbanka.cz`, os. č. 513343
 - pozice „specialista Klientského centra plus", pracoviště
   „Staré nám. 28, Rychnov nad Kněžnou, 516 01", bydliště „Křemenec 69, Konice, 79852"
-- IČO ČS 45244782, sídlo „Olbrachtova 1929/62, Praha 4"
+- IČO 24681357, sídlo „Vinohradská 1877/25, Praha 3"
 - **Lékař = MUDr. David Janko** (podpis, certifikát `MUDr.David-Janko.pfx`).
 - Ostatní řádky v tabulkách (Hanuš, Vydrová, Nováková…) jsou „pozadí" — needituj je.
-- Pozor: jména zapečená v **obrázcích posudku** (Kohoutová Michaela, David Janko,
-  Jitka Vacovská) nelze změnit z kódu — jen výměnou assetu z Figmy.
+- Pozor: text v **obrázcích posudku** (`assets/*posudek*.png`, `assets/zam-posudek*.png`)
+  je zapečený v PNG, nejde editovat přes HTML/CSS. Zaměstnanec/žadatel/e-mail (dřív
+  Kohoutová Michaela / Státní veterinární správa / marie.vopat10@gmail.com) byly
+  přepsány přímo v pixelech (bílý obdélník + dokreslený text stejným fontem/barvou)
+  na **Motl Lukáš / Zenit Banka, a.s. / lmotl@zenitbanka.cz**, ať sedí se zbytkem
+  dema. Lékař (David Janko) a HR kontakt (Jitka Vacovská) v obrázcích zůstávají.
+  Při přidání nového posudek-obrázku z Figmy dej pozor, ať znovu neobsahuje reálné
+  jméno/firmu — over stejným postupem (bílý rect + PIL/ImageDraw dokreslení textu).
 
 ## Klíčové stavové proměnné (JS)
 
@@ -223,6 +229,10 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
 ```
 FZ: page1 → (klik řádek) → page2 → [Odeslat digitálně] → page5
                                   → [Odeslat fyzicky]   → page7
+page1 „Pomocné akce" (`#sidebar-p1-wrap`, vlastní/samostatný — nesdílí obsah
+            s `#sidebar-lz-wrap`): jediné tlačítko [🏥 Přejít do LZ →] → showPage6()
+            (LZ Nástěnka, digitální žádost). Viditelnost řídí showPage1()/hideAll(),
+            stejný vzor jako `#sidebar-zam-wrap`.
 page5/7 sidebar (režisér): [Přepnout na fyzickou/digitální žádost] přepíná page5↔page7
             (mění status Motla; řádky `#p5-motl-row`/`#p7-motl-row`, hover + zebra bez
             trvalého podbarvení); [Náhled e-mailu — online/tisk] → showEmailModal(digital|physical)
@@ -295,7 +305,7 @@ Odmítnutí (detail): odmitnuti-modal(poznámka) → [Potvrdit] → svedek-modal
 - `email-notif/eskal/potvrzeno/automaticky-modal`, `prijeti-zaveru-modal` — e-mailové šablony.
   `prijeti-zaveru-modal` (=„Důležité upozornění") má 1. řádek Motl Lukáš.
 - `email-notif-physical-modal` — notifikace o **fyzickém** doručení posudku (layout dle 421-2,
-  předmět „Fyzické doručení posudku", data Lukáš Motl / ČS); open/closeEmailNotifPhysicalModal().
+  předmět „Fyzické doručení posudku", data Lukáš Motl / Zenit Banka); open/closeEmailNotifPhysicalModal().
 - `role-picker-overlay` — výběr role (5 karet, zobrazí se při startu).
 
 ## Assety (`assets/`)

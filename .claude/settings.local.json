@@ -3,7 +3,24 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(sort -t: -k2)",
+      "Bash(uniq -c -f1)",
+      "Bash(grep -oE \"[A-ZÁ-Ž][A-Za-zÁ-Žá-ž0-9&., -]{2,40}\\(a\\\\.s\\\\.|s\\\\.r\\\\.o\\\\.|spol\\\\.[ ]?s[ ]?r\\\\.o\\\\.\\)\" /Users/jakub/Dev/Projekty/PaperlessDemo/index.html)",
+      "Bash(python3 -c ' *)",
+      "Bash(awk '$2>800')",
+      "Bash(mkdir -p /tmp/posudek_backup)",
+      "Bash(cp /Users/jakub/Dev/Projekty/PaperlessDemo/assets/*posudek*.png /tmp/posudek_backup/)",
+      "Bash(mkdir -p /tmp/test_assets)",
+      "Bash(cp /tmp/posudek_backup/zam-posudek1.png /tmp/test_assets/)",
+      "Bash(python3 /tmp/test_one.py)",
+      "Bash(python3 /tmp/replace_posudek_text.py)",
+      "Bash(cp /tmp/posudek_backup/*.png /Users/jakub/Dev/Projekty/PaperlessDemo/assets/ *)",
+      "Bash(cp /tmp/posudek_backup/*.png /Users/jakub/Dev/Projekty/PaperlessDemo/assets/)",
+      "Bash(md5 /tmp/posudek_backup/zam-posudek1.png /Users/jakub/Dev/Projekty/PaperlessDemo/assets/zam-posudek1.png /tmp/test_assets/zam-posudek1.png)",
+      "Bash(python3 -c \"import scipy; print\\(scipy.__version__\\)\")",
+      "Bash(pip3 install *)",
+      "Bash(python3 -c \"import scipy.ndimage; print\\('ok'\\)\")"
     ]
   }
 }

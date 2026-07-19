@@ -2281,7 +2281,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
 
   <div class="sb-section">FIREMNÍ PROFIL</div>
   <div class="sb-select-wrap">
-    <select><option>Česká spořitelna, a.s.</option></select>
+    <select><option>Zenit Banka, a.s.</option></select>
   </div>
   <div class="sb-select-wrap">
     <select><option>Všechny pobočky</option></select>
@@ -2317,6 +2317,12 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <div class="helper-flyout-label">Náhled e-mailu</div>
       <button class="helper-flyout-item" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
       <button class="helper-flyout-item" id="sidebar-email-print-btn" onclick="showEmailModal('physical')">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
+    </div>
+  </div>
+  <div class="sidebar-lz-wrap" id="sidebar-p1-wrap">
+    <button class="helper-trigger">⚙️ Pomocné akce</button>
+    <div class="helper-flyout">
+      <button class="helper-flyout-item" onclick="showPage6()">🏥&nbsp; Přejít do LZ →</button>
     </div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-zam-wrap">
@@ -2379,7 +2385,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <tr class="white clickable" onclick="showPage2()">
           <td>Lukáš</td>
           <td>Motl</td>
-          <td>lmotl@csas.cz</td>
+          <td>lmotl@zenitbanka.cz</td>
           <td>specialista Klientského centra plus</td>
           <td>14.05.2026 00:00</td>
           <td>-</td>
@@ -2420,7 +2426,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <tr class="white">
           <td>Petr</td>
           <td>Crha</td>
-          <td>pcrha@csas.cz</td>
+          <td>pcrha@zenitbanka.cz</td>
           <td>specialista Klientského centra</td>
           <td>08.08.2026 00:00</td>
           <td>-</td>
@@ -2442,7 +2448,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <tr class="white">
           <td>Hana</td>
           <td>Frnková</td>
-          <td>hzborilova@csas.cz</td>
+          <td>hzborilova@zenitbanka.cz</td>
           <td>specialista Klientského centra</td>
           <td>14.08.2026 00:00</td>
           <td>-</td>
@@ -2596,9 +2602,9 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
     <div id="zadatel">
       <div class="section-title">Žadatel</div>
       <div class="form-card">
-        <div class="fg"><div class="fl">Název společnosti</div><input class="fi" value="Česká spořitelna, a.s." readonly></div>
-        <div class="fg"><div class="fl">IČO</div><input class="fi" value="45244782" readonly></div>
-        <div class="fg"><div class="fl">Adresa sídla</div><input class="fi" value="Olbrachtova 1929/62" readonly></div>
+        <div class="fg"><div class="fl">Název společnosti</div><input class="fi" value="Zenit Banka, a.s." readonly></div>
+        <div class="fg"><div class="fl">IČO</div><input class="fi" value="24681357" readonly></div>
+        <div class="fg"><div class="fl">Adresa sídla</div><input class="fi" value="Vinohradská 1877/25" readonly></div>
         <div class="fg"><div class="fl">Týdenní pracovní doba (úvazek)</div><input class="fi" value="37,5" readonly></div>
         <div class="fg"><div class="fl">Délka směny</div><input class="fi" value="7,5" readonly></div>
         <div class="fg"><div class="fl">Datum vystavení</div><input class="fi" value="17.6.2026" readonly></div>
@@ -2762,7 +2768,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </tr></thead>
       <tbody>
         <tr class="white" id="p5-motl-row">
-          <td>Lukáš</td><td>Motl</td><td>lmotl@csas.cz</td>
+          <td>Lukáš</td><td>Motl</td><td>lmotl@zenitbanka.cz</td>
           <td>specialista Klientského centra plus</td>
           <td>26.01.2102 00:00</td><td>06.08.2026 15:30</td><td>26.09.2018</td>
           <td><span class="sbadge sb-b">Žádost o termín odeslána – digitálně<span class="ii">i</span></span></td>
@@ -2771,9 +2777,9 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <tr class="alt"><td>Tobiáš Petr</td><td>Hanuš</td><td>tobirkn@gmail.com</td><td>dohoda o provedení práce</td><td>14.05.2026 00:00</td><td>06.08.2026 15:30</td><td>14.05.2024</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
         <tr class="white"><td>Lucie</td><td>Kirschnerová</td><td>LucieKirschnerova@...</td><td>specialista zákaznických služeb</td><td>26.01.2102 00:00</td><td>06.08.2026 15:30</td><td>26.09.2018</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>Mimořádná prohlídka – v úplném rozsahu</td></tr>
         <tr class="alt"><td>Ema</td><td>Slováčková</td><td>ema.slovackova@se...</td><td>dohoda o provedení práce</td><td>14.05.2026 00:00</td><td>-</td><td>14.05.2024</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
-        <tr class="white"><td>Petr</td><td>Crha</td><td>pcrha@csas.cz</td><td>specialista Klientského centra</td><td>08.08.2026</td><td>-</td><td>08.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
+        <tr class="white"><td>Petr</td><td>Crha</td><td>pcrha@zenitbanka.cz</td><td>specialista Klientského centra</td><td>08.08.2026</td><td>-</td><td>08.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
         <tr class="alt"><td>Tereza</td><td>Tůmová</td><td>tereza.tumova2005...</td><td>zaměstnanec na DPČ, DPP</td><td>-</td><td>24.06.2026 17:15</td><td>-</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
-        <tr class="white"><td>Hana</td><td>Frnková</td><td>hzborilova@csas.cz</td><td>specialista Klientského centra</td><td>14.08.2026</td><td>-</td><td>14.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
+        <tr class="white"><td>Hana</td><td>Frnková</td><td>hzborilova@zenitbanka.cz</td><td>specialista Klientského centra</td><td>14.08.2026</td><td>-</td><td>14.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
         <tr class="alt"><td>Lucie</td><td>Mendlová</td><td>lucmendlova@gmail...</td><td>zaměstnanec na DPČ, DPP</td><td>30.11.2108</td><td>19.06.2026 14:00</td><td>31.07.2025</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
         <tr class="white"><td>Lenka</td><td>Kostelková</td><td>lenulacek@seznam.cz</td><td>specialista Klientského centra</td><td>12.09.2026</td><td>-</td><td>12.09.2024</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>Periodická prohlídka</td></tr>
         <tr class="alt"><td>Marie</td><td>Košinová</td><td>kosinova.maja@sez...</td><td>Dohoda o provedení...</td><td>-</td><td>23.06.2026 09:30</td><td>-</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
@@ -2828,7 +2834,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </tr></thead>
       <tbody>
         <tr class="white" id="p7-motl-row">
-          <td>Lukáš</td><td>Motl</td><td>lmotl@csas.cz</td>
+          <td>Lukáš</td><td>Motl</td><td>lmotl@zenitbanka.cz</td>
           <td>specialista Klientského centra plus</td>
           <td>26.01.2102 00:00</td><td>06.08.2026 15:30</td><td>26.09.2018</td>
           <td><span class="sbadge sb-vytisknout">Žádost o termín odeslána – papírově<span class="ii">i</span></span></td>
@@ -2837,9 +2843,9 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <tr class="alt"><td>Tobiáš Petr</td><td>Hanuš</td><td>tobirkn@gmail.com</td><td>dohoda o provedení práce</td><td>14.05.2026 00:00</td><td>06.08.2026 15:30</td><td>14.05.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
         <tr class="white"><td>Lucie</td><td>Kirschnerová</td><td>LucieKirschnerova@...</td><td>specialista zákaznických služeb</td><td>26.01.2102 00:00</td><td>06.08.2026 15:30</td><td>26.09.2018</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>Mimořádná prohlídka – v úplném rozsahu</td></tr>
         <tr class="alt"><td>Ema</td><td>Slováčková</td><td>ema.slovackova@se...</td><td>dohoda o provedení práce</td><td>14.05.2026 00:00</td><td>-</td><td>14.05.2024</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
-        <tr class="white"><td>Petr</td><td>Crha</td><td>pcrha@csas.cz</td><td>specialista Klientského centra</td><td>08.08.2026</td><td>-</td><td>08.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
+        <tr class="white"><td>Petr</td><td>Crha</td><td>pcrha@zenitbanka.cz</td><td>specialista Klientského centra</td><td>08.08.2026</td><td>-</td><td>08.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
         <tr class="alt"><td>Tereza</td><td>Tůmová</td><td>tereza.tumova2005...</td><td>zaměstnanec na DPČ, DPP</td><td>-</td><td>24.06.2026 17:15</td><td>-</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
-        <tr class="white"><td>Hana</td><td>Frnková</td><td>hzborilova@csas.cz</td><td>specialista Klientského centra</td><td>14.08.2026</td><td>-</td><td>14.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
+        <tr class="white"><td>Hana</td><td>Frnková</td><td>hzborilova@zenitbanka.cz</td><td>specialista Klientského centra</td><td>14.08.2026</td><td>-</td><td>14.08.2024</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>-</td></tr>
         <tr class="alt"><td>Lucie</td><td>Mendlová</td><td>lucmendlova@gmail...</td><td>zaměstnanec na DPČ, DPP</td><td>30.11.2108</td><td>19.06.2026 14:00</td><td>31.07.2025</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
         <tr class="white"><td>Lenka</td><td>Kostelková</td><td>lenulacek@seznam.cz</td><td>specialista Klientského centra</td><td>12.09.2026</td><td>-</td><td>12.09.2024</td><td><span class="sbadge sb-p2">Skončená platnost prohlídky<span class="ii">i</span></span></td><td>Periodická prohlídka</td></tr>
         <tr class="alt"><td>Marie</td><td>Košinová</td><td>kosinova.maja@sez...</td><td>Dohoda o provedení...</td><td>-</td><td>23.06.2026 09:30</td><td>-</td><td><span class="sbadge sb-p1">Blíží se termín prohlídky<span class="ii">i</span></span></td><td>Vstupní prohlídka</td></tr>
@@ -2905,7 +2911,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       </thead>
       <tbody>
         <tr class="white" onclick="showPageZamDetail()" style="cursor:pointer;">
-          <td>Motl</td><td>Lukáš</td><td>lmotl@csas.cz</td>
+          <td>Motl</td><td>Lukáš</td><td>lmotl@zenitbanka.cz</td>
           <td>specialista Klientského centra plus</td><td>Staré nám. 28, Rychnov nad Kněžnou, 516 01</td>
           <td>513343</td><td>01.04.2026</td><td>01.04.2028</td>
           <td><span class="zam-badge green">🛡️&nbsp; Způsobilý <span class="zam-badge-info">ⓘ</span></span></td>
@@ -2926,8 +2932,8 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           <td>02.05.2025</td><td>Periodická prohlídka</td>
         </tr>
         <tr class="alt">
-          <td>Blatný</td><td>Miroslav</td><td>miblatny@csas…</td>
-          <td>řidič II</td><td>Olbrachtova, 1929/62, Praha 4, 140 00</td>
+          <td>Blatný</td><td>Miroslav</td><td>miblatny@zenit…</td>
+          <td>řidič II</td><td>Vinohradská, 1877/25, Praha 3, 130 00</td>
           <td>511890</td><td>25.05.2026</td><td>25.05.2027</td>
           <td><span class="zam-badge green">📋&nbsp; Způsobilý s podmínkou <span class="zam-badge-info">ⓘ</span></span></td>
           <td>26.05.2026</td><td>Periodická prohlídka</td>
@@ -2940,7 +2946,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           <td>28.02.2025</td><td>Vstupní prohlídka – změna pracovních podmínek</td>
         </tr>
         <tr class="alt">
-          <td>Bogár</td><td>Radek</td><td>rbogar@csas.cz</td>
+          <td>Bogár</td><td>Radek</td><td>rbogar@zenitbanka.cz</td>
           <td>specialista Klientského centra junior</td><td>Knihařská, 137/10, Prostějov, 796 01</td>
           <td>555321</td><td>21.08.2024</td><td>21.08.2026</td>
           <td><span class="zam-badge green">🛡️&nbsp; Způsobilý <span class="zam-badge-info">ⓘ</span></span></td>
@@ -3070,7 +3076,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <div class="zdet-field-lbl">Datum nástupu</div>
         <div class="zdet-field-val">01.09.1997</div>
         <div class="zdet-field-lbl">Název společnosti</div>
-        <div class="zdet-field-val">Česká spořitelna, a.s.</div>
+        <div class="zdet-field-val">Zenit Banka, a.s.</div>
         <div class="zdet-field-lbl">Pracoviště / Pobočka</div>
         <div class="zdet-field-val"><span>Staré nám. 28, Rychnov nad Kněžnou, 516 01</span><span style="color:#d92673;">▾</span></div>
         <div class="zdet-field-lbl">Středisko</div>
@@ -3149,7 +3155,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <div class="zdet-section">
         <div class="zdet-section-title">Kontaktní údaje</div>
         <div class="zdet-field-lbl">E-mail na zaměstnance</div>
-        <div class="zdet-field-val">lmotl@csas.cz</div>
+        <div class="zdet-field-val">lmotl@zenitbanka.cz</div>
         <div class="zdet-field-lbl">Telefon na zaměstnance</div>
         <div class="zdet-field-val last">420733617022</div>
       </div>
@@ -3226,7 +3232,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <!-- ŽÁDOST -->
       <div class="crm-bar">ŽÁDOST</div>
       <div class="crm-card">
-        <div class="crm-company">Česká spořitelna, a.s.</div>
+        <div class="crm-company">Zenit Banka, a.s.</div>
         <div class="crm-meta">
           Žádost č. FZ-2026-0524-001
           <div class="crm-sep"></div>
@@ -3350,7 +3356,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <!-- ŽÁDOST -->
       <div class="crm-bar">ŽÁDOST</div>
       <div class="crm-card">
-        <div class="crm-company">Česká spořitelna, a.s.</div>
+        <div class="crm-company">Zenit Banka, a.s.</div>
         <div class="crm-meta">
           Žádost č. FZ-2026-0524-001
           <div class="crm-sep"></div>
@@ -3763,16 +3769,16 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           </tr>
         </thead>
         <tbody>
-          <tr style="cursor:pointer;" onclick="showPage10()"><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>18.06.2026 15:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr style="cursor:pointer;" onclick="showPage11()"><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>18.06.2026 15:45</td><td><span class="lz-rzv-badge-prevzit">Objednán/a – převzít žádost</span></td></tr>
-          <tr><td>Darragi</td><td>Veronika</td><td>Tesco Stores ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>24.06.2026 11:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Hájková</td><td>Petra</td><td>Tesco Stores ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>24.06.2026 11:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Benešová</td><td>Karolína</td><td>KIK textil a Non-Food spol. s r.o.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>25.06.2026 15:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Pešková</td><td>Anna</td><td>Tesco Stores ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>25.06.2026 15:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Slepičková</td><td>Diana</td><td>Tesco Stores ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>01.07.2026 11:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Chrundlová</td><td>Dagmar</td><td>Tesco Stores ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>01.07.2026 11:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Nováková</td><td>Kateřina</td><td>Penny Market s.r.o.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>02.07.2026 15:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
-          <tr><td>Vík</td><td>Martin</td><td>Tesco Stores ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>02.07.2026 15:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr style="cursor:pointer;" onclick="showPage10()"><td>Motl</td><td>Lukáš</td><td>Zenit Banka, a.s.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>18.06.2026 15:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr style="cursor:pointer;" onclick="showPage11()"><td>Motl</td><td>Lukáš</td><td>Zenit Banka, a.s.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>18.06.2026 15:45</td><td><span class="lz-rzv-badge-prevzit">Objednán/a – převzít žádost</span></td></tr>
+          <tr><td>Darragi</td><td>Veronika</td><td>Kontinent Retail ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>24.06.2026 11:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Hájková</td><td>Petra</td><td>Kontinent Retail ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>24.06.2026 11:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Benešová</td><td>Karolína</td><td>Textilní ráj a Non-Food spol. s r.o.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>25.06.2026 15:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Pešková</td><td>Anna</td><td>Kontinent Retail ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>25.06.2026 15:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Slepičková</td><td>Diana</td><td>Kontinent Retail ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>01.07.2026 11:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Chrundlová</td><td>Dagmar</td><td>Kontinent Retail ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>01.07.2026 11:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Nováková</td><td>Kateřina</td><td>Úsporný trh s.r.o.</td><td>Vstupní prohlídka</td><td>PLS – základní</td><td>02.07.2026 15:30</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
+          <tr><td>Vík</td><td>Martin</td><td>Kontinent Retail ČR a.s.</td><td>Vstupní prohlídka</td><td>PLS – rozšířená</td><td>02.07.2026 15:45</td><td><span class="lz-rzv-badge-online">Objednán/a – online</span></td></tr>
         </tbody>
       </table>
       <div class="lz-rzv-pager">
@@ -3850,10 +3856,10 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           </div>
           <div class="lz-det-card">
             <div class="lz-det-card-title">Žadatel</div>
-            <div class="lz-df"><div class="lz-df-lbl">Název společnosti</div><input class="lz-df-inp" value="Česká spořitelna, a.s." readonly></div>
+            <div class="lz-df"><div class="lz-df-lbl">Název společnosti</div><input class="lz-df-inp" value="Zenit Banka, a.s." readonly></div>
             <div class="lz-df"><div class="lz-df-lbl">Pracovní pozice</div><input class="lz-df-inp" value="" readonly></div>
-            <div class="lz-df"><div class="lz-df-lbl">IČO</div><input class="lz-df-inp" value="45244782" readonly></div>
-            <div class="lz-df"><div class="lz-df-lbl">Adresa sídla</div><textarea class="lz-df-ta" readonly>Olbrachtova 1929/62, 140 00 Praha 4</textarea></div>
+            <div class="lz-df"><div class="lz-df-lbl">IČO</div><input class="lz-df-inp" value="24681357" readonly></div>
+            <div class="lz-df"><div class="lz-df-lbl">Adresa sídla</div><textarea class="lz-df-ta" readonly>Vinohradská 1877/25, 130 00 Praha 3</textarea></div>
             <div class="lz-df"><div class="lz-df-lbl">Datum vystavení</div><input class="lz-df-inp" value="21.05.2026" readonly></div>
             <div class="lz-df"><div class="lz-df-lbl">Jméno oprávněné osoby</div><input class="lz-df-inp" value="" readonly></div>
             <div class="lz-df"><div class="lz-df-lbl">Pracovní činnosti</div><input class="lz-df-inp" value="" readonly></div>
@@ -3950,10 +3956,10 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           </div>
           <div class="lz-det-card">
             <div class="lz-det-card-title">Žadatel</div>
-            <div class="lz-df"><div class="lz-df-lbl">Název společnosti</div><input class="lz-df-inp" value="Česká spořitelna, a.s." readonly></div>
+            <div class="lz-df"><div class="lz-df-lbl">Název společnosti</div><input class="lz-df-inp" value="Zenit Banka, a.s." readonly></div>
             <div class="lz-df"><div class="lz-df-lbl">Pracovní pozice</div><input class="lz-df-inp" value="" readonly></div>
-            <div class="lz-df"><div class="lz-df-lbl">IČO</div><input class="lz-df-inp" value="45244782" readonly></div>
-            <div class="lz-df"><div class="lz-df-lbl">Adresa sídla</div><textarea class="lz-df-ta" readonly>Olbrachtova 1929/62, 140 00 Praha 4</textarea></div>
+            <div class="lz-df"><div class="lz-df-lbl">IČO</div><input class="lz-df-inp" value="24681357" readonly></div>
+            <div class="lz-df"><div class="lz-df-lbl">Adresa sídla</div><textarea class="lz-df-ta" readonly>Vinohradská 1877/25, 130 00 Praha 3</textarea></div>
             <div class="lz-df"><div class="lz-df-lbl">Datum vystavení</div><input class="lz-df-inp" value="21.05.2026" readonly></div>
             <div class="lz-df"><div class="lz-df-lbl">Jméno oprávněné osoby</div><input class="lz-df-inp" value="" readonly></div>
             <div class="lz-df"><div class="lz-df-lbl">Pracovní činnosti</div><input class="lz-df-inp" value="" readonly></div>
@@ -4039,7 +4045,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
             </div>
             <div class="lz-df" style="margin-top:10px;">
               <div class="lz-df-lbl">E-mail zaměstnance</div>
-              <input class="lz-df-inp" value="lmotl@csas.cz">
+              <input class="lz-df-inp" value="lmotl@zenitbanka.cz">
               <div class="lz-ver-helper warn">Ověřte nebo doplňte osobní e-mail zaměstnance, na něj zašleme odkaz k podpisu (pracovní se neení !!!)</div>
             </div>
             <div class="lz-ver-cbbox">
@@ -4189,7 +4195,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
             <div class="lz-det-card-title">Žadatel</div>
             <div class="lz-df">
               <div class="lz-df-lbl">Název společnosti</div>
-              <input class="lz-df-inp-dis" value="Česká spořitelna, a.s." readonly>
+              <input class="lz-df-inp-dis" value="Zenit Banka, a.s." readonly>
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">Pracovní pozice</div>
@@ -4197,11 +4203,11 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">IČO</div>
-              <input class="lz-df-inp-dis" value="45244782" readonly>
+              <input class="lz-df-inp-dis" value="24681357" readonly>
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">Adresa sídla</div>
-              <textarea class="lz-df-ta-dis" readonly>Olbrachtova 1929/62, 140 00 Praha 4</textarea>
+              <textarea class="lz-df-ta-dis" readonly>Vinohradská 1877/25, 130 00 Praha 3</textarea>
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">Datum vystavení</div>
@@ -4467,7 +4473,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
             <div class="lz-det-card-title">Žadatel</div>
             <div class="lz-df">
               <div class="lz-df-lbl">Název společnosti</div>
-              <input class="lz-df-inp-dis" value="Česká spořitelna, a.s." readonly>
+              <input class="lz-df-inp-dis" value="Zenit Banka, a.s." readonly>
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">Pracovní pozice</div>
@@ -4475,11 +4481,11 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">IČO</div>
-              <input class="lz-df-inp-dis" value="45244782" readonly>
+              <input class="lz-df-inp-dis" value="24681357" readonly>
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">Adresa sídla</div>
-              <textarea class="lz-df-ta-dis" readonly>Olbrachtova 1929/62, 140 00 Praha 4</textarea>
+              <textarea class="lz-df-ta-dis" readonly>Vinohradská 1877/25, 130 00 Praha 3</textarea>
             </div>
             <div class="lz-df">
               <div class="lz-df-lbl">Datum vystavení</div>
@@ -4765,7 +4771,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           </thead>
           <tbody>
             <tr>
-              <td>17.06.2026</td><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td>
+              <td>17.06.2026</td><td>Motl</td><td>Lukáš</td><td>Zenit Banka, a.s.</td>
               <td id="hist-typ-cell"><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
               <td id="hist-sign-cell"><span class="lz-hist-badge sign-green">✍️&nbsp; Online podpis</span></td>
               <td><div class="lz-hist-pdf-btns" id="hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
@@ -4773,7 +4779,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
             <tr>
-              <td>17.06.2026</td><td>Matvijenková</td><td>Kateřina</td><td>Tesco Stores ČR a.s.</td>
+              <td>17.06.2026</td><td>Matvijenková</td><td>Kateřina</td><td>Kontinent Retail ČR a.s.</td>
               <td><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
               <td><span class="lz-hist-badge o-orange">🖨️&nbsp; Fyzický podpis</span></td>
               <td></td>
@@ -4781,7 +4787,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
               <td><span class="lz-hist-badge orange">⚠️&nbsp; Způsobilý s podmínkou</span></td>
             </tr>
             <tr>
-              <td>10.06.2026</td><td>Grouliková</td><td>Jolana</td><td>Tesco Stores ČR a.s.</td>
+              <td>10.06.2026</td><td>Grouliková</td><td>Jolana</td><td>Kontinent Retail ČR a.s.</td>
               <td><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
               <td><span class="lz-hist-badge sign-red">✗&nbsp; Odmítl podepsat</span></td>
               <td><div class="lz-hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
@@ -4789,7 +4795,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
             <tr>
-              <td>10.06.2026</td><td>Hašková</td><td>Barbora</td><td>Tesco Stores ČR a.s.</td>
+              <td>10.06.2026</td><td>Hašková</td><td>Barbora</td><td>Kontinent Retail ČR a.s.</td>
               <td><span class="lz-hist-badge o-orange">🖨️&nbsp; Fyzická žádost</span></td>
               <td><span class="lz-hist-badge o-orange">🖨️&nbsp; Fyzický podpis</span></td>
               <td></td>
@@ -4797,49 +4803,49 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
             <tr>
-              <td>04.06.2026</td><td>Ledvinka</td><td>David</td><td>Tesco Stores ČR a.s.</td>
+              <td>04.06.2026</td><td>Ledvinka</td><td>David</td><td>Kontinent Retail ČR a.s.</td>
               <td></td><td></td><td></td>
               <td>PLS – rozšířená</td>
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
             <tr>
-              <td>04.06.2026</td><td>Gebhart</td><td>Jakub</td><td>Tesco Stores ČR a.s.</td>
+              <td>04.06.2026</td><td>Gebhart</td><td>Jakub</td><td>Kontinent Retail ČR a.s.</td>
               <td></td><td></td><td></td>
               <td>PLS – rozšířená</td>
               <td><span class="lz-hist-badge pink">⟳&nbsp; Zrušeno později</span></td>
             </tr>
             <tr>
-              <td>03.06.2026</td><td>Sloupová</td><td>Šárka</td><td>ROSSMANN, spol.s.r.o.</td>
+              <td>03.06.2026</td><td>Sloupová</td><td>Šárka</td><td>Vitalia drogerie, spol.s.r.o.</td>
               <td></td><td></td><td></td>
               <td>PLS – základní</td>
               <td><span class="lz-hist-badge orange">⚠️&nbsp; Způsobilý s podmínkou</span></td>
             </tr>
             <tr>
-              <td>27.05.2026</td><td>Motl</td><td>Lukáš</td><td>Česká spořitelna, a.s.</td>
+              <td>27.05.2026</td><td>Motl</td><td>Lukáš</td><td>Zenit Banka, a.s.</td>
               <td></td><td></td><td></td>
               <td>PLS – základní</td>
               <td><span class="lz-hist-badge orange">⚠️&nbsp; Způsobilý s podmínkou</span></td>
             </tr>
             <tr>
-              <td>20.05.2026</td><td>Vydrová</td><td>Tereza</td><td>Penny Market s.r.o.</td>
+              <td>20.05.2026</td><td>Vydrová</td><td>Tereza</td><td>Úsporný trh s.r.o.</td>
               <td></td><td></td><td></td>
               <td>PLS – základní</td>
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
             <tr>
-              <td></td><td>Zeisl</td><td>Ondřej</td><td>Tesco Stores ČR a.s.</td>
+              <td></td><td>Zeisl</td><td>Ondřej</td><td>Kontinent Retail ČR a.s.</td>
               <td></td><td></td><td></td>
               <td>PLS – rozšířená + EKG</td>
               <td><span class="lz-hist-badge grey">⟳&nbsp; Nepřišel</span></td>
             </tr>
             <tr>
-              <td></td><td>Vydrová</td><td>Tereza</td><td>Penny Market s.r.o.</td>
+              <td></td><td>Vydrová</td><td>Tereza</td><td>Úsporný trh s.r.o.</td>
               <td></td><td></td><td></td>
               <td>PLS – základní</td>
               <td><span class="lz-hist-badge grey">⟳&nbsp; Nepřišel</span></td>
             </tr>
             <tr>
-              <td>14.05.2026</td><td>Prokůpek</td><td>Vít</td><td>Tesco Stores ČR a.s.</td>
+              <td>14.05.2026</td><td>Prokůpek</td><td>Vít</td><td>Kontinent Retail ČR a.s.</td>
               <td></td><td></td><td></td>
               <td>PLS – rozšířená</td>
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
@@ -4944,12 +4950,14 @@ function hideAll() {
   document.getElementById('nav-zamestnanci').classList.remove('active');
   document.getElementById('sidebar-lz-wrap').classList.remove('visible');
   document.getElementById('sidebar-zam-wrap').classList.remove('visible');
+  document.getElementById('sidebar-p1-wrap').classList.remove('visible');
 }
 
 function showPage1() {
   hideAll();
   document.getElementById('page1').classList.add('active');
   document.getElementById('nav-rezervace').classList.add('active');
+  document.getElementById('sidebar-p1-wrap').classList.add('visible');
   setPageIndicator('Page 1', 'Page 1 — FZ Rezervace');
   window.scrollTo(0, 0);
 }
@@ -6185,7 +6193,7 @@ function applyMotlDeliveryMethodToDetail() {
           <div class="sms-pin-success-card">
             <div class="sms-pin-success-check">✓</div>
             <p class="sms-pin-success-title">Posudek byl jménem zaměstnancem úspěšně podepsán</p>
-            <p class="sms-pin-success-sub">Podepsaný posudek byl úspěšně doručen na e-mail lmotl@csas.cz.</p>
+            <p class="sms-pin-success-sub">Podepsaný posudek byl úspěšně doručen na e-mail lmotl@zenitbanka.cz.</p>
             <p class="sms-pin-success-sub">Tuto stránku můžete nyní zavřít.</p>
             <button class="sms-pin-success-close" onclick="closeSmsPinModal(); showPage14();">Zavřít</button>
           </div>
@@ -6798,21 +6806,21 @@ function applyMotlDeliveryMethodToDetail() {
     <p class="email-tpl-headline blue">📧&nbsp; NOTIFIKAČNÍ E-MAIL — Fyzické doručení posudku</p>
     <div class="em-hdr-box">
       <div class="em-hdr-row"><span class="em-hdr-lbl">Od:</span><span class="em-hdr-val">no-reply@euc.cz</span></div>
-      <div class="em-hdr-row"><span class="em-hdr-lbl">Komu:</span><span class="em-hdr-val">hr@csas.cz (všichni autorizovaní uživatelé FZ daného klienta)</span></div>
+      <div class="em-hdr-row"><span class="em-hdr-lbl">Komu:</span><span class="em-hdr-val">hr@zenitbanka.cz (všichni autorizovaní uživatelé FZ daného klienta)</span></div>
       <div class="em-hdr-row"><span class="em-hdr-lbl">Předmět:</span><span class="em-hdr-val blue">Fyzické doručení posudku</span></div>
     </div>
     <div class="em-body-box">
       <p class="em-body-title blue">Fyzické doručení posudku</p>
       <div class="em-hr"></div>
       <p class="em-greet">Dobrý den,</p>
-      <p class="em-txt">pracovnělékařská prohlídka zaměstnance <b>Lukáš Motl</b> (Česká spořitelna, a.s.) byla úspěšně dokončena. Výsledek prohlídky (posudkový závěr) je nyní dostupný ve Firemní zóně EUC PLS.</p>
+      <p class="em-txt">pracovnělékařská prohlídka zaměstnance <b>Lukáš Motl</b> (Zenit Banka, a.s.) byla úspěšně dokončena. Výsledek prohlídky (posudkový závěr) je nyní dostupný ve Firemní zóně EUC PLS.</p>
       <div class="em-callout-blue">
         <p><b>👉&nbsp; Samotný lékařský posudek Vám nebude doručen elektronicky.</b></p>
         <p>Posudek bude předán <b>fyzicky prostřednictvím zaměstnance</b>, který jej obdrží v tištěné podobě od lékaře a předá jej pověřené osobě u zaměstnavatele.</p>
       </div>
       <div class="em-info-grid">
         <div class="em-info-row2"><b>Zaměstnanec:</b><span>Lukáš Motl</span></div>
-        <div class="em-info-row2"><b>Společnost:</b><span>Česká spořitelna, a.s.</span></div>
+        <div class="em-info-row2"><b>Společnost:</b><span>Zenit Banka, a.s.</span></div>
         <div class="em-info-row2"><b>Typ prohlídky:</b><span>Vstupní prohlídka</span></div>
         <div class="em-info-row2"><b>Datum prohlídky:</b><span>17.06.2026</span></div>
       </div>
