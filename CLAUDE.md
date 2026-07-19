@@ -211,11 +211,12 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Česká spořitelna,
   - `#page14` helper-flyout: „Stav prohlídky" (5 přepínačů demo-stavu,
     `updatePage14HelperFlyout()` zvýrazní aktuální) → „Přejít do FZ
     Zaměstnanci" (4 kontextové zástupce, vždy právě 1 viditelný dle
-    `_page14State`) → „Náhled posudku" (`#p14flyout-posudek-zona` +
-    label/divider, celá skupina viditelná jen ve stavu `email` — tlačítko
-    „Náhled kompletně podepsaného posudku via zaměstnanecká zóna" otevře
-    `zam-posudek-modal` přes `openZamPosudekModalZona()`, která natvrdo
-    zobrazí sloupec „zona" bez ohledu na `_empSignMethod`).
+    `_page14State`) → „Náhled posudku" (`#p14flyout-posudek-zona`/`-sms` +
+    label/divider, celá skupina viditelná ve stavech `email`/`sms`, uvnitř
+    vždy jen 1 tlačítko dle stavu — „...via zaměstnanecká zóna" nebo
+    „...via SMS" otevře `zam-posudek-modal` přes `openZamPosudekModalZona()`/
+    `Sms()`, které natvrdo zobrazí příslušný sloupec bez ohledu na
+    `_empSignMethod`).
 
 ## Hlavní flow (sekvenční přehled)
 

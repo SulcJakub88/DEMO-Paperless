@@ -4728,6 +4728,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           <div class="helper-flyout-divider" id="p14flyout-posudek-divider"></div>
           <div class="helper-flyout-label" id="p14flyout-posudek-label">Náhled posudku</div>
           <button class="helper-flyout-item" id="p14flyout-posudek-zona" onclick="openZamPosudekModalZona()">📄 Náhled kompletně podepsaného posudku via zaměstnanecká zóna</button>
+          <button class="helper-flyout-item" id="p14flyout-posudek-sms" onclick="openZamPosudekModalSms()">📄 Náhled kompletně podepsaného posudku via SMS</button>
         </div>
       </div>
     </aside>
@@ -5265,6 +5266,13 @@ function openZamPosudekModalZona() {
   document.getElementById('zam-posudek-col-sms').style.display = 'none';
   document.getElementById('zam-posudek-modal').classList.add('active');
 }
+// Náhled z page14 "Pomocné akce" (jen ve stavu Zaslat PIN na telefon) —
+// vždy varianta "přes SMS", bez ohledu na _empSignMethod.
+function openZamPosudekModalSms() {
+  document.getElementById('zam-posudek-col-zona').style.display = 'none';
+  document.getElementById('zam-posudek-col-sms').style.display = 'flex';
+  document.getElementById('zam-posudek-modal').classList.add('active');
+}
 
 function openPdfViewModal() {
   document.getElementById('pdf-view-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
@@ -5711,12 +5719,15 @@ function updatePage14HelperFlyout() {
     var fzBtn = document.getElementById('p14flyout-fz-' + state);
     if (fzBtn) fzBtn.style.display = (state === _page14State) ? '' : 'none';
   });
-  // "Náhled posudku" (via zaměstnanecká zóna) — jen ve stavu "Zaslat na e-mail".
-  var posudekDisplay = _page14State === 'email' ? '' : 'none';
-  ['p14flyout-posudek-divider', 'p14flyout-posudek-label', 'p14flyout-posudek-zona'].forEach(function (id) {
+  // "Náhled posudku" — celá skupina viditelná jen ve stavech "Zaslat na
+  // e-mail" (zóna) a "Zaslat PIN na telefon" (SMS), uvnitř vždy jen 1 tlačítko.
+  var posudekGroupVisible = _page14State === 'email' || _page14State === 'sms';
+  ['p14flyout-posudek-divider', 'p14flyout-posudek-label'].forEach(function (id) {
     var el = document.getElementById(id);
-    if (el) el.style.display = posudekDisplay;
+    if (el) el.style.display = posudekGroupVisible ? '' : 'none';
   });
+  document.getElementById('p14flyout-posudek-zona').style.display = (_page14State === 'email') ? '' : 'none';
+  document.getElementById('p14flyout-posudek-sms').style.display = (_page14State === 'sms') ? '' : 'none';
 }
 
 function showPage14Email() {
