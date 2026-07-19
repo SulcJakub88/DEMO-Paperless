@@ -3562,7 +3562,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <button class="helper-trigger">⚙️ Pomocné akce</button>
         <div class="helper-flyout">
           <button class="helper-flyout-item" onclick="showPage8()">🔄 Přepnout na fyzickou žádost</button>
-          <button class="helper-flyout-item" data-hide="lz" onclick="showPage5()">← Zpět do FZ (Rezervace)</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="showPage1()">Přejít do FZ</button>
         </div>
       </div>
     </aside>
@@ -3649,7 +3649,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <button class="helper-trigger">⚙️ Pomocné akce</button>
         <div class="helper-flyout">
           <button class="helper-flyout-item" onclick="showPage6()">🔄 Přepnout na digitální žádost</button>
-          <button class="helper-flyout-item" data-hide="lz" onclick="showPage7()">← Zpět do FZ (Rezervace)</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="showPage1()">Přejít do FZ</button>
         </div>
       </div>
     </aside>
@@ -3733,12 +3733,6 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <div class="lz-nav-sep"></div>
       <div class="lz-nav-item">MŮJ PROFIL</div>
       <div class="lz-nav-item">ODHLÁSIT SE</div>
-      <div class="helper-bar">
-        <button class="helper-trigger">⚙️ Pomocné akce</button>
-        <div class="helper-flyout">
-          <button class="helper-flyout-item" data-hide="lz" id="lz9-back-btn">← Zpět do FZ (Rezervace)</button>
-        </div>
-      </div>
     </aside>
     <div class="lz-content">
       <div class="lz-rzv-toprow">
@@ -5128,9 +5122,7 @@ function showPage9(fromFZPage) {
   hideAll();
   document.getElementById('page9').classList.add('active');
   setPageIndicator("Page 9", "Page 9 — LZ Rezervace");
-  var backFZFn = fromFZPage === 7 ? showPage7 : showPage5;
   var backLZFn = fromFZPage === 7 ? showPage8 : showPage6;
-  document.getElementById('lz9-back-btn').onclick = backFZFn;
   document.getElementById('lz9-nastenka-btn').onclick = backLZFn;
   window.scrollTo(0, 0);
 }

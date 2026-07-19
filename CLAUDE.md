@@ -208,8 +208,11 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Zenit Banka, a.s.**:
 - **„Pomocné akce" flyouty se skupinovým popiskem** (`.helper-flyout-label` +
   `.helper-flyout-divider`, stejný vzor napříč FZ i LZ) — používej vždy, když
   flyout obsahuje ≥2 logicky odlišné kategorie akcí; pro flyouty s jen 1
-  homogenní skupinou (LZ page9–13/13-fyz mají jediné tlačítko „← Zpět do FZ")
-  se popisky nepřidávají.
+  homogenní skupinou (LZ page10–13/13-fyz mají jediné tlačítko „← Zpět do FZ")
+  se popisky nepřidávají. Page9 (LZ Rezervace) nemá „Pomocné akce" vůbec —
+  odstraněno. Page6/8 (LZ Nástěnka) mají tlačítko „Přejít do FZ" →
+  `showPage1()` (FZ Rezervace) — dřív „← Zpět do FZ (Rezervace)" vedlo zpět
+  na page5/7 (konkrétní žádost), teď jde vždy na page1 (seznam).
   - `#sidebar-lz-wrap` (FZ page1/2/5/7): „Navigace" (přepnout žádost, Přejít
     do KL/LZ) → „Simulace podpisu" (3 tlačítka) → „Náhled e-mailu" (2 tlačítka).
     Statické skupiny — na page5/7 je vždy aspoň 1 položka viditelná v každé
