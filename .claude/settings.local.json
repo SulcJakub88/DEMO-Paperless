@@ -20,7 +20,8 @@
       "Bash(md5 /tmp/posudek_backup/zam-posudek1.png /Users/jakub/Dev/Projekty/PaperlessDemo/assets/zam-posudek1.png /tmp/test_assets/zam-posudek1.png)",
       "Bash(python3 -c \"import scipy; print\\(scipy.__version__\\)\")",
       "Bash(pip3 install *)",
-      "Bash(python3 -c \"import scipy.ndimage; print\\('ok'\\)\")"
+      "Bash(python3 -c \"import scipy.ndimage; print\\('ok'\\)\")",
+      "Bash(rm -rf /tmp/orig /tmp/test_assets /tmp/*.png /tmp/replace_posudek_text.py *)"
     ]
   }
 }
