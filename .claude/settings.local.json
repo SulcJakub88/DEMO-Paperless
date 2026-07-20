@@ -21,7 +21,8 @@
       "Bash(python3 -c \"import scipy; print\\(scipy.__version__\\)\")",
       "Bash(pip3 install *)",
       "Bash(python3 -c \"import scipy.ndimage; print\\('ok'\\)\")",
-      "Bash(rm -rf /tmp/orig /tmp/test_assets /tmp/*.png /tmp/replace_posudek_text.py *)"
+      "Bash(rm -rf /tmp/orig /tmp/test_assets /tmp/*.png /tmp/replace_posudek_text.py *)",
+      "mcp__fec99cf9-9dcc-4991-824e-28c83adc28f6__get_metadata"
     ]
   }
 }

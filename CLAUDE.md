@@ -311,15 +311,59 @@ Odmítnutí (detail): odmitnuti-modal(poznámka) → [Potvrdit] → svedek-modal
   předmět „Fyzické doručení posudku", data Lukáš Motl / Zenit Banka); open/closeEmailNotifPhysicalModal().
 - `role-picker-overlay` — výběr role (5 karet, zobrazí se při startu).
 
+## Posudek jako HTML (PDOC) — náhrada za assets/*posudek*.png
+
+Od V12 je "LÉKAŘSKÝ POSUDEK" dokument (dřív 9 samostatných PNG screenshotů)
+vykreslován jako živé HTML/CSS (ostrý text, žádná pixelace při zoomu).
+Kód: CSS `.pdoc-*` třídy (~řádek 2017+, hned za `.posudek-elec-img`),
+JS `PDOC_VARIANTS` / `pdocHtml()` / `mountPdoc()` (~řádek 5410+, před
+`_empSignMethod`). Obsah/texty (Motl Lukáš, Zenit Banka a.s., …) i vizuál
+(tabulka, checkboxy, čárový kód, zelený podpisový text) jsou 1:1 podle
+původních obrázků — jen ostřejší.
+
+**Jak to funguje:** `mountPdoc(containerId, variantKey, keepFixedHeight?)`
+vloží do `#containerId` vykreslený dokument v přirozené šířce 860px
+(`PDOC_NATURAL_WIDTH`) a přeškáluje ho přes `zoom` na šířku kontejneru
+(`el.clientWidth / 860`). Kontejner musí mít třídu `pdoc-mount` (zajišťuje
+`overflow:hidden` + `min-width:0` + `flex-shrink:0`, nutné uvnitř flex
+rodičů typu `.pdf-view-col` / `.p13-sign-preview`, jinak by se obsah
+nezmenšil pod svou přirozenou šířku). Volitelný 3. parametr
+`keepFixedHeight=true` řekne `mountPdoc()`, ať nepřepisuje inline výšku
+kontejneru (pro kontejnery s vlastní pevnou výškou z CSS).
+
+**7 variant** (`PDOC_VARIANTS` klíč → dřívější PNG → kde se používá):
+| klíč | dřívější PNG | stav | kde se používá |
+|---|---|---|---|
+| `unsigned` | `posudek-doc.png` | nepodepsáno, žádná pole vyplněná | `p13-print-modal` (`#pdoc-mount-print`), `p13-sign-modal` (`#pdoc-mount-sign`) |
+| `lekar` | `posudek-lekar.png` | podepsáno lékařem, PŘEVZETÍ prázdné (bez e-mail pole) | `sms-pin-modal` (`#pdoc-mount-sms-pin`) |
+| `emp-zona` | `posudek-emp-zona.png` | podepsáno lékařem, e-mail vyplněn, PODPIS zaměstnance čeká (prázdný) | `emp-mobile-overlay` sign view (`#pdoc-mount-empzona`) |
+| `signed-zona` | `posudek-elec.png` / `posudek-signed.png` | podepsáno zaměstnancem via zóna (klikyhák podpis), ŽADATEL řádek prázdný | `posudek-elec-overlay` (`#posudek-elec-img`, zona), `pdf-view-modal` (`#pdoc-mount-pdfview-zona`) |
+| `signed-sms` | `posudek-elec-sms.png` / `posudek-sms.png` | podepsáno přes SMS (jen zelený text, bez klikyháku), ŽADATEL řádek prázdný | `posudek-elec-overlay` (sms), `pdf-view-modal` (`#pdoc-mount-pdfview-sms`) |
+| `zam-zona` | `zam-posudek1.png` | plně uzavřeno: podpis zaměstnance (klikyhák) + druhý řádek vyplněný (Jitka Vacovská, bez ŽADATEL/ANO-NE děliče) | `zam-posudek-modal` (`#pdoc-mount-zam-zona`) |
+| `zam-sms` | `zam-posudek2.png` | jako `zam-zona`, ale SMS podpis (bez klikyháku) | `zam-posudek-modal` (`#pdoc-mount-zam-sms`) |
+
+Pokud potřebuješ v budoucnu upravit **jen jednu konkrétní variantu** (např.
+"u lekar chci jiný text"), uprav `pdocHtml()`/`PDOC_VARIANTS` podmíněně dle
+`key` — je to jediné místo, kde se markup generuje pro všech 7 variant
+(sdílí stejnou hlavičku/tabulku rizik/posudkovou část, liší se jen
+sekce PŘEVZETÍ + stav podpisu lékaře).
+
+⚠️ **Neověřeno vizuálně:** `posudek-elec-overlay` (`signed-zona`/`signed-sms`
+přes `openPosudekElecOverlay()`) — v testovacím prostředí se u tohoto
+jednoho místa (fixed overlay, flex-centrovaný, bez zanoření do dialogu)
+nepodařilo spolehlivě ověřit screenshotem, i když `getBoundingClientRect()`
+potvrzuje správnou 468px šířku a obsah je stejný kód jako ve zbylých 8
+funkčních místech. Při příští práci na této obrazovce zkontroluj vizuálně
+v reálném prohlížeči.
+
+Staré PNG (`assets/*posudek*.png`, `assets/zam-posudek*.png`) už se nikde
+neodkazují — ponechány v repozitáři pro referenci/rollback, ale nejsou
+součástí žádné stránky.
+
 ## Assety (`assets/`)
 
 - `logo.png` — EUC PLS logo (sidebar všech stránek).
-- `posudek-doc.png` — nepodepsaný dokument (thumbnail tisku).
-- `posudek-lekar.png` / `posudek-signed.png` — posudek podepsaný lékařem.
-- `posudek-sms.png` — posudek podepsaný přes SMS.
-- `posudek-emp-zona.png` — posudek pro zaměstnaneckou zónu (lékař podepsán, zaměstnanec ne).
-- `posudek-elec.png` — elektronicky podepsaný (overlay).
-- `zam-posudek1.png` / `zam-posudek2.png` — plně podepsané posudky (profil zaměstnance).
+- (posudek obrázky nahrazeny HTML — viz "Posudek jako HTML (PDOC)" výše)
 
 ## Známé zvláštnosti / pozor
 

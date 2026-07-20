@@ -1995,7 +1995,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
 .pdf-view-hdr-title { font-size: 14px; font-weight: 800; color: #121212; }
 .pdf-view-hdr-close { background: #e0e0e0; border: none; border-radius: 4px; width: 22px; height: 22px; cursor: pointer; font-size: 13px; color: #737373; font-family: inherit; display: flex; align-items: center; justify-content: center; }
 .pdf-view-body { display: flex; gap: 0; overflow-y: auto; flex: 1; }
-.pdf-view-col { flex: 1; padding: 16px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid #e0e0e0; }
+.pdf-view-col { flex: 1; min-width: 0; padding: 16px; display: flex; flex-direction: column; gap: 8px; border-right: 1px solid #e0e0e0; }
 .pdf-view-col:last-child { border-right: none; }
 .pdf-view-col-title { font-size: 11px; font-weight: 700; color: #1a1a1f; padding-bottom: 6px; border-bottom: 1px solid #e0e0e0; }
 .pdf-view-img { width: 100%; height: auto; display: block; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
@@ -2012,7 +2012,77 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
   background: rgba(0,0,0,0.65); cursor: pointer;
 }
 #posudek-elec-overlay.active { display: flex; }
-.posudek-elec-img { width: 468px; height: 668px; object-fit: cover; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); pointer-events: none; }
+.posudek-elec-img { width: 468px; max-height: 85vh; overflow-y: auto; border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,0.5); }
+
+/* ── PDOC — "naprogramovaný" posudek (náhrada za assets/*posudek*.png) ──
+   Viz CLAUDE.md sekci "Posudek jako HTML (PDOC)" pro seznam variant a
+   mapování na jednotlivá místa použití. Šablona je vykreslena v přirozené
+   šířce 860px (PDOC_NATURAL_WIDTH v JS) a přeškálována přes transform:scale
+   na šířku kontejneru, do kterého je zamountovaná (viz mountPdoc()). */
+.pdoc-mount { position: relative; overflow: hidden; min-width: 0; max-width: 100%; flex-shrink: 0; }
+.pdoc-natural {
+  width: 860px; transform-origin: top left;
+  background: #fff; color: #000; font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px; line-height: 1.3; border: 1.5px solid #000; box-sizing: border-box;
+}
+.pdoc-natural * { box-sizing: border-box; }
+.pdoc-natural table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.pdoc-natural td { vertical-align: middle; padding: 3px 6px; border: 1px solid #000; overflow: hidden; }
+.pdoc-title-row { display: flex; border-bottom: 1.5px solid #000; }
+.pdoc-title-main { flex: 1; text-align: center; font-weight: 700; font-size: 12.5px; padding: 6px 8px; }
+.pdoc-title-num { width: 130px; border-left: 1.5px solid #000; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.pdoc-title-num-lbl { font-size: 7.5px; font-weight: 700; }
+.pdoc-title-num-val { font-size: 12px; font-weight: 700; }
+.pdoc-bar { background: #d4d4d4; text-align: center; font-weight: 700; font-size: 11px; padding: 3px; border-bottom: 1.5px solid #000; letter-spacing: 0.03em; }
+.pdoc-req-row { display: flex; border-bottom: 1.5px solid #000; }
+.pdoc-req-item { flex: 1; display: flex; align-items: center; gap: 6px; padding: 5px 8px; border-right: 1px solid #000; font-size: 10.5px; font-weight: 700; text-align: center; justify-content: center; }
+.pdoc-req-item:last-child { border-right: none; }
+.pdoc-cb { width: 13px; height: 13px; border: 1.3px solid #000; background: #fff; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
+.pdoc-pls-row { display: flex; align-items: center; border-bottom: 1.5px solid #000; padding: 5px 8px; gap: 10px; }
+.pdoc-pls-bang { width: 15px; height: 15px; border: 1.5px solid #c0392b; color: #c0392b; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; flex-shrink: 0; }
+.pdoc-pls-logo { font-weight: 800; font-style: italic; font-size: 13px; }
+.pdoc-pls-txt { font-style: italic; font-size: 11px; }
+.pdoc-barcode { margin-left: auto; height: 22px; width: 340px; background-image: repeating-linear-gradient(90deg,#000 0 1px,transparent 1px 2px,#000 2px 3px,transparent 3px 5px,#000 5px 7px,transparent 7px 8px); }
+.pdoc-reason-row { display: flex; border-bottom: 1.5px solid #000; }
+.pdoc-reason-lbl { width: 150px; flex-shrink: 0; background: #e8e8e8; font-size: 8px; font-weight: 700; padding: 4px 6px; border-right: 1px solid #000; }
+.pdoc-reason-val { flex: 1; padding: 4px 8px; font-size: 11px; display: flex; align-items: center; }
+.pdoc-two-col-hdr { display: flex; border-bottom: 1.5px solid #000; }
+.pdoc-two-col-hdr > div { flex: 1; background: #d4d4d4; text-align: center; padding: 3px; }
+.pdoc-two-col-hdr > div:first-child { border-right: 1.5px solid #000; }
+.pdoc-two-col-hdr b { font-size: 11px; }
+.pdoc-two-col-hdr span { display: block; font-size: 7.5px; font-weight: 400; }
+.pdoc-person-table td { border-left: none; border-top: none; }
+.pdoc-person-table tr:last-child td { border-bottom: none; }
+.pdoc-plbl { background: #e8e8e8; font-size: 8px; font-weight: 700; }
+.pdoc-pval { font-size: 12px; }
+.pdoc-pval.green { color: #1a8026; font-weight: 700; }
+.pdoc-signed-note { color: #1a8026; font-weight: 700; font-size: 9.5px; text-align: center; padding-top: 4px; }
+.pdoc-sub2 { display: flex; height: 100%; margin: -3px -6px; }
+.pdoc-sub2 > div:first-child { flex: 1.3; padding: 3px 6px; border-right: 1px solid #000; }
+.pdoc-sub2 > div:last-child { flex: 1; padding: 3px 6px; }
+.pdoc-konkretni { border-bottom: 1.5px solid #000; padding: 4px 6px; font-size: 8px; font-weight: 700; min-height: 34px; }
+.pdoc-risk-table td { font-size: 10px; padding: 3px 6px; }
+.pdoc-risk-table .pdoc-bar td { background: #d4d4d4; font-weight: 700; text-align: center; }
+.pdoc-empty-row td { height: 16px; }
+.pdoc-posudkova-txt { border-bottom: 1.5px solid #000; padding: 4px 8px; font-size: 10px; font-weight: 700; text-align: center; }
+.pdoc-cond-row { display: flex; border-bottom: 1.5px solid #000; min-height: 118px; }
+.pdoc-cond-left { flex: 1.4; border-right: 1.5px solid #000; }
+.pdoc-cond-item { padding: 3px 8px; font-size: 10px; font-weight: 700; border-bottom: 1px solid #ccc; }
+.pdoc-cond-item small { display: block; font-size: 7.5px; font-weight: 400; }
+.pdoc-cond-right { flex: 1; padding: 6px 10px; color: #cfcfcf; font-weight: 700; font-size: 12px; }
+.pdoc-validity-row { display: flex; border-bottom: 1.5px solid #000; }
+.pdoc-validity-lbl { flex-shrink: 0; padding: 3px 8px; font-size: 9px; font-weight: 700; }
+.pdoc-validity-lbl small { display: block; font-size: 7px; font-weight: 400; }
+.pdoc-doctor-table td { text-align: center; }
+.pdoc-legal { border-bottom: 1.5px solid #000; padding: 5px 22px 5px 8px; font-size: 8.5px; line-height: 1.5; position: relative; }
+.pdoc-legal .pdoc-pls-bang { position: absolute; left: 4px; top: 6px; }
+.pdoc-legal-txt { padding-left: 18px; }
+.pdoc-prevzeti-row-hdr { display: flex; border-bottom: 1.5px solid #000; }
+.pdoc-prevzeti-row-hdr > div:first-child { width: 150px; flex-shrink: 0; background: #d4d4d4; font-weight: 700; font-size: 9.5px; padding: 4px 8px; display:flex; align-items:center; border-right: 1px solid #000; }
+.pdoc-prevzeti-row-hdr > div:last-child { flex: 1; padding: 4px 8px; font-size: 9.5px; font-weight: 700; display:flex; align-items:center; }
+.pdoc-anone { display: flex; align-items: center; }
+.pdoc-anone > div { display: flex; align-items: center; gap: 6px; padding: 0 12px; font-size: 10px; font-weight: 700; border-left: 1px solid #000; height: 100%; }
+.pdoc-footer { text-align: center; font-size: 8px; padding: 3px; }
 
 /* ── Email modals: potvrzeno + automaticky ── */
 #email-potvrzeno-modal, #email-automaticky-modal {
@@ -4608,7 +4678,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
     <div class="p13-pdf-body">
       <div class="p13-pdf-preview-pane">
         <div class="p13-pdf-thumb">
-          <img src="assets/posudek-doc.png" alt="posudek">
+          <div class="pdoc-mount" id="pdoc-mount-print"></div>
         </div>
         <div class="p13-pdf-page-lbl">Stránka 1 z 1</div>
       </div>
@@ -5243,19 +5313,176 @@ function p13FyzConfirmContinue() {
 
 function openPrintModal() {
   document.getElementById('p13-print-modal').classList.add('active');
+  mountPdoc('pdoc-mount-print', 'unsigned');
 }
 
 function closePrintModal() {
   document.getElementById('p13-print-modal').classList.remove('active');
 }
 
+/* ══════════════════════════════
+   PDOC — "naprogramovaný" posudek
+   Náhrada za assets/*posudek*.png (viz CLAUDE.md "Posudek jako HTML (PDOC)").
+   7 variant, každá pojmenovaná podle stavu podpisu — jméno = klíč v PDOC_VARIANTS.
+══════════════════════════════ */
+var PDOC_NATURAL_WIDTH = 860;
+var PDOC_VARIANTS = {
+  'unsigned':     { doctor: false, email: false, sig: null,       secondRow: 'divider-empty' },
+  'lekar':        { doctor: true,  email: false, sig: null,       secondRow: 'divider-empty' },
+  'emp-zona':     { doctor: true,  email: true,  sig: null,       secondRow: 'divider-empty' },
+  'signed-zona':  { doctor: true,  email: true,  sig: 'squiggle',  secondRow: 'divider-empty' },
+  'signed-sms':   { doctor: true,  email: true,  sig: 'text',      secondRow: 'divider-empty' },
+  'zam-zona':     { doctor: true,  email: true,  sig: 'squiggle',  secondRow: 'filled' },
+  'zam-sms':      { doctor: true,  email: true,  sig: 'text',      secondRow: 'filled' }
+};
+
+function pdocCb(dark) { return '<span class="pdoc-cb"' + (dark ? ' style="background:#7a7a7a;"' : '') + '></span>'; }
+function pdocAnoNe() {
+  return '<div class="pdoc-anone" style="margin-left:auto;"><div>ANO ' + pdocCb(false) + '</div><div>NE ' + pdocCb(true) + '</div></div>';
+}
+function pdocPrevzetiRow(pairs) {
+  var html = '<div style="display:flex; border-bottom:1.5px solid #000;">';
+  pairs.forEach(function (p, i) {
+    var last = i === pairs.length - 1;
+    html += '<div style="flex-shrink:0; width:118px; background:#e8e8e8; font-weight:700; font-size:8px; padding:4px 6px; border-right:1px solid #000; display:flex; align-items:center;">' + p[0] + '</div>';
+    html += '<div style="flex:' + (p[2] || 1) + '; padding:4px 6px; display:flex; align-items:center;' + (last ? '' : ' border-right:1px solid #000;') + '">' + p[1] + '</div>';
+  });
+  html += '</div>';
+  return html;
+}
+function pdocSigCell(c) {
+  if (c.sig === 'squiggle') {
+    return '<div style="display:flex; align-items:center; gap:4px;">' +
+      '<svg width="26" height="15" viewBox="0 0 26 15"><path d="M1 11 Q3 2 6 11 T11 11 T16 3 T24 9" stroke="#333" stroke-width="1" fill="none"/></svg>' +
+      '<div class="pdoc-signed-note" style="text-align:left; padding-top:0;">Podepsáno elektronicky,<br>dne 14.04. 2023 v 14:52</div></div>';
+  }
+  if (c.sig === 'text') {
+    return '<div class="pdoc-signed-note" style="text-align:center; padding-top:0;">Podepsáno elektronicky,<br>dne 14.04. 2023 v 14:52</div>';
+  }
+  return '';
+}
+
+function pdocHtml(key) {
+  var c = PDOC_VARIANTS[key] || PDOC_VARIANTS.unsigned;
+  var g = function (t) { return '<span class="pdoc-pval green">' + t + '</span>'; };
+
+  var doctorDate = c.doctor ? g('14.04.2023') : '';
+  var doctorName = c.doctor ? 'David<br>Janko' : '';
+  var doctorMeta = c.doctor ? '<div style="font-size:6.5px; line-height:1.35; color:#333;">Digitálně podepsal<br>David Janko<br>Datum: 2023.04.14<br>21:17:58 +02\'00\'</div>' : '';
+
+  var prevzetiPairs = [
+    ['DATUM PŘEVZETÍ', c.doctor ? g('14.04.2023') : '', 0.9],
+    ['ČÍSLO PRŮKAZU TOTOŽNOSTI', c.doctor ? g('998006642') : '', 0.9]
+  ];
+  if (c.email) prevzetiPairs.push(['E-mail', c.doctor ? '<b style="color:#1a8026;">lmotl@zenitbanka.cz</b>' : '', 1.3]);
+  prevzetiPairs.push(['PODPIS', pdocSigCell(c), 1.3]);
+
+  var secondRowHtml;
+  if (c.secondRow === 'filled') {
+    secondRowHtml = pdocPrevzetiRow([
+      ['DATUM PŘEVZETÍ', g('18.04.2023'), 0.9],
+      ['JMÉNO A PŘÍJMENÍ', '<b style="color:#1a8026;">Jitka Vacovská</b>', 0.9],
+      ['PODPIS', '<div class="pdoc-signed-note" style="text-align:center; padding-top:0;">Podepsáno elektronicky, dne<br>18.04. 2023 v 11:38</div>', 1.6]
+    ]);
+  } else {
+    secondRowHtml =
+      '<div class="pdoc-prevzeti-row-hdr"><div>ŽADATEL</div><div><span style="flex:1;">ŽADATEL SE VZDÁVÁ PRÁVA PODAT NÁVRH NA PŘEZKOUMÁNÍ TOHOTO LÉKAŘSKÉHO POSUDKU</span>' + pdocAnoNe() + '</div></div>' +
+      pdocPrevzetiRow([['DATUM PŘEVZETÍ', '', 0.9], ['JMÉNO A PŘÍJMENÍ', '', 0.9], ['PODPIS', '', 1.3]]);
+  }
+
+  var riskRows = [
+    ['1013000', 'VYŠETŘENÍ V ZÁKLADNÍM ROZSAHU KAT. 1', 'KAT. 1'],
+    ['1012002', 'BIOLOGICKÉ ČINITELE KAT. 2', 'KAT. 2'],
+    ['1007002', 'ZÁTĚŽ CHLADEM KAT. 2', 'KAT. 2']
+  ];
+  var riskHtml = riskRows.map(function (r) {
+    return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td></td></tr>';
+  }).join('');
+  for (var i = 0; i < 19; i++) riskHtml += '<tr class="pdoc-empty-row"><td>&nbsp;</td><td></td><td></td><td></td></tr>';
+
+  var condItems = [
+    ['ZDRAVOTNĚ ZPŮSOBILÁ', ''],
+    ['ZDRAVOTNĚ ZPŮSOBILÁ S PODMÍNKOU', ''],
+    ['ZDRAVOTNĚ NEZPŮSOBILÁ', '(JEN U VSTUPNÍCH PROHLÍDEK)'],
+    ['POZBYLA DLOUHODOBĚ ZDRAVOTNÍ ZPŮSOBILOST', 'PŘÍČINOU POZBYTÍ NENÍ PRACOVNÍ ÚRAZ, NEMOC Z POVOLÁNÍ NEBO OHROŽENÍ NEMOCÍ Z POVOLÁNÍ'],
+    ['POZBYLA DLOUHODOBĚ ZDRAVOTNÍ ZPŮSOBILOST', 'PROTOŽE NESMÍ KONAT DOSAVADNÍ PRÁCI Z DŮVODU NEMOCI Z POVOLÁNÍ, OHROŽENÍ NEMOCÍ'],
+    ['POZBYLA DLOUHODOBĚ ZDRAVOTNÍ ZPŮSOBILOST', 'PROTOŽE NESMÍ KONAT DOSAVADNÍ PRÁCI Z DŮVODU PRACOVNÍHO ÚRAZU'],
+    ['POZBYLA DLOUHODOBĚ ZDRAVOTNÍ ZPŮSOBILOST', 'DŮVOD POZBYTÍ KONKRETIZUJE POSUDEK PRO ÚČELY PRACOVNĚPRÁVNÍCH VZTAHŮ']
+  ];
+  var condHtml = condItems.map(function (it) {
+    return '<div class="pdoc-cond-item">' + it[0] + (it[1] ? '<small>' + it[1] + '</small>' : '') + '</div>';
+  }).join('');
+
+  return '' +
+    '<div class="pdoc-title-row">' +
+      '<div class="pdoc-title-main">LÉKAŘSKÝ POSUDEK O ZDRAVOTNÍ ZPŮSOBILOSTI K PRÁCI VČETNĚ<br>ŽÁDOSTI O PROVEDENÍ PRACOVNĚLÉKAŘSKÉ PROHLÍDKY<br>A POSOUZENÍ ZDRAVOTNÍ ZPŮSOBILOSTI K PRÁCI</div>' +
+      '<div class="pdoc-title-num"><div class="pdoc-title-num-lbl">EVIDENČNÍ<br>ČÍSLO</div><div class="pdoc-title-num-val">FZ2148991</div></div>' +
+    '</div>' +
+    '<div class="pdoc-bar">ŽÁDOST</div>' +
+    '<div class="pdoc-req-row">' +
+      '<div class="pdoc-req-item">' + pdocCb(false) + ' VSTUPNÍ</div>' +
+      '<div class="pdoc-req-item">' + pdocCb(false) + ' PERIODICKÁ</div>' +
+      '<div class="pdoc-req-item">' + pdocCb(true).replace('></span>', '>X</span>') + ' MIMOŘÁDNÁ<br>V NEÚPLNÉM ROZSAHU</div>' +
+      '<div class="pdoc-req-item">' + pdocCb(false) + ' MIMOŘÁDNÁ<br>V ÚPLNÉM ROZSAHU</div>' +
+      '<div class="pdoc-req-item">' + pdocCb(false) + ' SOUBĚH<br>PERIODICKÉ A MIMOŘÁDNÉ</div>' +
+    '</div>' +
+    '<div class="pdoc-pls-row"><div class="pdoc-pls-bang">!</div><div class="pdoc-pls-logo">EUC PLS</div><div class="pdoc-pls-txt">hradí vstupní prohlídku.</div><div class="pdoc-barcode"></div></div>' +
+    '<div class="pdoc-reason-row"><div class="pdoc-reason-lbl">DŮVOD K PROHLÍDCE<br>DLE VYHL. Č. 79/2013 SB.</div><div class="pdoc-reason-val">Přerušení výkonu práce z důvodu nemoci delší než 8 týdnů dle § 12 odst. 2 písm. f bodu 1</div></div>' +
+    '<div class="pdoc-two-col-hdr"><div><b>POSUZOVANÁ OSOBA</b><span>UCHAZEČ O ZAMĚSTNÁNÍ, ZAMĚSTNANEC</span></div><div><b>ŽADATEL</b><span>ZAMĚSTNAVATEL</span></div></div>' +
+    '<table class="pdoc-person-table"><colgroup><col style="width:15%"><col style="width:35%"><col style="width:15%"><col style="width:35%"></colgroup>' +
+      '<tr><td class="pdoc-plbl">PŘÍJMENÍ A JMÉNO</td><td class="pdoc-pval" style="font-weight:700;">Motl Lukáš</td><td class="pdoc-plbl">NÁZEV</td><td class="pdoc-pval" style="font-weight:700; font-size:14px;">Zenit Banka, a.s.</td></tr>' +
+      '<tr><td class="pdoc-plbl">DATUM NAROZENÍ</td><td><div class="pdoc-sub2"><div class="pdoc-pval">15. 10. 1976</div><div><span class="pdoc-plbl" style="padding:2px 4px;">OSOBNÍ ČÍSLO</span> <span class="pdoc-pval">320186</span></div></div></td><td class="pdoc-plbl">IČO</td><td class="pdoc-pval">00018562</td></tr>' +
+      '<tr><td class="pdoc-plbl">ADRESA MÍSTA<br>TRVALÉHO POBYTU<br><span style="font-weight:400;">NEBO ADRESA PŘECHODNÉHO<br>POBYTU NEBO BYDLIŠTĚ V ČR</span></td><td class="pdoc-pval">Husova 258 , 33501 Nepomuk</td><td class="pdoc-plbl">ADRESA SÍDLA</td><td class="pdoc-pval">Slezská 7/100 , 120 00 Praha</td></tr>' +
+      '<tr><td class="pdoc-plbl">PRACOVNÍ ZAŘAZENÍ<br><span style="font-weight:400;">DRUH PRÁCE</span></td><td class="pdoc-pval">inspektor, technik - jatky, AP</td><td class="pdoc-plbl">DATUM VYSTAVENÍ</td><td class="pdoc-pval">12. 5. 2026</td></tr>' +
+      '<tr><td class="pdoc-plbl">PRACOVIŠTĚ<br><span style="font-weight:400;">POBOČKA, DIVIZE</span></td><td class="pdoc-pval">VHS Blovice</td><td class="pdoc-plbl">JMÉNO OPRÁV. OSOBY</td><td class="pdoc-pval">Jitka Vacovská</td></tr>' +
+      '<tr><td class="pdoc-plbl">REŽIM PRÁCE<br><span style="font-weight:400;">SMĚNNOST</span></td><td class="pdoc-pval">Dvousměnný</td><td></td><td><div class="pdoc-signed-note">Podepsáno elektronicky, dne<br>12.05. 2026 v 10:52</div></td></tr>' +
+      '<tr><td class="pdoc-plbl">ÚVAZEK<br><span style="font-weight:400;">TÝDENNÍ PRACOVNÍ DOBA</span></td><td><span class="pdoc-plbl" style="padding:2px 4px;">DÉLKA SMĚNY</span></td><td></td><td></td></tr>' +
+    '</table>' +
+    '<div class="pdoc-konkretni">KONKRÉTNÍ<br>PRACOVNÍ<br>ČINNOSTI</div>' +
+    '<table class="pdoc-risk-table"><colgroup><col style="width:10%"><col style="width:54%"><col style="width:16%"><col style="width:20%"></colgroup>' +
+      '<tr class="pdoc-bar"><td>KÓD</td><td>RIZIKOVÉ FAKTORY PRACOVNÍCH PODMÍNEK, BEZPEČNOSTNÍ, ZDRAVOTNÍ A PROFESNÍ RIZIKA</td><td>VÝSLEDNÁ KATEGORIE&nbsp;&nbsp;2</td><td>POZNÁMKA</td></tr>' +
+      riskHtml +
+    '</table>' +
+    '<div class="pdoc-bar">POSUDKOVÁ ČÁST</div>' +
+    '<div class="pdoc-posudkova-txt">POSUZOVANÁ OSOBA JE K VÝKONU PRÁCE NA ZÁKLADĚ ZHODNOCENÍ VÝSLEDKŮ VYŠETŘENÍ A DALŠÍCH ZÁKONEM POŽADOVANÝCH DOKLADŮ DLE VÝŠE UVEDENÉ ŽÁDOSTI</div>' +
+    '<div class="pdoc-cond-row"><div class="pdoc-cond-left">' + condHtml + '</div><div class="pdoc-cond-right">PODMÍNKA</div></div>' +
+    '<div class="pdoc-validity-row"><div class="pdoc-validity-lbl">PLATNOST POSUDKU ZKRÁCENA DO DATA - JEN POKUD JE TŘEBA OMEZIT JEHO PLATNOST<small>DATUM PROVEDENÍ MIMOŘÁDNÉ PROHLÍDKY - POKUD JE TAKOVÝ POSTUP DŮVODNÝ</small></div></div>' +
+    pdocPrevzetiRow([['DATUM VYDÁNÍ', doctorDate, 0.8], ['JMÉNO, PŘÍJMENÍ<br>PODPIS LÉKAŘE', '<div style="display:flex; align-items:center; gap:6px;"><span style="font-size:15px;">' + doctorName + '</span>' + doctorMeta + '</div>', 1.1], ['RAZÍTKO<br>POSKYTOVATELE', '', 0.9]]) +
+    '<div class="pdoc-bar">PŘEVZETÍ</div>' +
+    '<div class="pdoc-legal"><div class="pdoc-pls-bang">!</div><div class="pdoc-legal-txt">Proti tomuto lékařskému posudku (dále LP) lze podle § 46 odst. 1 zák. č. 373/2011 Sb., o specifických zdravotních službách, ve znění pozdějších předpisů, podat návrh na jeho přezkoumání do 10 pracovních dnů ode dne jeho prokazatelného předání poskytovatelem pracovnělékařských služeb, který posudek vydal. Návrh se podává písemně poskytovateli pracovnělékařských služeb, který LP vydal. Návrh na přezkoumání LP nemá odkladný účinek, jestliže z jeho závěru vyplývá, že posuzovaná osoba je pro účel, pro nějž byla posuzována, zdravotně nezpůsobilá, pozbyla dlouhodobě zdravotní způsobilost nebo je zdravotně způsobilá s podmínkou, která je stanovena poprvé. Práva na přezkoumání LP se lze vzdát, a to písemným prohlášením o vzdání se práva na přezkoumání LP.</div></div>' +
+    '<div class="pdoc-prevzeti-row-hdr"><div>POSUZOVANÁ OSOBA</div><div><span style="flex:1;">POSUZOVANÁ OSOBA SE VZDÁVÁ PRÁVA PODAT NÁVRH NA PŘEZKOUMÁNÍ TOHOTO LÉKAŘSKÉHO POSUDKU</span>' + pdocAnoNe() + '</div></div>' +
+    pdocPrevzetiRow(prevzetiPairs) +
+    secondRowHtml +
+    '<div class="pdoc-footer">Žádost a posudek dle zákona č. 373/2011 Sb., § 15 vyhlášky č. 79/2013 Sb. a č. 98/2012 Sb./, CZ verze 1.46, 666827 20260512 856</div>';
+}
+
+function mountPdoc(containerId, variantKey, keepFixedHeight) {
+  var el = document.getElementById(containerId);
+  if (!el) return;
+  el.innerHTML = '<div class="pdoc-natural">' + pdocHtml(variantKey) + '</div>';
+  var inner = el.querySelector('.pdoc-natural');
+  var scale = el.clientWidth / PDOC_NATURAL_WIDTH;
+  if (!scale || scale <= 0) scale = 1;
+  // "zoom" místo transform:scale — mění skutečný layout box (ne jen malbu),
+  // takže overflow:hidden / flexbox výška fungují spolehlivě napříč kontexty.
+  inner.style.zoom = scale;
+  // keepFixedHeight: kontejner má vlastní pevnou výšku z CSS (např. "object-fit:
+  // cover"-like náhled) — nepřepisovat inline výškou dopočtenou z obsahu.
+  if (!keepFixedHeight) el.style.height = inner.scrollHeight + 'px';
+}
+
 var _empSignMethod = 'zona'; // 'zona' | 'sms' | 'fyzicky'
 var _page14State = 'email'; // 'email' | 'sms' | 'fyzicka' | 'vytisknout' | 'odmitnuti'
 
+function mountZamPosudekCols() {
+  mountPdoc('pdoc-mount-zam-zona', 'zam-zona');
+  mountPdoc('pdoc-mount-zam-sms', 'zam-sms');
+}
 function openZamPosudekModal() {
   document.getElementById('zam-posudek-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
   document.getElementById('zam-posudek-col-sms').style.display = (_empSignMethod === 'sms') ? 'flex' : 'none';
   document.getElementById('zam-posudek-modal').classList.add('active');
+  mountZamPosudekCols();
 }
 function closeZamPosudekModal() {
   document.getElementById('zam-posudek-modal').classList.remove('active');
@@ -5266,6 +5493,7 @@ function openZamPosudekModalZona() {
   document.getElementById('zam-posudek-col-zona').style.display = 'flex';
   document.getElementById('zam-posudek-col-sms').style.display = 'none';
   document.getElementById('zam-posudek-modal').classList.add('active');
+  mountZamPosudekCols();
 }
 // Náhled z page14 "Pomocné akce" (jen ve stavu Zaslat PIN na telefon) —
 // vždy varianta "přes SMS", bez ohledu na _empSignMethod.
@@ -5273,12 +5501,15 @@ function openZamPosudekModalSms() {
   document.getElementById('zam-posudek-col-zona').style.display = 'none';
   document.getElementById('zam-posudek-col-sms').style.display = 'flex';
   document.getElementById('zam-posudek-modal').classList.add('active');
+  mountZamPosudekCols();
 }
 
 function openPdfViewModal() {
   document.getElementById('pdf-view-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
   document.getElementById('pdf-view-col-sms').style.display = (_empSignMethod === 'zona') ? 'none' : 'flex';
   document.getElementById('pdf-view-modal').classList.add('active');
+  mountPdoc('pdoc-mount-pdfview-zona', 'signed-zona');
+  mountPdoc('pdoc-mount-pdfview-sms', 'signed-sms');
 }
 function closePdfViewModal() {
   document.getElementById('pdf-view-modal').classList.remove('active');
@@ -5294,6 +5525,7 @@ function openSmsPinModal() {
   document.getElementById('sms-pin-phone-inp').value = _p12Phone;
   smsPinBackToPhone();
   document.getElementById('sms-pin-modal').classList.add('active');
+  mountPdoc('pdoc-mount-sms-pin', 'lekar');
 }
 function smsPinSend() {
   var num = document.getElementById('sms-pin-phone-num').textContent;
@@ -5476,6 +5708,7 @@ function p13ConfirmEdit() {
 
 function openSignModal() {
   document.getElementById('p13-sign-modal').classList.add('active');
+  mountPdoc('pdoc-mount-sign', 'unsigned');
   // reset state
   document.getElementById('sign-panel-normal').style.display = '';
   document.getElementById('sign-panel-loading').style.display = 'none';
@@ -5854,6 +6087,7 @@ function empDobSubmit() {
   }
   document.getElementById('emp-mobile-dob-view').style.display = 'none';
   document.getElementById('emp-mobile-sign-view').style.display = '';
+  mountPdoc('pdoc-mount-empzona', 'emp-zona');
   var canvas = document.getElementById('emp-sign-canvas');
   canvas.width = canvas.offsetWidth || 362;
   var ctx = canvas.getContext('2d');
@@ -6029,8 +6263,8 @@ function closePrijetiZaveru() {
 }
 
 function openPosudekElecOverlay() {
-  document.getElementById('posudek-elec-img').src = (_empSignMethod === 'sms') ? 'assets/posudek-elec-sms.png' : 'assets/posudek-elec.png';
   document.getElementById('posudek-elec-overlay').classList.add('active');
+  mountPdoc('posudek-elec-img', (_empSignMethod === 'sms') ? 'signed-sms' : 'signed-zona');
 }
 
 function closePosudekElecOverlay() {
@@ -6150,7 +6384,7 @@ function applyMotlDeliveryMethodToDetail() {
     </div>
     <div class="sms-pin-body">
       <div class="sms-pin-doc">
-        <img src="assets/posudek-lekar.png" alt="Náhled posudku podepsaného lékařem">
+        <div class="pdoc-mount" id="pdoc-mount-sms-pin"></div>
       </div>
       <div class="sms-pin-right">
         <div class="sms-pin-section-hdr">Asistovaný elektronický podpis</div>
@@ -6331,7 +6565,7 @@ function applyMotlDeliveryMethodToDetail() {
     </div>
     <div class="p13-sign-body">
       <div class="p13-sign-preview">
-        <img src="assets/posudek-doc.png" alt="posudek">
+        <div class="pdoc-mount" id="pdoc-mount-sign" style="width:100%;"></div>
       </div>
       <div class="p13-sign-panel" id="sign-panel-wrap">
         <!-- Normal state -->
@@ -6530,7 +6764,7 @@ function applyMotlDeliveryMethodToDetail() {
     <!-- Signing view -->
     <div id="emp-mobile-sign-view" class="emp-mobile-scroll" style="display:none;">
       <div class="emp-mobile-doc">
-        <img src="assets/posudek-emp-zona.png" alt="posudek" style="width:100%; display:block;">
+        <div class="pdoc-mount" id="pdoc-mount-empzona"></div>
       </div>
       <div class="emp-mobile-consent">
         <div class="emp-consent-mark" style="background:#3333b2;"></div>
@@ -6915,7 +7149,7 @@ function applyMotlDeliveryMethodToDetail() {
 
 <!-- Posudek elektronicky podepsáno detail (531-48) — 1:1 dle Figma 670-12 pro SMS -->
 <div id="posudek-elec-overlay" onclick="closePosudekElecOverlay()">
-  <img class="posudek-elec-img" id="posudek-elec-img" src="assets/posudek-elec.png" alt="Lékařský posudek — elektronicky podepsáno">
+  <div class="posudek-elec-img pdoc-mount" id="posudek-elec-img"></div>
 </div>
 
 <div id="pdf-view-modal">
@@ -6927,11 +7161,11 @@ function applyMotlDeliveryMethodToDetail() {
     <div class="pdf-view-body">
       <div class="pdf-view-col" id="pdf-view-col-zona">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem via zaměstnanecká zóna</div>
-        <img class="pdf-view-img" src="assets/posudek-signed.png" alt="Posudek podepsaný via zaměstnanecká zóna">
+        <div class="pdf-view-img pdoc-mount" id="pdoc-mount-pdfview-zona"></div>
       </div>
       <div class="pdf-view-col" id="pdf-view-col-sms">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem přes SMS</div>
-        <img class="pdf-view-img" src="assets/posudek-sms.png" alt="Posudek podepsaný přes SMS">
+        <div class="pdf-view-img pdoc-mount" id="pdoc-mount-pdfview-sms"></div>
       </div>
     </div>
   </div>
@@ -6947,11 +7181,11 @@ function applyMotlDeliveryMethodToDetail() {
     <div class="pdf-view-body">
       <div class="pdf-view-col" id="zam-posudek-col-zona" style="border-right:none;">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem via zaměstnanecká zóna</div>
-        <img class="pdf-view-img" src="assets/zam-posudek1.png" alt="Podepsaný posudek — zaměstnanecká zóna">
+        <div class="pdf-view-img pdoc-mount" id="pdoc-mount-zam-zona"></div>
       </div>
       <div class="pdf-view-col" id="zam-posudek-col-sms" style="border-right:none;">
         <div class="pdf-view-col-title">Posudek podepsaný zaměstnancem přes SMS</div>
-        <img class="pdf-view-img" src="assets/zam-posudek2.png" alt="Podepsaný posudek — SMS">
+        <div class="pdf-view-img pdoc-mount" id="pdoc-mount-zam-sms"></div>
       </div>
     </div>
   </div>
