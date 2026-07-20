@@ -5459,19 +5459,31 @@ function pdocHtml(key) {
     '<div class="pdoc-footer">Žádost a posudek dle zákona č. 373/2011 Sb., § 15 vyhlášky č. 79/2013 Sb. a č. 98/2012 Sb./, CZ verze 1.46, 666827 20260512 856</div>';
 }
 
-function mountPdoc(containerId, variantKey, keepFixedHeight) {
+function mountPdoc(containerId, variantKey, keepFixedHeight, maxHeight) {
   var el = document.getElementById(containerId);
   if (!el) return;
   el.innerHTML = '<div class="pdoc-natural">' + pdocHtml(variantKey) + '</div>';
   var inner = el.querySelector('.pdoc-natural');
   var scale = el.clientWidth / PDOC_NATURAL_WIDTH;
   if (!scale || scale <= 0) scale = 1;
+  // maxHeight: dodatečné omezení výšky (px) — zmenší scale tak, aby se celý
+  // dokument vešel bez scrollování (např. pdf-view-modal, viz openPdfViewModal()).
+  if (maxHeight) {
+    inner.style.zoom = 1;
+    var naturalHeight = inner.getBoundingClientRect().height;
+    var heightScale = maxHeight / naturalHeight;
+    if (heightScale < scale) scale = heightScale;
+  }
   // "zoom" místo transform:scale — mění skutečný layout box (ne jen malbu),
   // takže overflow:hidden / flexbox výška fungují spolehlivě napříč kontexty.
   inner.style.zoom = scale;
   // keepFixedHeight: kontejner má vlastní pevnou výšku z CSS (např. "object-fit:
   // cover"-like náhled) — nepřepisovat inline výškou dopočtenou z obsahu.
-  if (!keepFixedHeight) el.style.height = inner.scrollHeight + 'px';
+  // Pozn.: scrollHeight zoomovaného elementu neodráží jeho vlastní zoom (zůstává
+  // v "lokálních" jednotkách) — getBoundingClientRect().height dá skutečnou
+  // vizuální výšku po škálování, proto se používá místo scrollHeight.
+  if (!keepFixedHeight) el.style.height = inner.getBoundingClientRect().height + 'px';
+  if (maxHeight) { el.style.width = (PDOC_NATURAL_WIDTH * scale) + 'px'; el.style.margin = '0 auto'; }
 }
 
 var _empSignMethod = 'zona'; // 'zona' | 'sms' | 'fyzicky'
@@ -5508,11 +5520,50 @@ function openZamPosudekModalSms() {
 }
 
 function openPdfViewModal() {
-  document.getElementById('pdf-view-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
-  document.getElementById('pdf-view-col-sms').style.display = (_empSignMethod === 'zona') ? 'none' : 'flex';
+  var dialog = document.querySelector('#pdf-view-modal .pdf-view-dialog');
+  var colZona = document.getElementById('pdf-view-col-zona');
+  var colSms = document.getElementById('pdf-view-col-sms');
+  // reset na výchozí (plnou) šířku z předchozího otevření, ať se scale
+  // v mountPdoc() nepočítá proti zúženému sloupci z minula
+  dialog.style.width = '';
+  colZona.style.flex = ''; colZona.style.width = '';
+  colSms.style.flex = ''; colSms.style.width = '';
+  colZona.style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
+  colSms.style.display = (_empSignMethod === 'zona') ? 'none' : 'flex';
   document.getElementById('pdf-view-modal').classList.add('active');
-  mountPdoc('pdoc-mount-pdfview-zona', 'signed-zona');
-  mountPdoc('pdoc-mount-pdfview-sms', 'signed-sms');
+  var maxH = pdfViewModalMaxHeight();
+  mountPdoc('pdoc-mount-pdfview-zona', 'signed-zona', false, maxH);
+  mountPdoc('pdoc-mount-pdfview-sms', 'signed-sms', false, maxH);
+  fitPdfViewDialogToContent();
+}
+// Dostupná výška pro posudek uvnitř #pdf-view-modal (celková výška dialogu
+// minus záhlaví a padding/nadpis sloupce), ať se dokument vejde bez scrollu.
+function pdfViewModalMaxHeight() {
+  var hdr = document.querySelector('#pdf-view-modal .pdf-view-hdr');
+  var title = document.querySelector('#pdf-view-modal .pdf-view-col-title');
+  var hdrH = hdr ? hdr.offsetHeight : 46;
+  var titleH = title ? title.offsetHeight : 24;
+  var colPadding = 32; // .pdf-view-col padding: 16px top + 16px bottom
+  var gap = 8; // .pdf-view-col gap mezi nadpisem a obrázkem
+  return window.innerHeight * 0.9 - hdrH - titleH - colPadding - gap - 8;
+}
+// Zúží dialog + viditelné sloupce přesně na šířku vykresleného posudku
+// (+ padding sloupce), ať kolem dokumentu nezůstává prázdný prostor.
+function fitPdfViewDialogToContent() {
+  var dialog = document.querySelector('#pdf-view-modal .pdf-view-dialog');
+  var cols = [
+    { col: document.getElementById('pdf-view-col-zona'), img: document.getElementById('pdoc-mount-pdfview-zona') },
+    { col: document.getElementById('pdf-view-col-sms'), img: document.getElementById('pdoc-mount-pdfview-sms') }
+  ];
+  var totalWidth = 0;
+  cols.forEach(function (c) {
+    if (c.col.style.display === 'none') return;
+    var colWidth = c.img.getBoundingClientRect().width + 32; // 16px padding vlevo+vpravo
+    c.col.style.flex = '0 0 ' + colWidth + 'px';
+    c.col.style.width = colWidth + 'px';
+    totalWidth += colWidth + 1; // +1px border-right mezi sloupci
+  });
+  dialog.style.width = totalWidth + 'px';
 }
 function closePdfViewModal() {
   document.getElementById('pdf-view-modal').classList.remove('active');

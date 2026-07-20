@@ -300,7 +300,14 @@ Odmítnutí (detail): odmitnuti-modal(poznámka) → [Potvrdit] → svedek-modal
 - `sms-pin-modal` — asistovaný SMS podpis, 3 stavy (state1 telefon / state2 PIN / state3 úspěch).
 - `odmitnuti-modal` — „Zaznamenat odmítnutí podpisu" (poznámka).
 - `svedek-modal` — podpis svědka, 3 stavy (formulář / potvrzení / záznam uložen).
-- `pdf-view-modal` — 2 sloupce (zóna vs SMS), sloupce se přepínají dle `_empSignMethod`.
+- `pdf-view-modal` — 1–2 sloupce (zóna vs SMS), sloupce se zobrazují/skrývají
+  dle `_empSignMethod` (`odmitl`/`fyzicky` → oba viditelné). `openPdfViewModal()`
+  před mountem resetuje inline width/flex sloupců a dialogu (jinak by `mountPdoc()`
+  počítal scale proti zúženému sloupci z minulého otevření), pak zavolá
+  `mountPdoc(..., maxHeight)` (`pdfViewModalMaxHeight()` dopočítá dostupnou výšku
+  z `window.innerHeight`, ať se posudek vejde bez scrollu) a nakonec
+  `fitPdfViewDialogToContent()` — zúží dialog + viditelné sloupce přesně na
+  šířku vykresleného posudku, ať kolem dokumentu nezůstává prázdný prostor.
 - `zam-posudek-modal` — „Zobrazit posudek" na profilu zaměstnance (2 podepsané posudky).
 - `posudek-elec-overlay` — fullscreen náhled elektronicky podepsaného posudku.
 - `sim-helper-overlay` — spouštěč simulací: notifikace (digital/fyzická), eskalace,
@@ -325,7 +332,7 @@ JS `PDOC_VARIANTS` / `pdocHtml()` / `mountPdoc()` (~řádek 5410+, před
 (tabulka, checkboxy, čárový kód, zelený podpisový text) jsou 1:1 podle
 původních obrázků — jen ostřejší.
 
-**Jak to funguje:** `mountPdoc(containerId, variantKey, keepFixedHeight?)`
+**Jak to funguje:** `mountPdoc(containerId, variantKey, keepFixedHeight?, maxHeight?)`
 vloží do `#containerId` vykreslený dokument v přirozené šířce 860px
 (`PDOC_NATURAL_WIDTH`) a přeškáluje ho přes `zoom` na šířku kontejneru
 (`el.clientWidth / 860`). Kontejner musí mít třídu `pdoc-mount` (zajišťuje
@@ -333,7 +340,14 @@ vloží do `#containerId` vykreslený dokument v přirozené šířce 860px
 rodičů typu `.pdf-view-col` / `.p13-sign-preview`, jinak by se obsah
 nezmenšil pod svou přirozenou šířku). Volitelný 3. parametr
 `keepFixedHeight=true` řekne `mountPdoc()`, ať nepřepisuje inline výšku
-kontejneru (pro kontejnery s vlastní pevnou výškou z CSS).
+kontejneru (pro kontejnery s vlastní pevnou výškou z CSS). Volitelný 4.
+parametr `maxHeight` (px) dodatečně omezí scale (vezme se `min(šířkový
+scale, maxHeight/přirozená výška)`), takže se dokument zmenší tak, aby
+se vešel na výšku bez scrollování — používá `openPdfViewModal()` (viz níže).
+⚠️ Výšku kontejneru čti přes `inner.getBoundingClientRect().height`, ne
+`scrollHeight` — `scrollHeight` zoomovaného elementu neodráží jeho vlastní
+`zoom` (zůstává v "lokálních" jednotkách), takže by dal špatnou hodnotu
+při scale výrazně odlišném od 1.
 
 **7 variant** (`PDOC_VARIANTS` klíč → dřívější PNG → kde se používá):
 | klíč | dřívější PNG | stav | kde se používá |
