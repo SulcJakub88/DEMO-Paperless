@@ -2003,10 +2003,17 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
 .pdf-view-col-title { font-size: 11px; font-weight: 700; color: #1a1a1f; padding-bottom: 6px; border-bottom: 1px solid #e0e0e0; }
 .pdf-view-img { width: 100%; height: auto; display: block; border-radius: 4px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
 
-#page-indicator { position: relative; background: #e4e4e4; color: #888; font-size: 12px; font-family: inherit; padding: 4px 11px; border-radius: 20px; cursor: default; white-space: nowrap; user-select: none; }
+#page-indicator {
+  position: relative; width: 22px; height: 22px; display: flex; align-items: center;
+  justify-content: center; background: #e4e4e4; color: #aaa; font-size: 12px;
+  font-weight: 700; font-family: inherit; border-radius: 50%; cursor: pointer;
+  white-space: nowrap; user-select: none; border: none; padding: 0; transition: background 0.15s, color 0.15s;
+}
 #page-indicator::after { content: attr(data-full); position: absolute; bottom: calc(100% + 8px); right: 0; background: #2a2a2a; color: #fff; font-size: 12px; padding: 6px 12px; border-radius: 7px; white-space: nowrap; pointer-events: none; opacity: 0; transition: opacity 0.15s; }
-#page-indicator:hover { background: #d4d4d4; color: #444; }
+#page-indicator:hover { background: #d4d4d4; color: #555; }
 #page-indicator:hover::after { opacity: 1; }
+#page-indicator.copied { background: #1a8026; color: #fff; }
+#page-indicator.copied::after { background: #1a8026; opacity: 1; }
 
 /* ── Posudek detail overlay (531-48) ── */
 #posudek-elec-overlay {
@@ -2404,9 +2411,9 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
     <div class="helper-flyout">
       <button class="helper-flyout-item" id="zamflyout-potvrzeno" onclick="openEmailPotvrzenoModal()">📧 Náhled — Potvrzeno HR ve FZ</button>
       <button class="helper-flyout-item" id="zamflyout-automaticky" onclick="openEmailAutomatickyModal()">📧 Náhled — Automaticky doručeno</button>
-      <button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>
+      <button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email) →</button>
       <button class="helper-flyout-item" id="zamflyout-sms" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>
-      <button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>
+      <button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky) →</button>
     </div>
   </div>
 </aside>
@@ -3636,7 +3643,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <button class="helper-trigger">⚙️ Pomocné akce</button>
         <div class="helper-flyout">
           <button class="helper-flyout-item" onclick="showPage8()">🔄 Přepnout na fyzickou žádost</button>
-          <button class="helper-flyout-item" data-hide="lz" onclick="showPage1()">Přejít do FZ</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="showPage1()">Přejít do FZ →</button>
         </div>
       </div>
     </aside>
@@ -3723,7 +3730,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
         <button class="helper-trigger">⚙️ Pomocné akce</button>
         <div class="helper-flyout">
           <button class="helper-flyout-item" onclick="showPage6()">🔄 Přepnout na digitální žádost</button>
-          <button class="helper-flyout-item" data-hide="lz" onclick="showPage1()">Přejít do FZ</button>
+          <button class="helper-flyout-item" data-hide="lz" onclick="showPage1()">Přejít do FZ →</button>
         </div>
       </div>
     </aside>
@@ -4795,10 +4802,10 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
           <button class="helper-flyout-item" id="p14flyout-odmitnuti" onclick="showPage14Odmitnuti()">✕ Page 14 | Odmítnutí</button>
           <div class="helper-flyout-divider"></div>
           <div class="helper-flyout-label">Přejít do FZ Zaměstnanci</div>
-          <button class="helper-flyout-item" id="p14flyout-fz-email" onclick="showPageZamOnlineEmail()">→ FZ — Zaměstnanci (online-email)</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-sms" onclick="showPageZamOnlineSms()">→ FZ — Zaměstnanci (online-sms)</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-fyzicka" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
-          <button class="helper-flyout-item" id="p14flyout-fz-vytisknout" onclick="showPageZamFyzicky()">→ FZ — Zaměstnanci (fyzicky)</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-email" onclick="showPageZamOnlineEmail()">FZ — Zaměstnanci (online-email) →</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-sms" onclick="showPageZamOnlineSms()">FZ — Zaměstnanci (online-sms) →</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-fyzicka" onclick="showPageZamFyzicky()">FZ — Zaměstnanci (fyzicky) →</button>
+          <button class="helper-flyout-item" id="p14flyout-fz-vytisknout" onclick="showPageZamFyzicky()">FZ — Zaměstnanci (fyzicky) →</button>
           <div class="helper-flyout-divider" id="p14flyout-posudek-divider"></div>
           <div class="helper-flyout-label" id="p14flyout-posudek-label">Náhled posudku</div>
           <button class="helper-flyout-item" id="p14flyout-posudek-zona" onclick="openZamPosudekModalZona()">📄 Náhled kompletně podepsaného posudku via zaměstnanecká zóna</button>
@@ -4997,8 +5004,26 @@ function setPageIndicator(short, full) {
   positionCrmHelperBar();
   var el = document.getElementById('page-indicator');
   if (!el) return;
-  el.textContent = _roleMeta[_role].label + ' · ' + short;
-  el.setAttribute('data-full', full);
+  el.setAttribute('data-full', _roleMeta[_role].label + ' · ' + full);
+}
+// Klik na "?" (#page-indicator) zkopíruje aktuální stránku (data-full) do
+// schránky a na chvíli ukáže potvrzení místo tooltipu se stránkou.
+function copyPageIndicator() {
+  var el = document.getElementById('page-indicator');
+  if (!el) return;
+  var text = el.getAttribute('data-full');
+  if (!text) return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(function () {});
+  }
+  el.classList.add('copied');
+  var prevFull = text;
+  el.setAttribute('data-full', 'Zkopírováno ✓');
+  clearTimeout(el._copyResetTimer);
+  el._copyResetTimer = setTimeout(function () {
+    el.classList.remove('copied');
+    el.setAttribute('data-full', prevFull);
+  }, 1200);
 }
 
 // Zavěsí .crm-kl-helper-bar (page3/page4) nad #bottom-left-bar — výška role-chip
@@ -5889,9 +5914,9 @@ function renderZamFlyoutList() {
   var isFyzicky = _empSignMethod === 'fyzicky';
   flyout.innerHTML =
     '<div class="helper-flyout-label">Zobrazit variantu</div>' +
-    '<button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email)</button>' +
+    '<button class="helper-flyout-item" id="zamflyout-zona" onclick="showPageZamOnlineEmail()">✉️ FZ — Zaměstnanci (online-email) →</button>' +
     '<button class="helper-flyout-item" id="zamflyout-sms" onclick="showPageZamOnlineSms()">💬 FZ — Zaměstnanci (online-sms)</button>' +
-    '<button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky)</button>' +
+    '<button class="helper-flyout-item" id="zamflyout-fyzicky" onclick="showPageZamFyzicky()">🖨️ FZ — Zaměstnanci (fyzicky) →</button>' +
     (isFyzicky ? '' :
       '<div class="helper-flyout-divider"></div>' +
       '<div class="helper-flyout-label">Náhled e-mailu</div>' +
@@ -6909,7 +6934,7 @@ function applyMotlDeliveryMethodToDetail() {
   <button id="role-chip" onclick="openRolePicker()">🎬 Vše</button>
 </div>
 <div id="bottom-right-bar">
-  <div id="page-indicator" data-full=""></div>
+  <div id="page-indicator" data-full="" onclick="copyPageIndicator()">?</div>
 </div>
 
 <!-- PDF view modal -->

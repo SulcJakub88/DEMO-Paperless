@@ -116,8 +116,12 @@ Multi-page SPA řízená JS. Klíč: `const allPages = [...]` (řádek ~4461).
     `page6, page8` (LZ nástěnka), `page9`–`page14` (LZ).
 - **Sidebar sekce** se přepínají třídou `.visible` na `.sidebar-lz-wrap` /
   `.sidebar-zam-wrap` (default skryté, toggle v `showPage*` a `hideAll`).
-- `#page-indicator` (vpravo dole) ukazuje aktuální stránku + prefix role.
-  `#role-chip` vedle něj otevírá role picker.
+- `#page-indicator` (vpravo dole) — od V17 malý světle šedý kroužek s "?"
+  (dřív viditelný text „Vše · Page X"). Najetí myší ukáže tooltip
+  (`data-full`, nastavuje `setPageIndicator()`) s rolí + aktuální stránkou,
+  klik zkopíruje tento text do schránky (`copyPageIndicator()`, na 1,2 s
+  zobrazí zelené „Zkopírováno ✓" místo tooltipu). `#role-chip` vedle něj
+  (bottom-left) otevírá role picker.
 - **LZ menu navigace (`.lz-sidebar`, všech 8 LZ stránek 6,8,9–14):** položky
   NÁSTĚNKA / REZERVACE / HISTORIE PROHLÍDEK jsou funkční na každé LZ stránce
   (`onclick` vede na výchozí stránku sekce — Nástěnka → `showPage6()`/`showPage8()`
