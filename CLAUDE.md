@@ -306,7 +306,11 @@ Odmítnutí (detail): odmitnuti-modal(poznámka) → [Potvrdit] → svedek-modal
 - `sim-helper-overlay` — spouštěč simulací: notifikace (digital/fyzická), eskalace,
   „Potvrzení seznámení se závěrem po přihlášení do FZ" (dřív „Přijetí závěru ve FZ").
 - `email-notif/eskal/potvrzeno/automaticky-modal`, `prijeti-zaveru-modal` — e-mailové šablony.
-  `prijeti-zaveru-modal` (=„Důležité upozornění") má 1. řádek Motl Lukáš.
+  `prijeti-zaveru-modal` (=„Důležité upozornění") má 1. řádek Motl Lukáš. Sloupec
+  „Způsob doručení posudku" → tag „Elektronicky podepsáno" (`onclick="openZamPosudekModal()"`)
+  otevře `zam-posudek-modal` (viz PDOC výše, varianta `zam-zona`/`zam-sms` dle
+  `_empSignMethod`) — musí mít `z-index:970` (spolu s `#zam-zaznam-modal`), jinak
+  zůstane schovaný za `prijeti-zaveru-modal` (z-index 955).
 - `email-notif-physical-modal` — notifikace o **fyzickém** doručení posudku (layout dle 421-2,
   předmět „Fyzické doručení posudku", data Lukáš Motl / Zenit Banka); open/closeEmailNotifPhysicalModal().
 - `role-picker-overlay` — výběr role (5 karet, zobrazí se při startu).

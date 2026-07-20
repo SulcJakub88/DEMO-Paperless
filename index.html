@@ -1960,8 +1960,11 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
 /* ── PDF view modal ── */
 #pdf-view-modal, #zam-posudek-modal, #zam-zaznam-modal { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center; background: rgba(0,0,0,0.65); }
 #pdf-view-modal.active, #zam-posudek-modal.active, #zam-zaznam-modal.active { display: flex; }
-/* Zobrazit záznam musí být nad modálem "Důležité upozornění" (z-index 955), stejně jako posudek-elec-overlay (970) u online flow */
-#zam-zaznam-modal { z-index: 970; }
+/* Zobrazit záznam i Zobrazení podepsaného posudku musí být nad modálem
+   "Důležité upozornění" (z-index 955), stejně jako posudek-elec-overlay (970)
+   u online flow — kliknutí na "Elektronicky podepsáno" v prijeti-zaveru-modal
+   otevírá zam-posudek-modal, který jinak byl schovaný za ním. */
+#zam-zaznam-modal, #zam-posudek-modal { z-index: 970; }
 
 /* ── Zobrazit záznam (fyzicky podepsáno) — repro Figma 657:6 ── */
 .zrec-dialog {
@@ -7126,7 +7129,7 @@ function applyMotlDeliveryMethodToDetail() {
           <td>Praha – Černý Most</td>
           <td><span class="pz-badge">🛡️&nbsp; Způsobilý</span></td>
           <td>Vstupní prohlídka</td>
-          <td><span class="pz-sign-tag elec" onclick="openPosudekElecOverlay()" style="cursor:pointer;">Elektronicky podepsáno</span></td>
+          <td><span class="pz-sign-tag elec" onclick="openZamPosudekModal()" style="cursor:pointer;">Elektronicky podepsáno</span></td>
           <td>Hasič</td>
         </tr>
         <tr>
