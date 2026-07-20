@@ -4858,7 +4858,7 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
               <td>10.06.2026</td><td>Grouliková</td><td>Jolana</td><td>Kontinent Retail ČR a.s.</td>
               <td><span class="lz-hist-badge blue">🌐&nbsp; Online žádost</span></td>
               <td><span class="lz-hist-badge sign-red">✗&nbsp; Odmítl podepsat</span></td>
-              <td><div class="lz-hist-pdf-btns"><button class="lz-hist-pdf-view" onclick="openPdfViewModal()">👁️&nbsp; Zobrazit</button><button class="lz-hist-pdf-dl">↓&nbsp; Stáhnout</button></div></td>
+              <td></td>
               <td>PLS – rozšířená</td>
               <td><span class="lz-hist-badge green">🛡️&nbsp; Způsobilý</span></td>
             </tr>
@@ -5925,7 +5925,7 @@ function showPage14(fromFyz) {
   }
   var pdfBtns = document.getElementById('hist-pdf-btns');
   if (pdfBtns) {
-    pdfBtns.style.display = (fromFyz || _empSignMethod === 'fyzicky' || _empSignMethod === 'odmitl') ? 'none' : 'flex';
+    pdfBtns.style.display = (fromFyz || _empSignMethod === 'fyzicky') ? 'none' : 'flex';
   }
   var empSignMethodLabels = { zona: 'Zaslat na e-mail', sms: 'Zaslat PIN na telefon', fyzicky: 'Vytisknout', odmitl: 'Odmítnutí' };
   setPageIndicator("Page 14", fromFyz
