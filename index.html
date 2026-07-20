@@ -1898,10 +1898,10 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
 .emp-mobile-doc img { width: 100%; display: block; }
 .emp-mobile-consent { background: #fff; border: 1px solid #e0e0e0; border-radius: 4px; padding: 7px 9px; font-size: 9px; color: #121212; display: flex; gap: 6px; align-items: flex-start; line-height: 1.5; }
 .emp-consent-mark { width: 3px; min-height: 20px; border-radius: 2px; flex-shrink: 0; margin-top: 2px; }
-.emp-sign-canvas-wrap { border: 1px solid #b8b8b8; border-radius: 3px; background: #fff; position: relative; height: 70px; overflow: hidden; }
+.emp-sign-canvas-wrap { border: 1px solid #b8b8b8; border-radius: 3px; background: #fff; position: relative; height: 140px; overflow: hidden; }
 .emp-sign-canvas-placeholder { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 10px; color: #a6a6a6; pointer-events: none; white-space: nowrap; }
 .emp-sign-canvas-wrap.has-drawing .emp-sign-canvas-placeholder { display: none; }
-#emp-sign-canvas { display: block; width: 100%; height: 70px; cursor: crosshair; }
+#emp-sign-canvas { display: block; width: 100%; height: 140px; cursor: crosshair; }
 .emp-mobile-sign-btn { background: #121212; color: #fff; border: none; border-radius: 4px; padding: 11px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit; width: 100%; transition: opacity 0.15s; }
 .emp-mobile-reject-btn { background: #e0e0e0; border: 1px solid #b8b8b8; color: #737373; border-radius: 4px; padding: 8px; font-size: 10px; font-weight: 700; cursor: pointer; font-family: inherit; width: 100%; margin-bottom: 8px; }
 .emp-mobile-success { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 40px 20px; text-align: center; flex: 1; }
@@ -5401,7 +5401,7 @@ function pdocHtml(key) {
   var riskHtml = riskRows.map(function (r) {
     return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td></td></tr>';
   }).join('');
-  for (var i = 0; i < 19; i++) riskHtml += '<tr class="pdoc-empty-row"><td>&nbsp;</td><td></td><td></td><td></td></tr>';
+  for (var i = 0; i < 8; i++) riskHtml += '<tr class="pdoc-empty-row"><td>&nbsp;</td><td></td><td></td><td></td></tr>';
 
   var condItems = [
     ['ZDRAVOTNĚ ZPŮSOBILÁ', ''],
@@ -6779,7 +6779,7 @@ function applyMotlDeliveryMethodToDetail() {
       </div>
       <div class="emp-sign-canvas-wrap" id="emp-sign-canvas-wrap">
         <div class="emp-sign-canvas-placeholder">[ Podepište se prstem do rámečku ]</div>
-        <canvas id="emp-sign-canvas" height="70"></canvas>
+        <canvas id="emp-sign-canvas" height="140"></canvas>
       </div>
       <button class="emp-mobile-sign-btn" id="emp-mobile-sign-btn" onclick="empMobileSign()" disabled style="opacity:0.5;">Podepsat a odeslat posudek</button>
       <button class="emp-mobile-reject-btn">Odmítnout podpis posudku</button>
