@@ -314,9 +314,14 @@ Odmítnutí (detail): odmitnuti-modal(poznámka) → [Potvrdit] → svedek-modal
   „Potvrzení seznámení se závěrem po přihlášení do FZ" (dřív „Přijetí závěru ve FZ").
 - `email-notif/eskal/potvrzeno/automaticky-modal`, `prijeti-zaveru-modal` — e-mailové šablony.
   `prijeti-zaveru-modal` (=„Důležité upozornění") má 1. řádek Motl Lukáš. Sloupec
-  „Způsob doručení posudku" → tag „Elektronicky podepsáno" (`onclick="openZamPosudekModal()"`)
-  otevře `zam-posudek-modal` (viz PDOC výše, varianta `zam-zona`/`zam-sms` dle
-  `_empSignMethod`) — musí mít `z-index:970` (spolu s `#zam-zaznam-modal`), jinak
+  „Způsob doručení posudku" → tag „Elektronicky podepsáno"
+  (`onclick="openZamPosudekModalFromPrijeti()"`) otevře `zam-posudek-modal`
+  (viz PDOC výše, varianta `zam-zona-blank`/`zam-sms-blank` dle `_empSignMethod`
+  — poslední řádek DATUM PŘEVZETÍ/JMÉNO A PŘÍJMENÍ/PODPIS je zde záměrně prázdný,
+  na rozdíl od `zam-zona`/`zam-sms` použitých v `openZamPosudekModal()` (FZ profil
+  zaměstnance „Zobrazit posudek") a `openZamPosudekModalZona()`/`Sms()` (LZ
+  page14 „Náhled posudku"), kde je vyplněný Jitka Vacovská + zelený podpisový
+  text) — musí mít `z-index:970` (spolu s `#zam-zaznam-modal`), jinak
   zůstane schovaný za `prijeti-zaveru-modal` (z-index 955).
 - `email-notif-physical-modal` — notifikace o **fyzickém** doručení posudku (layout dle 421-2,
   předmět „Fyzické doručení posudku", data Lukáš Motl / Zenit Banka); open/closeEmailNotifPhysicalModal().

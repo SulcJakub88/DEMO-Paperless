@@ -5336,7 +5336,15 @@ var PDOC_VARIANTS = {
   'signed-zona':  { doctor: true,  email: true,  sig: 'squiggle',  secondRow: 'divider-empty' },
   'signed-sms':   { doctor: true,  email: true,  sig: 'text',      secondRow: 'divider-empty' },
   'zam-zona':     { doctor: true,  email: true,  sig: 'squiggle',  secondRow: 'filled' },
-  'zam-sms':      { doctor: true,  email: true,  sig: 'text',      secondRow: 'filled' }
+  'zam-sms':      { doctor: true,  email: true,  sig: 'text',      secondRow: 'filled' },
+  // Varianty pro zam-posudek-modal otevřený z prijeti-zaveru-modal (tag
+  // "Elektronicky podepsáno" v "Simulovat kompletní online podpis" flow) —
+  // poslední řádek (DATUM PŘEVZETÍ / JMÉNO A PŘÍJMENÍ / PODPIS) je zde
+  // záměrně prázdný. Ostatní 2 místa (FZ profil zaměstnance "Zobrazit
+  // posudek", LZ page14 "Náhled posudku") dál používají 'zam-zona'/'zam-sms'
+  // s vyplněným řádkem (Jitka Vacovská + zelený podpisový text).
+  'zam-zona-blank': { doctor: true, email: true,  sig: 'squiggle',  secondRow: 'filled-blank' },
+  'zam-sms-blank':  { doctor: true, email: true,  sig: 'text',      secondRow: 'filled-blank' }
 };
 
 function pdocCb(dark) { return '<span class="pdoc-cb"' + (dark ? ' style="background:#7a7a7a;"' : '') + '></span>'; }
@@ -5386,6 +5394,12 @@ function pdocHtml(key) {
       ['DATUM PŘEVZETÍ', g('18.04.2023'), 0.9],
       ['JMÉNO A PŘÍJMENÍ', '<b style="color:#1a8026;">Jitka Vacovská</b>', 0.9],
       ['PODPIS', '<div class="pdoc-signed-note" style="text-align:center; padding-top:0;">Podepsáno elektronicky, dne<br>18.04. 2023 v 11:38</div>', 1.6]
+    ]);
+  } else if (c.secondRow === 'filled-blank') {
+    secondRowHtml = pdocPrevzetiRow([
+      ['DATUM PŘEVZETÍ', '', 0.9],
+      ['JMÉNO A PŘÍJMENÍ', '', 0.9],
+      ['PODPIS', '', 1.6]
     ]);
   } else {
     secondRowHtml =
@@ -5498,6 +5512,17 @@ function openZamPosudekModal() {
   document.getElementById('zam-posudek-col-sms').style.display = (_empSignMethod === 'sms') ? 'flex' : 'none';
   document.getElementById('zam-posudek-modal').classList.add('active');
   mountZamPosudekCols();
+}
+// Otevření zam-posudek-modal z tagu "Elektronicky podepsáno" v prijeti-zaveru-modal
+// ("Simulovat kompletní online podpis" flow) — poslední řádek (DATUM PŘEVZETÍ /
+// JMÉNO A PŘÍJMENÍ / PODPIS) je zde záměrně prázdný (varianty *-blank),
+// na rozdíl od openZamPosudekModal()/openZamPosudekModalZona()/Sms().
+function openZamPosudekModalFromPrijeti() {
+  document.getElementById('zam-posudek-col-zona').style.display = (_empSignMethod === 'sms') ? 'none' : 'flex';
+  document.getElementById('zam-posudek-col-sms').style.display = (_empSignMethod === 'sms') ? 'flex' : 'none';
+  document.getElementById('zam-posudek-modal').classList.add('active');
+  mountPdoc('pdoc-mount-zam-zona', 'zam-zona-blank');
+  mountPdoc('pdoc-mount-zam-sms', 'zam-sms-blank');
 }
 function closeZamPosudekModal() {
   document.getElementById('zam-posudek-modal').classList.remove('active');
@@ -7180,7 +7205,7 @@ function applyMotlDeliveryMethodToDetail() {
           <td>Praha – Černý Most</td>
           <td><span class="pz-badge">🛡️&nbsp; Způsobilý</span></td>
           <td>Vstupní prohlídka</td>
-          <td><span class="pz-sign-tag elec" onclick="openZamPosudekModal()" style="cursor:pointer;">Elektronicky podepsáno</span></td>
+          <td><span class="pz-sign-tag elec" onclick="openZamPosudekModalFromPrijeti()" style="cursor:pointer;">Elektronicky podepsáno</span></td>
           <td>Hasič</td>
         </tr>
         <tr>
