@@ -218,9 +218,31 @@ Aktivní záznam = **Lukáš Motl**, Vstupní prohlídka, **Zenit Banka, a.s.**:
   `showPage1()` (FZ Rezervace) — dřív „← Zpět do FZ (Rezervace)" vedlo zpět
   na page5/7 (konkrétní žádost), teď jde vždy na page1 (seznam).
   - `#sidebar-lz-wrap` (FZ page1/2/5/7): „Navigace" (přepnout žádost, Přejít
-    do KL/LZ) → „Simulace podpisu" (3 tlačítka) → „Náhled e-mailu" (2 tlačítka).
+    do KL/LZ) → „Objednání na prohlídku" → „Náhled e-mailu" (2 tlačítka) →
+    „Simulace podpisu" (3 tlačítka).
     Statické skupiny — na page5/7 je vždy aspoň 1 položka viditelná v každé
     skupině, takže se nikdy nemusí schovávat celý label/divider.
+    **Výjimka „Objednání na prohlídku" (page5/7, od V18):** simuluje krok
+    „LZ objednal termín" a je jediná skupina, která gatuje zbylé dvě skupiny
+    (`#sidebar-sim-divider`/`-label` + `#sidebar-email-divider`/`-label` a
+    jejich tlačítka) — ty jsou při vstupu na page5/7 schované (`display:none`)
+    a odemknou se (`revealObjednaniSections(mode)`) až po kliknutí na tlačítko
+    zde. Page5 (digitální) nabízí 2 tlačítka: `#sidebar-sim-objednani-btn`
+    „...- online" (`simObjednaniProhlidky()`) a `#sidebar-sim-objednani-fyz-btn`
+    „...- fyzicky" (`simObjednaniProhlidkyFyzicky()`), vzájemně se vylučují
+    (`.active` = růžové, jen na jednom najednou) a podle zvoleného módu
+    ukážou jen relevantní položky (online: schová jen „Náhled e-mailu —
+    nutný tisk"; fyzicky: schová „Náhled e-mailu — online", „Simulovat
+    kompletní online podpis" i „...– SMS"). Page7 (fyzická) má jen
+    `#sidebar-sim-objednani-fyz-btn` (`sidebar-sim-objednani-btn` trvale
+    `display:none`) — `simObjednaniProhlidkyFyzicky()` detekuje aktivní
+    stránku (`page7.classList.contains('active')`) a cílí na `#p7-motl-row`
+    misto `#p5-motl-row`. Klik přepíše `.sbadge` u řádku Motla: online →
+    `sb-netisknout` „Objednán/a - netisknout žádost"; fyzicky →
+    `sb-vytisknout` „Objednán/a - tisknout žádost" + ikonka `.ii` „i"→„!".
+    `showPage5()`/`showPage7()` na vstupu vždy resetují badge (zpět na
+    „Žádost o termín odeslána – …", ikonka „i") i `.active`/`display` stav
+    obou objednani tlačítek a schovaných skupin.
   - `#page14` helper-flyout: „Stav prohlídky" (5 přepínačů demo-stavu,
     `updatePage14HelperFlyout()` zvýrazní aktuální) → „Přejít do FZ
     Zaměstnanci" (4 kontextové zástupce, vždy právě 1 viditelný dle

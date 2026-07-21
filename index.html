@@ -2390,14 +2390,18 @@ body.role-all .crm-kl-helper-bar [data-show~="all"] { display: block !important;
       <button class="helper-flyout-item" id="sidebar-kl-btn" data-hide="fz">🖥️ Přejít do KL</button>
       <button class="helper-flyout-item" id="sidebar-lz-btn" data-hide="fz">🏥&nbsp; Přejít do LZ →</button>
       <div class="helper-flyout-divider"></div>
-      <div class="helper-flyout-label">Simulace podpisu</div>
+      <div class="helper-flyout-label">Objednání na prohlídku</div>
+      <button class="helper-flyout-item" id="sidebar-sim-objednani-btn" onclick="simObjednaniProhlidky()">📅 Simulovat objednání na prohlídku - online</button>
+      <button class="helper-flyout-item" id="sidebar-sim-objednani-fyz-btn" onclick="simObjednaniProhlidkyFyzicky()">📅 Simulovat objednání na prohlídku - fyzicky</button>
+      <div class="helper-flyout-divider" id="sidebar-email-divider"></div>
+      <div class="helper-flyout-label" id="sidebar-email-label">Náhled e-mailu</div>
+      <button class="helper-flyout-item" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
+      <button class="helper-flyout-item" id="sidebar-email-print-btn" onclick="showEmailModal('physical')">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
+      <div class="helper-flyout-divider" id="sidebar-sim-divider"></div>
+      <div class="helper-flyout-label" id="sidebar-sim-label">Simulace podpisu</div>
       <button class="helper-flyout-item" id="sidebar-sim-online-btn" onclick="startSimOnlinePodpis()">⚡ Simulovat kompletní online podpis</button>
       <button class="helper-flyout-item" id="sidebar-sim-online-sms-btn" onclick="startSimOnlinePodpisSMS()">⚡ Simulovat kompletní online podpis – SMS</button>
       <button class="helper-flyout-item" id="sidebar-sim-physical-btn" onclick="startSimFyzickyPodpis()">⚡ Simulovat kompletní fyzický podpis</button>
-      <div class="helper-flyout-divider"></div>
-      <div class="helper-flyout-label">Náhled e-mailu</div>
-      <button class="helper-flyout-item" id="sidebar-email-online-btn" onclick="showEmailModal('digital')">📧 Náhled e-mailu zaměstnanci — online (bez tisku)</button>
-      <button class="helper-flyout-item" id="sidebar-email-print-btn" onclick="showEmailModal('physical')">📧 Náhled e-mailu zaměstnanci — nutný tisk</button>
     </div>
   </div>
   <div class="sidebar-lz-wrap" id="sidebar-p1-wrap">
@@ -5138,6 +5142,8 @@ function showPage5(fromCRM) {
     if (badge) {
       badge.className = 'sbadge sb-b';
       badge.firstChild.textContent = 'Žádost o termín odeslána – digitálně';
+      var ii = badge.querySelector('.ii');
+      if (ii) ii.textContent = 'i';
     }
   }
   hideAll();
@@ -5149,14 +5155,69 @@ function showPage5(fromCRM) {
   var toggleBtn = document.getElementById('sidebar-toggle-req-btn');
   toggleBtn.textContent = '🔄 Přepnout na fyzickou žádost';
   toggleBtn.onclick = function () { showPage7(); };
-  document.getElementById('sidebar-email-online-btn').style.display = '';
-  document.getElementById('sidebar-email-print-btn').style.display = '';
-  document.getElementById('sidebar-sim-online-btn').style.display = '';
-  document.getElementById('sidebar-sim-online-sms-btn').style.display = '';
-  document.getElementById('sidebar-sim-physical-btn').style.display = '';
+  document.getElementById('sidebar-sim-objednani-btn').style.display = '';
+  document.getElementById('sidebar-sim-objednani-btn').classList.remove('active');
+  document.getElementById('sidebar-sim-objednani-fyz-btn').style.display = '';
+  document.getElementById('sidebar-sim-objednani-fyz-btn').classList.remove('active');
+  document.getElementById('sidebar-sim-divider').style.display = 'none';
+  document.getElementById('sidebar-sim-label').style.display = 'none';
+  document.getElementById('sidebar-email-divider').style.display = 'none';
+  document.getElementById('sidebar-email-label').style.display = 'none';
+  document.getElementById('sidebar-email-online-btn').style.display = 'none';
+  document.getElementById('sidebar-email-print-btn').style.display = 'none';
+  document.getElementById('sidebar-sim-online-btn').style.display = 'none';
+  document.getElementById('sidebar-sim-online-sms-btn').style.display = 'none';
+  document.getElementById('sidebar-sim-physical-btn').style.display = 'none';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 5", "Page 5 — FZ Odeslat žádost (digitální cesta)");
   window.scrollTo(0, 0);
+}
+
+function simObjednaniProhlidky() {
+  var badge = document.querySelector('#p5-motl-row .sbadge');
+  if (badge) {
+    badge.className = 'sbadge sb-netisknout';
+    badge.firstChild.textContent = 'Objednán/a - netisknout žádost';
+    var ii = badge.querySelector('.ii');
+    if (ii) ii.textContent = 'i';
+  }
+  document.getElementById('sidebar-sim-objednani-btn').classList.add('active');
+  document.getElementById('sidebar-sim-objednani-fyz-btn').classList.remove('active');
+  revealObjednaniSections('online');
+}
+
+function simObjednaniProhlidkyFyzicky() {
+  var onPage7 = document.getElementById('page7').classList.contains('active');
+  var badge = document.querySelector(onPage7 ? '#p7-motl-row .sbadge' : '#p5-motl-row .sbadge');
+  if (badge) {
+    badge.className = 'sbadge sb-vytisknout';
+    badge.firstChild.textContent = 'Objednán/a - tisknout žádost';
+    var ii = badge.querySelector('.ii');
+    if (ii) ii.textContent = '!';
+  }
+  document.getElementById('sidebar-sim-objednani-fyz-btn').classList.add('active');
+  document.getElementById('sidebar-sim-objednani-btn').classList.remove('active');
+  revealObjednaniSections('fyzicky');
+}
+
+function revealObjednaniSections(mode) {
+  document.getElementById('sidebar-sim-divider').style.display = '';
+  document.getElementById('sidebar-sim-label').style.display = '';
+  document.getElementById('sidebar-email-divider').style.display = '';
+  document.getElementById('sidebar-email-label').style.display = '';
+  if (mode === 'fyzicky') {
+    document.getElementById('sidebar-email-online-btn').style.display = 'none';
+    document.getElementById('sidebar-email-print-btn').style.display = '';
+    document.getElementById('sidebar-sim-online-btn').style.display = 'none';
+    document.getElementById('sidebar-sim-online-sms-btn').style.display = 'none';
+    document.getElementById('sidebar-sim-physical-btn').style.display = '';
+  } else {
+    document.getElementById('sidebar-email-online-btn').style.display = '';
+    document.getElementById('sidebar-email-print-btn').style.display = 'none';
+    document.getElementById('sidebar-sim-online-btn').style.display = '';
+    document.getElementById('sidebar-sim-online-sms-btn').style.display = '';
+    document.getElementById('sidebar-sim-physical-btn').style.display = '';
+  }
 }
 
 function showPage6() {
@@ -5182,6 +5243,8 @@ function showPage7(fromCRM) {
     if (badge) {
       badge.className = 'sbadge sb-vytisknout';
       badge.firstChild.textContent = 'Žádost o termín odeslána – papírově';
+      var ii = badge.querySelector('.ii');
+      if (ii) ii.textContent = 'i';
     }
   }
   hideAll();
@@ -5193,11 +5256,18 @@ function showPage7(fromCRM) {
   var toggleBtn = document.getElementById('sidebar-toggle-req-btn');
   toggleBtn.textContent = '🔄 Přepnout na digitální žádost';
   toggleBtn.onclick = function () { showPage5(); };
+  document.getElementById('sidebar-sim-objednani-btn').style.display = 'none';
+  document.getElementById('sidebar-sim-objednani-fyz-btn').style.display = '';
+  document.getElementById('sidebar-sim-objednani-fyz-btn').classList.remove('active');
+  document.getElementById('sidebar-sim-divider').style.display = 'none';
+  document.getElementById('sidebar-sim-label').style.display = 'none';
+  document.getElementById('sidebar-email-divider').style.display = 'none';
+  document.getElementById('sidebar-email-label').style.display = 'none';
   document.getElementById('sidebar-email-online-btn').style.display = 'none';
-  document.getElementById('sidebar-email-print-btn').style.display = '';
+  document.getElementById('sidebar-email-print-btn').style.display = 'none';
   document.getElementById('sidebar-sim-online-btn').style.display = 'none';
   document.getElementById('sidebar-sim-online-sms-btn').style.display = 'none';
-  document.getElementById('sidebar-sim-physical-btn').style.display = '';
+  document.getElementById('sidebar-sim-physical-btn').style.display = 'none';
   document.getElementById('sidebar-lz-wrap').classList.add('visible');
   setPageIndicator("Page 7", "Page 7 — FZ Odeslat žádost (fyzická cesta)");
   window.scrollTo(0, 0);
